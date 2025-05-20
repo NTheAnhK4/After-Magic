@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: CardInHand
+    uniqueID: 1998438705
+    locked: 0
+  - name: CardSelected
+    uniqueID: 3859552405
+    locked: 0
+  - name: UI
+    uniqueID: 782563087
+    locked: 0
