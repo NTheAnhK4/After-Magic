@@ -14,14 +14,29 @@ public class GameManager : Singleton<GameManager>
         currentStateType = GameStateType.DistributeCard;
         ObserverManager<GameStateType>.Notify(currentStateType);
     }
-
+    
     public void TakeTurn()
     {
-        int stateInt = ((int)(currentStateType) + 1) % Enum.GetValues(typeof(GameStateType)).Length;
-
-        currentStateType = (GameStateType)stateInt;
+        if (currentStateType == GameStateType.UsingCard) SetTurn(GameStateType.PlayerTurn);
+        else if(currentStateType == GameStateType.EnemyTurn) SetTurn(GameStateType.DistributeCard);
+        else
+        {
+            
+            int stateInt = ((int)(currentStateType) + 1);
+            SetTurn((GameStateType)stateInt);
+        }
+        
        
-        ObserverManager<GameStateType>.Notify(currentStateType);
     }
-    
+
+    public void SetTurn(GameStateType nextTurn)
+    {
+        if (currentStateType == nextTurn) return;
+        currentStateType = nextTurn;
+        ObserverManager<GameStateType>.Notify(currentStateType);
+        
+    }
+
+    public bool IsTurn(GameStateType turn) => currentStateType == turn;
+
 }

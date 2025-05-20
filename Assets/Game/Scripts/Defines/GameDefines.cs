@@ -2,8 +2,11 @@ public enum GameStateType
 {
     DistributeCard,
     PlayerTurn,
+    
     CollectingCard,
-    EnemyTurn
+    EnemyTurn,
+    UsingCard,
+    
 }
 public enum CardEventID
 {

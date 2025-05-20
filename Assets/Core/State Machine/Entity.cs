@@ -17,8 +17,8 @@ namespace StateMachine
 
         protected void FixedUpdate() => StateMachine.FixedUpdate();
         
-        protected void At(IState from, IState to, IPredicate condition) => StateMachine.AddTransition(from, to, condition);
-        protected void Any(IState to, IPredicate condition) => StateMachine.AddAnyTransition(to, condition);
+        protected void At(IState from, IState to, IPredicate condition, Func<StateData> getData = null) => StateMachine.AddTransition(from, to, condition, getData);
+        protected void Any(IState to, IPredicate condition, Func<StateData> getData = null) => StateMachine.AddAnyTransition(to, condition, getData);
 
     }
 }
