@@ -4,5 +4,6 @@ namespace StateMachine
     {
         IState To { get; }
         IPredicate Condition { get; }
+        StateData Data { get; }
     }
 }

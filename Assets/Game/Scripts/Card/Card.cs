@@ -8,6 +8,7 @@ public class Card : ComponentBehavior
     private Vector3 prePosition;
     private Quaternion preQuaternion;
     private bool isSelectCard;
+    private bool canUseCard;
 
     public readonly string inHandLayer = "CardInHand";
     public readonly string selectedLayer = "CardSelected";
@@ -21,6 +22,8 @@ public class Card : ComponentBehavior
     private void OnEnable()
     {
         ObserverManager<CardEventID>.Attach(CardEventID.DeselectAllCard, param => DeSelectCard());
+        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, param => canUseCard = true);
+        ObserverManager<GameStateType>.Attach(GameStateType.UsingCard, param => canUseCard = false);
         
         isSelectCard = false;
         SetSortingLayer(inHandLayer);
@@ -33,6 +36,7 @@ public class Card : ComponentBehavior
 
     private void OnMouseDown()
     {
+        if (!canUseCard) return;
         isSelectCard = !isSelectCard;
         if (isSelectCard)
         {
@@ -40,6 +44,11 @@ public class Card : ComponentBehavior
             SelectCard();
         }
         else DeSelectCard();
+    }
+
+    private void OnMouseDrag()
+    {
+        Debug.Log("he");
     }
 
     #endregion
