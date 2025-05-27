@@ -264,10 +264,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4916085114292545002}
-  - component: {fileID: 7670068573739475149}
   - component: {fileID: 1127360489461200891}
   - component: {fileID: 7368296410439201466}
-  m_Layer: 0
+  - component: {fileID: 6367617476559084524}
+  - component: {fileID: 4073057120855794147}
+  m_Layer: 6
   m_Name: Sword cut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,19 +291,6 @@ Transform:
   - {fileID: 5318826954598316362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7670068573739475149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4378424242449985558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 970c0509ed01c854b84120448e901c74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sortingGroup: {fileID: 1127360489461200891}
 --- !u!210 &1127360489461200891
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -344,7 +332,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.015867054, y: -0.007933617}
@@ -360,6 +348,50 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.4435391, y: 5.204791}
   m_EdgeRadius: 0
+--- !u!50 &6367617476559084524
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4378424242449985558}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &4073057120855794147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4378424242449985558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970c0509ed01c854b84120448e901c74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardStrategy: {fileID: 11400000, guid: a26ad2e112ff7b5419432e346961cb61, type: 2}
+  IsApplyForPlayer: 0
+  CardManager: {fileID: 0}
+  Player: {fileID: 0}
+  sortingGroup: {fileID: 1127360489461200891}
 --- !u!1 &5084304152089784962
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,8 +418,8 @@ Transform:
   m_GameObject: {fileID: 5084304152089784962}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0403, y: 0.36, z: 0}
-  m_LocalScale: {x: 1.0648339, y: 0.9146, z: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5318826954598316362}

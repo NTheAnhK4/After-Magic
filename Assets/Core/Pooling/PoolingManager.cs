@@ -81,7 +81,7 @@ public class Pool
     {
         for (int i = 0; i < initQuantity; ++i)
         {
-            GameObject gameObject = Object.Instantiate(prefab,parent);
+            GameObject gameObject = Object.Instantiate(prefab, parent);
             gameObject.name = prefab.name + " " + id;
             gameObject.gameObject.SetActive(false);
             notActiveObjects.Push(gameObject);

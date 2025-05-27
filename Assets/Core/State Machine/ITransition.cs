@@ -1,9 +1,11 @@
+using System;
+
 namespace StateMachine
 {
     public interface ITransition
     {
         IState To { get; }
         IPredicate Condition { get; }
-        StateData Data { get; }
+        Func<StateData> Data { get; }
     }
 }

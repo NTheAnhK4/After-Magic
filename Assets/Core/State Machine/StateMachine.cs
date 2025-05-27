@@ -45,13 +45,14 @@ namespace StateMachine
             current.State?.FixedUpdate();
         }
         //use for specific condition
-        public void SetState(IState state, StateData stateData = null)
+        public void SetState(IState state, Func<StateData> stateData = null)
         {
+            
             current = nodes[state.GetType()];
-            current.State?.OnEnter(stateData);
+            current.State?.OnEnter(stateData?.Invoke());
         }
 
-        void ChangeState(IState state, StateData stateData = null)
+        public void ChangeState(IState state, Func<StateData> stateData = null)
         {
             if (state == current.State) return;
 
@@ -60,7 +61,7 @@ namespace StateMachine
             
             previousState?.OnExit();
             
-            nextState?.OnEnter(stateData);
+            nextState?.OnEnter(stateData?.Invoke());
             current = nodes[state.GetType()];
         }
 

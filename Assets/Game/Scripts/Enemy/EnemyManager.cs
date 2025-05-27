@@ -8,6 +8,7 @@ public class EnemyManager : Singleton<EnemyManager>
     private void OnEnable()
     {
         ObserverManager<GameStateType>.Attach(GameStateType.EnemyTurn, param => DoEnemyAction());
+        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, param => EnemyPlanning());
     }
 
     private void OnDisable()
@@ -31,9 +32,18 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         foreach (Enemy enemy in Enemies)
         {
+            enemy.IsPlanningState = false;
             await enemy.DoAction();
         }
         GameManager.Instance.TakeTurn();
+    }
+
+    private void EnemyPlanning()
+    {
+        foreach (Enemy enemy in Enemies)
+        {
+            enemy.IsPlanningState = true;
+        }
     }
 
     

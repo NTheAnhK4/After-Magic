@@ -26,6 +26,7 @@ public class InGameScreenUI : UIScreen
     private void OnEnable()
     {
         ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, param => OnPlayerTurn());
+        ObserverManager<GameStateType>.Attach(GameStateType.UsingCard, param => turnBtn.interactable = false);
         turnBtn.onClick.AddListener(OnTurnBtnClick);
         turnBtn.interactable = false;
 
