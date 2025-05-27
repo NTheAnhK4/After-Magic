@@ -6,14 +6,14 @@ namespace StateMachine
     {
         public IState To { get; }
         public IPredicate Condition { get; }
-        public StateData Data => getData?.Invoke();
-        private readonly Func<StateData> getData;
+        public Func<StateData> Data { get; }
+        
 
         public Transition(IState to, IPredicate condition, Func<StateData> getData = null)
         {
             To = to;
             Condition = condition;
-            this.getData = getData;
+            Data = getData;
         }
     }
 }

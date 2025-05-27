@@ -2,13 +2,15 @@ public enum GameStateType
 {
     DistributeCard,
     PlayerTurn,
-    
     CollectingCard,
     EnemyTurn,
     UsingCard,
-    
 }
-public enum CardEventID
+
+public enum EnemyActionType
 {
-    DeselectAllCard
+    Attack,
+    Defense,
+    Buff,
+    Debuff
 }

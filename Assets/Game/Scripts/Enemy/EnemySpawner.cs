@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         PoolingManager.Spawn(EnemyPrefabs[0], new Vector3(4, 0, 0));
-        PoolingManager.Spawn(EnemyPrefabs[0], new Vector3(6, 0, 0));
+        //PoolingManager.Spawn(EnemyPrefabs[0], new Vector3(9, 0, 0));
     }
     
 }
