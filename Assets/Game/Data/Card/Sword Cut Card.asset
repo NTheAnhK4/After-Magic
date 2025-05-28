@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a978c04ae59a053469cd59062ffad8d0, type: 3}
   m_Name: Sword Cut Card
   m_EditorClassIdentifier: 
+  WarningPrefab: {fileID: 4747682694021669269, guid: b24b3ba7c96c22c49ab5c4aad8626755, type: 3}
   AnimName: Attack
   MustReachTarget: 1
+  BaseDamage: 1
+  DamageRate: 2
+  Level: 1

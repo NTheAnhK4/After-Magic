@@ -17,7 +17,7 @@ public class UseCardState : State<Entity>
         {
             Card = entity.CardStrategy;
             entity.Anim.SetBool(Card.AnimName, true);
-            Card.Apply(entity.transform, entity.EnemyTarget);
+            Card.Apply(entity, entity.EnemyTarget);
         }
         
        
@@ -34,6 +34,12 @@ public class UseCardState : State<Entity>
             entity.OnFinishedUsingCard?.Invoke();
             entity.StateMachine.ChangeState(entity.IdleState);
         }
+    }
+
+    public override void AnimationTrigger()
+    {
+        base.AnimationTrigger();
+        if(Card != null) Card.AnimationTrigger();
     }
 
     public override void OnExit()

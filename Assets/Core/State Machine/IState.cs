@@ -37,7 +37,7 @@ namespace StateMachine
             if(animBoolName != string.Empty) entity.Anim.SetBool(animBoolName, true);
          
             entity.IsAnimationTriggerFinished = false;
-          //  Debug.Log(entity.name + " " + this.GetType().Name);
+            // Debug.Log(entity.name + " " + this.GetType().Name);
         }
 
         public virtual void Update()
