@@ -1,12 +1,13 @@
 
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using StateMachine;
 using UnityEngine;
 
-public class Enemy : Entity, IPlannerEntity
+public class Enemy : Entity
 {
-    public CardStrategy Test;
+   
     #region State
     
     public EnemyPlanningState PlanningState { get; set; }
@@ -15,8 +16,9 @@ public class Enemy : Entity, IPlannerEntity
 
     #region Planning
 
-    public bool IsPlanningState;
-    public bool CanUseCard;
+    public List<CardStrategy> CardStrategyAvailables;
+    public bool IsPlanningState { get; set; }
+    public bool CanUseCard { get; set; }
     public EnemyActionType PredictedAction { get; set; }
     public Transform PredictedActionTrf { get; set; }
     private Player player;
@@ -30,8 +32,13 @@ public class Enemy : Entity, IPlannerEntity
        
        
         RunSpeed = 5f;
-        IsRunningToTarget = false;
+        
         AttackRange = 2.5f;
+        Damage = 1;
+        MaxHP = 20;
+        CurHP = 20;
+        Armor = 0;
+        
         IsOriginalFacingRight = false;
 
         OnFinishedUsingCard += () => CanUseCard = false;
@@ -42,12 +49,13 @@ public class Enemy : Entity, IPlannerEntity
         
        
         Any(PlanningState, new FuncPredicate(InPlanningState()), () => new EnemyPlanningStateData(){Player = player});
-        Any(RunState, new FuncPredicate(RunToTargetCondition()), () => new RunStateData{TargetPosition = EnemyTarget.position, IsRunningToTarget = true});
+        Any(RunState, new FuncPredicate(RunToTargetCondition()), () => new RunStateData{TargetPosition = EnemyTarget.transform.position, IsRunningToTarget = true});
         At(IdleState, UseCardState, new FuncPredicate(CanEnterUseCardState()));    
 
        
         StateMachine.SetState(IdleState);
     }
+    
 
     protected override void LoadComponent()
     {
@@ -55,32 +63,34 @@ public class Enemy : Entity, IPlannerEntity
         if (PredictedActionTrf == null) PredictedActionTrf = transform.Find("UI").Find("NextAction");
     }
 
+    private void Start()
+    {
+        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, param => IsPlanningState = true);
+        ObserverManager<GameStateType>.Attach(GameStateType.EnemyTurn, param => IsPlanningState = false);
+        ObserverManager<CardTargetType>.Attach(CardTargetType.Enemy, param => ToggleAim((bool)param));
+    }
+
     private void OnEnable()
     {
         if(EnemyManager.Instance != null) EnemyManager.Instance.AddEnemy(this);
-        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, param => IsPlanningState = true);
-        ObserverManager<GameStateType>.Attach(GameStateType.EnemyTurn, param => IsPlanningState = false);
+        
     }
             
     private void OnDisable()
     {
         EnemyManager.Instance.RemoveEnemy(this);
-        ObserverManager<GameStateType>.DetachAll();
     }
 
     public async UniTask DoAction()
     {
         CanUseCard = true;
-      
         await UniTask.WaitUntil(() => CanUseCard== false);
-        
     }
   
     Func<bool> RunToTargetCondition() => () =>CanUseCard && CardStrategy != null  && MustReachTarget && EnemyTarget != null
-                                               && Vector2.Distance(EnemyTarget.position, transform.position) > AttackRange;
-
+                                               && Vector2.Distance(EnemyTarget.transform.position, transform.position) > AttackRange;
     
-    Func<bool> InPlanningState() => () => IsPlanningState;
+    Func<bool> InPlanningState() => () => IsPlanningState && !IsHurting;
     Func<bool> CanEnterUseCardState() => () =>!IsPlanningState && CanUseCard && CardStrategy != null && !MustReachTarget;
 
 }

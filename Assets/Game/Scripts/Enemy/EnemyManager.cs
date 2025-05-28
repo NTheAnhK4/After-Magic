@@ -1,10 +1,11 @@
 
 using System.Collections.Generic;
+using UnityEngine;
 
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    private List<Enemy> Enemies = new List<Enemy>();
+    [SerializeField] private List<Enemy> Enemies = new List<Enemy>();
     private void OnEnable()
     {
         ObserverManager<GameStateType>.Attach(GameStateType.EnemyTurn, param => DoEnemyAction());
@@ -24,6 +25,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void RemoveEnemy(Enemy enemy)
     {
+      
         Enemies.Remove(enemy);
         
     }
@@ -40,6 +42,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     private void EnemyPlanning()
     {
+      
         foreach (Enemy enemy in Enemies)
         {
             enemy.IsPlanningState = true;

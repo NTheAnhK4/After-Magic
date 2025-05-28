@@ -11,17 +11,13 @@ public class Selectable : ComponentBehavior
     private Vector3 originalScale;
     private Tween tween;
 
-    private void OnEnable()
+    private void Start()
     {
         ObserverManager<GameStateType>.Attach(GameStateType.UsingCard, param => DisplayAim());
-        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, param => aim.gameObject.SetActive(false));
+        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn,param => HideAnim());
     }
 
-    private void OnDisable()
-    {
-        ObserverManager<GameStateType>.DetachAll();
-    }
-
+    
     protected override void LoadComponent()
     {
         base.LoadComponent();
@@ -39,6 +35,11 @@ public class Selectable : ComponentBehavior
         aim.color = originalColor;
        
         aim.gameObject.SetActive(true);
+    }
+
+    private void HideAnim()
+    {
+        aim.gameObject.SetActive(false);
     }
 
     public void SelectObject()

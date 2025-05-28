@@ -1,6 +1,7 @@
 
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using StateMachine;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
@@ -9,7 +10,7 @@ using UnityEngine.Serialization;
 public  class Card : ComponentBehavior
 {
     [FormerlySerializedAs("SkillStrategy")] public CardStrategy cardStrategy;
-    public bool IsApplyForPlayer;
+    
     [HideInInspector] public CardManager CardManager;
     [HideInInspector] public Player Player;
     private Vector3 prePosition;
@@ -27,7 +28,7 @@ public  class Card : ComponentBehavior
     private float zCoord;
     [SerializeField] private SortingGroup sortingGroup;
 
-    private Selectable cardTarget;
+    private Entity cardTarget;
     
     
     #region Unity Functions
@@ -42,7 +43,8 @@ public  class Card : ComponentBehavior
     private void OnMouseDown()
     {
         if (!CanUseCard) return;
-       
+        if(cardStrategy == null) return;
+        ObserverManager<CardTargetType>.Notify(cardStrategy.AppliesToAlly ? CardTargetType.Player :CardTargetType.Enemy, true); 
         zCoord = Camera.main.WorldToScreenPoint(transform.position).z;
         
         Vector3 mousePoint = GetMouseWorldPosition();
@@ -66,7 +68,7 @@ public  class Card : ComponentBehavior
 
     private void OnMouseUp()
     {
-       
+        ObserverManager<CardTargetType>.Notify(cardStrategy.AppliesToAlly ? CardTargetType.Player :CardTargetType.Enemy, false); 
         if (!CanUseCard) return;
        
         if (cardTarget != null && cardStrategy != null && CardManager != null)
@@ -85,20 +87,20 @@ public  class Card : ComponentBehavior
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Selectable selectable = other.transform.GetComponent<Selectable>();
+        Entity target = other.transform.GetComponent<Entity>();
 
-        if(!IsCardTarget(selectable)) return;
-        cardTarget = selectable;
+        if(!IsCardTarget(target)) return;
+        cardTarget = target;
         cardTarget.SelectObject();
     }
     
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Selectable selectable = other.transform.GetComponent<Selectable>();
-        if(!IsCardTarget(selectable)) return;
+        Entity target = other.transform.GetComponent<Entity>();
+        if(!IsCardTarget(target)) return;
        
-        selectable.DeselectObject();
+        target.DeselectObject();
         cardTarget = null;
         
     }
@@ -141,10 +143,10 @@ public  class Card : ComponentBehavior
         
     }
 
-    private bool IsCardTarget(Selectable target)
+    private bool IsCardTarget(Entity target)
     {
         if (target == null || cardStrategy == null) return false;
-        if (IsApplyForPlayer) return target.transform.tag.Equals("Player");
+        if (cardStrategy.AppliesToAlly) return target.transform.tag.Equals("Player");
         return target.transform.tag.Equals("Enemy");
     }
     private Vector3 GetMouseWorldPosition()
@@ -158,8 +160,12 @@ public  class Card : ComponentBehavior
 
     private async void UseCard()
     {
+        if (cardTarget != null)
+        {
+            cardTarget.DeselectObject();
+            if (!cardStrategy.AppliesToAlly) CardManager.Player.EnemyTarget = cardTarget.transform.GetComponent<Entity>();
+        }
        
-        if (!IsApplyForPlayer) CardManager.Player.EnemyTarget = cardTarget.transform;
         
         CardManager.Player.CardStrategy = cardStrategy;
         CardManager.Player.MustReachTarget = cardStrategy.MustReachTarget;

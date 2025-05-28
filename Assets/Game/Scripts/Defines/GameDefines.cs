@@ -14,3 +14,9 @@ public enum EnemyActionType
     Buff,
     Debuff
 }
+
+public enum CardTargetType
+{
+    Player,
+    Enemy
+}

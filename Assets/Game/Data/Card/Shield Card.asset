@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a1f43122219644a9bfe14aff5be2ab, type: 3}
   m_Name: Shield Card
   m_EditorClassIdentifier: 
+  WarningPrefab: {fileID: 6043014878650200679, guid: d8a982fc9335a94418d909a90dbd6709, type: 3}
   AnimName: Idle
   MustReachTarget: 0
+  AppliesToAlly: 1

@@ -1,5 +1,6 @@
 
 using StateMachine;
+using UnityEngine;
 
 public class EnemyPlanningStateData : StateData
 {
@@ -9,6 +10,7 @@ public class EnemyPlanningStateData : StateData
 public class EnemyPlanningState : State<Enemy>
 {
     private EnemyPlanningStateData data;
+    private GameObject warningPrefab;
     public EnemyPlanningState(Enemy entity, string animBoolName) : base(entity, animBoolName)
     {
     }
@@ -19,18 +21,29 @@ public class EnemyPlanningState : State<Enemy>
         if (stateData is EnemyPlanningStateData planningData)
         {
             data = planningData;
-            entity.EnemyTarget = data.Player.transform;
+            entity.EnemyTarget = data.Player;
             
         }
-        entity.PredictedActionTrf.gameObject.SetActive(true);
-        entity.CardStrategy = entity.Test;
-        entity.MustReachTarget = entity.Test.MustReachTarget;
+        
+        CardStrategy cardStrategy = GetCardStrategy();
 
+        warningPrefab = PoolingManager.Spawn(cardStrategy.WarningPrefab, entity.PredictedActionTrf);
+        
+        entity.CardStrategy = cardStrategy;
+        entity.MustReachTarget = cardStrategy.MustReachTarget;
     }
 
     public override void OnExit()
     {
         base.OnExit();
-        entity.PredictedActionTrf.gameObject.SetActive(false);
+        if (warningPrefab != null) PoolingManager.Despawn(warningPrefab);
+       
+    }
+
+
+    private CardStrategy GetCardStrategy()
+    {
+        int id = Random.Range(0, entity.CardStrategyAvailables.Count);
+        return entity.CardStrategyAvailables[id];
     }
 }
