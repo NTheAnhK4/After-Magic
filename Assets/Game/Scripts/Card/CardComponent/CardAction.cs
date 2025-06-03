@@ -10,9 +10,9 @@ public class CardAction : CardComponent
     {
         var data = card.CardDataCtrl;
         var target = card.CardTargetHandler.CurrentTarget;
-        if (target == null || !data.CanUseData() || !card.CardManager) return false;
+        if (target == null || !data.CanUseData()) return false;
         int manaCost = data.ManaCost;
-
+    
         if (!InGameManager.Instance.CanUseMana(manaCost)) return false;
         InGameManager.Instance.TakeMana(manaCost);
         
@@ -43,6 +43,6 @@ public class CardAction : CardComponent
             if (entity == null) return;
             entity.CardStrategy = data.CardStrategy;
         }
-        await card.CardManager.CollectingCard(card, false);
+        await CardManager .Instance.CollectingCard(card, false);
     }
 }

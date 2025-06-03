@@ -12,7 +12,7 @@ public class CardManager : Singleton<CardManager>
     public List<Card> CardsAvailable = new List<Card>();
     
     [HideInInspector] public List<Card> cards = new List<Card>();
-
+     public CardInteraction CurrentUsingCard;
     private float angleRange = 35f;
     private Vector2 centerPoint = new Vector2(0, -7);
     private float radius = 30;
@@ -28,9 +28,9 @@ public class CardManager : Singleton<CardManager>
     protected override void Awake()
     {
         base.Awake();
-        distributeCardState = new DistributeCardState(this);
-        collectingCardState = new CollectingCardState(this);
-        usingCardState = new UsingCardState(this, () => InGameManager.Instance.IsTurn(GameStateType.PlayerTurn));
+        distributeCardState = new DistributeCardState();
+        collectingCardState = new CollectingCardState();
+        usingCardState = new UsingCardState(() => InGameManager.Instance.IsTurn(GameStateType.PlayerTurn));
     }
 
     
@@ -66,15 +66,7 @@ public class CardManager : Singleton<CardManager>
             
         }
     }
-
-    public void SetCardUsable(bool canUse)
-    {
-        foreach (Card card in cards)
-        {
-            card.CanUseCard = canUse;
-        }
-    }
-
+    
     private async void ChangeState(ICardState newState)
     {
         if (currentState != null) await currentState.OnExit();
@@ -87,21 +79,20 @@ public class CardManager : Singleton<CardManager>
     public async UniTask CollectingCard(Card card, bool isCollectingAllCard)
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(card.transform.DOScale(despawnScale, .5f))
-                    .Join(card.transform.DOMove(despawnPos, .75f))
-                    .Join(card.transform.DORotate(new Vector3(0,0,225),.7f));
-        
-        await UniTask.WaitUntil(() => !sequence.IsActive());
+        sequence.Append(card.transform.DOScale(despawnScale, .4f))
+                    .Join(card.transform.DOMove(despawnPos, .65f))
+                    .Join(card.transform.DORotate(new Vector3(0,0,225),.6f));
         cards.Remove(card);
+        if(!isCollectingAllCard) SetPositionAndQuaternion();
+        await sequence.AsyncWaitForCompletion();
+       
         PoolingManager.Despawn(card.gameObject);
         
-        if(!isCollectingAllCard) SetPositionAndQuaternion();
-       
-       
     }
 
     private async void SetPositionAndQuaternion()
     {
+        if (cards.Count == 0) return;
         List<Vector3> positions;
         List<Vector3> rotations;
         List<UniTask> uniTasks = new List<UniTask>();
@@ -110,18 +101,20 @@ public class CardManager : Singleton<CardManager>
         {
             uniTasks.Add(SetCardPositionAndQuaternionAnim(positions[i], rotations[i], cards[i]));
         }
-
         await UniTask.WhenAll(uniTasks);
        
     }
 
     private async UniTask SetCardPositionAndQuaternionAnim(Vector3 position, Vector3 rotation, Card card)
     {
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(card.transform.DOMove(position, .1f))
-            .Join(card.transform.DORotate(rotation, .1f));
-        await UniTask.WaitUntil(() => !sequence.IsActive());
-        card.CardAnimation.SaveInitialTransform();
+        if (!(card.transform.position == position && card.transform.rotation == Quaternion.Euler(rotation)))
+        {
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(card.transform.DOMove(position, .05f))
+                .Join(card.transform.DORotate(rotation, .05f));
+            await sequence.AsyncWaitForCompletion();
+            card.CardAnimation.SaveInitialTransform();
+        }
     }
     
 }

@@ -55,7 +55,7 @@ namespace StateMachine
         [Header("Attack")] 
         public float AttackRange;
         public int Damage;
-        public Entity EnemyTarget;
+        public virtual Entity EnemyTarget { get; set; }
 
         [Header("Move")] 
         public bool IsRunningToTarget;

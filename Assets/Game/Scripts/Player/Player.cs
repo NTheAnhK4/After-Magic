@@ -34,7 +34,7 @@ public class Player : Entity
         AttackRange = 2.5f;
         Damage = 1;
         MaxHP = 100;
-        CurHP = 1;
+        CurHP = 100;
         Armor = 0;
         
         IsOriginalFacingRight = true;

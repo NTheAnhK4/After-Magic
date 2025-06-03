@@ -23,7 +23,13 @@ public class Enemy : Entity
     public Transform PredictedActionTrf { get; set; }
    
     #endregion
-   
+
+    public override Entity EnemyTarget
+    {
+        get => PlayerPartyManager.Instance.GetRandomPartyMember(); 
+        
+    }
+
     protected override void Awake()
     {
         base.Awake();
@@ -36,7 +42,7 @@ public class Enemy : Entity
         AttackRange = 2.5f;
         Damage = 1;
         MaxHP = 20;
-        CurHP = 1;
+        CurHP = 20;
         Armor = 0;
         
         IsOriginalFacingRight = false;
