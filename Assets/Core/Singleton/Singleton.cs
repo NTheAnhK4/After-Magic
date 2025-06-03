@@ -1,18 +1,18 @@
 
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public class Singleton<T> : ComponentBehavior where T : ComponentBehavior
 {
     private static T instance;
   
     public static T Instance => instance;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
         if (instance == null) instance = (T)(MonoBehaviour)this;
         else Destroy(gameObject);
 
-        
+        base.Awake();
         
     }
 }

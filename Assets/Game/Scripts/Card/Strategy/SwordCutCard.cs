@@ -3,7 +3,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[CreateAssetMenu(menuName = "Data/Card/Sword Cut Card", fileName = "Sword Cut Card")]
+[CreateAssetMenu(menuName = "Data/Card/Card Strategy/Sword Cut Card", fileName = "Sword Cut Card")]
 public class SwordCutCard : CardStrategy
 {
     public int BaseDamage;

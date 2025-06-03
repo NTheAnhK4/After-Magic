@@ -21,9 +21,27 @@ namespace StateMachine
         public DeadState DeadState;
        
         
-        [Header("Health")] 
-        public int MaxHP;
-        public int CurHP;
+       
+        public int MaxHP { get; protected set; }
+        private int curHP;
+
+        public int CurHP
+        {
+            get => curHP;
+            protected set
+            {
+                if (curHP != value)
+                {
+                    curHP = value;
+                    OnHPChange?.Invoke();
+                }
+               
+            }
+        }
+
+        public Action OnHPChange;
+
+      
         public int Armor;
         public bool IsHurting;
         public Action OnDead;
@@ -53,15 +71,7 @@ namespace StateMachine
         
         private Transform model;
 
-        #region Selectable Value
-
-        private SpriteRenderer aim;
-        private Color originalColor;
-        private Vector3 originalScale;
-        private Tween tween;
-
-        #endregion
-
+     
         #region Unity Callback Functions
 
         protected override void Awake()
@@ -81,8 +91,8 @@ namespace StateMachine
             StateMachine = new StateMachine();
             Any(DeadState, new FuncPredicate(() => CurHP <= 0));
             Any(HurtState, new FuncPredicate(() => IsHurting));
-            Any(IdleState, new FuncPredicate(() => GameManager.Instance.IsTurn(GameStateType.CollectingCard)));
-            Any(IdleState, new FuncPredicate(() => GameManager.Instance.IsTurn(GameStateType.DistributeCard)));
+            Any(IdleState, new FuncPredicate(() => InGameManager.Instance.IsTurn(GameStateType.CollectingCard)));
+            Any(IdleState, new FuncPredicate(() => InGameManager.Instance.IsTurn(GameStateType.DistributeCard)));
 
           
         }
@@ -112,13 +122,6 @@ namespace StateMachine
             base.LoadComponent();
             if (Anim == null) Anim = GetComponent<Animator>();
             if (model == null) model = transform.Find("Model");
-            if (aim == null)
-            {
-                aim = transform.Find("Aim").GetComponent<SpriteRenderer>();
-                originalColor = aim.color;
-                aim.gameObject.SetActive(false);
-                originalScale = aim.transform.localScale;
-            }
         }
         public void SetFacing(bool isFacingRight = true)
         {
@@ -135,35 +138,10 @@ namespace StateMachine
             }
 
             if (damage > 0) IsHurting = true;
-            CurHP = Math.Max(0, CurHP - damage);
+            CurHP = Math.Max(0, curHP - damage);
         }
-
-        #region Selectable
 
        
-
-        protected void ToggleAim(bool isSetActive)
-        {
-            aim.color = originalColor;
-            aim.gameObject.SetActive(isSetActive);
-        }
-        public void SelectObject()
-        {
-            aim.color = Color.red;
-            aim.transform.localScale = originalScale * 1.2f; 
-            tween = aim.transform.DOScale(originalScale * 1.5f, .5f)
-                .SetLoops(-1, LoopType.Yoyo)
-                .SetEase(Ease.InOutSine);
-        }
-
-        public void DeselectObject()
-        {
-            tween?.Kill();
-            aim.transform.localScale = originalScale;
-            aim.color = originalColor;
-        }
-
-        #endregion
         
     }
 }

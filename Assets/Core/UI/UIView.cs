@@ -8,8 +8,10 @@ using UnityEngine;
 namespace Game.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class UIView : MonoBehaviour
+    public class UIView : ComponentBehavior
     {
+
+        public UIScreen UIScreen;
         public ViewAnimationType ShowAnimation;
         public ViewAnimationType HideAnimation;
         private CanvasGroup canvasGroup;
@@ -25,9 +27,13 @@ namespace Game.UI
             set => canvasGroup = value;
         }
 
-        private void Awake()
+        
+
+        protected override void LoadComponent()
         {
+            base.LoadComponent();
             canvasGroup = GetComponent<CanvasGroup>();
+            Container = transform;
         }
 
         public virtual UniTask Initialize()
@@ -37,8 +43,8 @@ namespace Game.UI
 
         public virtual async void Show()
         {
-            CanvasGroup.interactable = true;
             await OnShow();
+            CanvasGroup.interactable = true;
             gameObject.SetActive(true);
         }
 

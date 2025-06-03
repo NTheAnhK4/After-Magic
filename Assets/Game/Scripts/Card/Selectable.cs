@@ -11,10 +11,10 @@ public class Selectable : ComponentBehavior
     private Vector3 originalScale;
     private Tween tween;
 
+    private CardTargetType _cardTargetType;
     private void Start()
     {
-        ObserverManager<GameStateType>.Attach(GameStateType.UsingCard, param => DisplayAim());
-        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn,param => HideAnim());
+        ObserverManager<CardTargetType>.Attach(_cardTargetType, param => ToggleAim((bool)param));
     }
 
     
@@ -28,20 +28,16 @@ public class Selectable : ComponentBehavior
             aim.gameObject.SetActive(false);
             originalScale = aim.transform.localScale;
         }
+
+        _cardTargetType = gameObject.tag.Equals("Player") ? CardTargetType.Player : CardTargetType.Enemy;
+       
     }
 
-    private void DisplayAim()
+    private void ToggleAim(bool isSetActive)
     {
         aim.color = originalColor;
-       
-        aim.gameObject.SetActive(true);
+        aim.gameObject.SetActive(isSetActive);
     }
-
-    private void HideAnim()
-    {
-        aim.gameObject.SetActive(false);
-    }
-
     public void SelectObject()
     {
         aim.color = Color.red;
@@ -57,5 +53,6 @@ public class Selectable : ComponentBehavior
         aim.transform.localScale = originalScale;
         aim.color = originalColor;
     }
+
     
 }

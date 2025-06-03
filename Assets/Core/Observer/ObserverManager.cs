@@ -47,7 +47,7 @@ public static class ObserverManager<T> where T:Enum
     {
         if (!_events.ContainsKey(eventID))
         {
-            Debug.LogWarning($"Event:{eventID.GetType().Name} has no Listener EventDispatcher_ "+typeof(T).Name);
+            Debug.LogWarning($"Event:{eventID.GetType().Name} " + eventID +"  has no Listener EventDispatcher_ "+typeof(T).Name);
             return;
         }
 

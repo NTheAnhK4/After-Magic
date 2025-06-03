@@ -1,42 +1,28 @@
-
+         
 using System;
-
-
-
+using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-   
-    private GameStateType currentStateType;
-
-    private void Start()
+    private static string currentScene = GameConstants.DungeonScene;
+    protected override void Awake()
     {
-        currentStateType = GameStateType.DistributeCard;
-        ObserverManager<GameStateType>.Notify(currentStateType);
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
     }
-    
-    public void TakeTurn()
+
+    public static void LoadScene(string sceneName)
     {
-        if (currentStateType == GameStateType.UsingCard) SetTurn(GameStateType.PlayerTurn);
-        else if(currentStateType == GameStateType.EnemyTurn) SetTurn(GameStateType.DistributeCard);
-        else
+        DOTween.KillAll();
+
+        if (currentScene == GameConstants.DungeonScene)
         {
-            
-            int stateInt = ((int)(currentStateType) + 1);
-            SetTurn((GameStateType)stateInt);
+            ObserverManager<GameStateType>.DetachAll();
+            ObserverManager<CardTargetType>.DetachAll();
+            ObserverManager<GameEventType>.DetachAll();
         }
-        
-       
+        SceneManager.LoadScene(sceneName);
+        currentScene = sceneName;
     }
-
-    public void SetTurn(GameStateType nextTurn)
-    {
-        if (currentStateType == nextTurn) return;
-        currentStateType = nextTurn;
-        ObserverManager<GameStateType>.Notify(currentStateType);
-        
-    }
-
-    public bool IsTurn(GameStateType turn) => currentStateType == turn;
-
 }

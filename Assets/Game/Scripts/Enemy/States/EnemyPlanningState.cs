@@ -25,12 +25,12 @@ public class EnemyPlanningState : State<Enemy>
             
         }
         
-        CardStrategy cardStrategy = GetCardStrategy();
+        EnemyCardData enemyCardData = GetCardStrategy();
 
-        warningPrefab = PoolingManager.Spawn(cardStrategy.WarningPrefab, entity.PredictedActionTrf);
-        
-        entity.CardStrategy = cardStrategy;
-        entity.MustReachTarget = cardStrategy.MustReachTarget;
+        warningPrefab = PoolingManager.Spawn(enemyCardData.WarningPrefab, entity.PredictedActionTrf);
+
+        entity.CardStrategy = enemyCardData.CardStrategy;
+        entity.MustReachTarget = enemyCardData.CardStrategy.MustReachTarget;
     }
 
     public override void OnExit()
@@ -41,7 +41,7 @@ public class EnemyPlanningState : State<Enemy>
     }
 
 
-    private CardStrategy GetCardStrategy()
+    private EnemyCardData GetCardStrategy()
     {
         int id = Random.Range(0, entity.CardStrategyAvailables.Count);
         return entity.CardStrategyAvailables[id];

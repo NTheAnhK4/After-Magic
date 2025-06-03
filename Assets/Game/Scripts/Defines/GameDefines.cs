@@ -20,3 +20,8 @@ public enum CardTargetType
     Player,
     Enemy
 }
+
+public enum GameEventType
+{
+    Win, Lose
+}

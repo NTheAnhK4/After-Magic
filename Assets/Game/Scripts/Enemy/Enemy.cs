@@ -16,12 +16,12 @@ public class Enemy : Entity
 
     #region Planning
 
-    public List<CardStrategy> CardStrategyAvailables;
+    public List<EnemyCardData> CardStrategyAvailables;
     public bool IsPlanningState { get; set; }
     public bool CanUseCard { get; set; }
     public EnemyActionType PredictedAction { get; set; }
     public Transform PredictedActionTrf { get; set; }
-    private Player player;
+   
     #endregion
    
     protected override void Awake()
@@ -31,12 +31,12 @@ public class Enemy : Entity
         
        
        
-        RunSpeed = 5f;
+        RunSpeed = 10f;
         
         AttackRange = 2.5f;
         Damage = 1;
         MaxHP = 20;
-        CurHP = 20;
+        CurHP = 1;
         Armor = 0;
         
         IsOriginalFacingRight = false;
@@ -44,11 +44,7 @@ public class Enemy : Entity
         OnFinishedUsingCard += () => CanUseCard = false;
         PlanningState = new EnemyPlanningState(this, "Idle");
         
-
-        player = FindObjectOfType<Player>();
-        
-       
-        Any(PlanningState, new FuncPredicate(InPlanningState()), () => new EnemyPlanningStateData(){Player = player});
+        Any(PlanningState, new FuncPredicate(InPlanningState()), () => new EnemyPlanningStateData(){Player = PlayerPartyManager.Instance.GetPlayer()});
         Any(RunState, new FuncPredicate(RunToTargetCondition()), () => new RunStateData{TargetPosition = EnemyTarget.transform.position, IsRunningToTarget = true});
         At(IdleState, UseCardState, new FuncPredicate(CanEnterUseCardState()));    
 
@@ -67,7 +63,7 @@ public class Enemy : Entity
     {
         ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, param => IsPlanningState = true);
         ObserverManager<GameStateType>.Attach(GameStateType.EnemyTurn, param => IsPlanningState = false);
-        ObserverManager<CardTargetType>.Attach(CardTargetType.Enemy, param => ToggleAim((bool)param));
+       
     }
 
     private void OnEnable()
@@ -80,6 +76,7 @@ public class Enemy : Entity
     {
         EnemyManager.Instance.RemoveEnemy(this);
     }
+    
 
     public async UniTask DoAction()
     {

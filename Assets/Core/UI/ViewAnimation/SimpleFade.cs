@@ -15,7 +15,8 @@ namespace Game.UI
 
             view.CanvasGroup.alpha = 0f;
 
-            Tween fadeIn = DOVirtual.Float(0, 1, 0.5f, a => view.CanvasGroup.alpha = a);
+            Tween fadeIn = DOVirtual.Float(0, 1, 0.5f, a => view.CanvasGroup.alpha = a)
+                .SetUpdate(true);
             _animation.Append(fadeIn);
 
             return _animation;
@@ -26,7 +27,8 @@ namespace Game.UI
             _animation = DOTween.Sequence();
 
             view.CanvasGroup.alpha = 1f;
-            Tween fadeOut = DOVirtual.Float(1, 0, 0.5f, a => view.CanvasGroup.alpha = a);
+            Tween fadeOut = DOVirtual.Float(1, 0, 0.5f, a => view.CanvasGroup.alpha = a)
+                .SetUpdate(true);
             _animation.Append(fadeOut);
 
             return _animation;

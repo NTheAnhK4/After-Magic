@@ -14,7 +14,7 @@ namespace Game.UI
         public override Sequence PlayShowAnimation(UIView view)
         {
             _animation = DOTween.Sequence();
-
+           
             view.CanvasGroup.alpha = StartAlpha;
 
             _animation.Append(DOVirtual.Float(StartAlpha, EndAlpha, Duration, a => view.CanvasGroup.alpha = a))

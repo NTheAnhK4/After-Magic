@@ -6,9 +6,9 @@ using UnityEngine;
 
 
 
-public class CardManager : ComponentBehavior
+public class CardManager : Singleton<CardManager>
 {
-    public Player Player;
+    
     public List<Card> CardsAvailable = new List<Card>();
     
     [HideInInspector] public List<Card> cards = new List<Card>();
@@ -30,15 +30,10 @@ public class CardManager : ComponentBehavior
         base.Awake();
         distributeCardState = new DistributeCardState(this);
         collectingCardState = new CollectingCardState(this);
-        usingCardState = new UsingCardState(this, () => GameManager.Instance.IsTurn(GameStateType.PlayerTurn));
+        usingCardState = new UsingCardState(this, () => InGameManager.Instance.IsTurn(GameStateType.PlayerTurn));
     }
 
-    protected override void LoadComponent()
-    {
-        base.LoadComponent();
-        if (Player == null) Player = FindObjectOfType<Player>();
-    }
-
+    
 
     private void OnEnable()
     {
@@ -48,10 +43,7 @@ public class CardManager : ComponentBehavior
         ObserverManager<GameStateType>.Attach(GameStateType.UsingCard, _=>ChangeState(usingCardState));
     }
 
-    private void OnDisable()
-    {
-        ObserverManager<GameStateType>.DetachAll();
-    }
+   
 
     public void ArrangeHand(int cardsCount, out List<Vector3> cardPositions, out List<Vector3> cardRotations)
     {
@@ -129,7 +121,7 @@ public class CardManager : ComponentBehavior
         sequence.Append(card.transform.DOMove(position, .1f))
             .Join(card.transform.DORotate(rotation, .1f));
         await UniTask.WaitUntil(() => !sequence.IsActive());
-        card.SetPreTransformValue();
+        card.CardAnimation.SaveInitialTransform();
     }
     
 }
