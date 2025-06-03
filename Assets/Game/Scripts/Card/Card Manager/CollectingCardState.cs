@@ -24,7 +24,7 @@ public class CollectingCardState : ICardState
 
         await UniTask.WhenAll(tasks);
         cardManager.cards.Clear();
-        GameManager.Instance.TakeTurn();
+        InGameManager.Instance.SetTurn(GameStateType.EnemyTurn);
     }
     private async UniTask CollectingCard(int cardId)
     {

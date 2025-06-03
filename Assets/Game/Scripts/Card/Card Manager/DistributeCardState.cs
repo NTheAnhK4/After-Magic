@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -25,9 +25,9 @@ public class DistributeCardState : ICardState
         for (int i = 0; i < cardCount; ++i)
         {
             await SpawnCard(i);
-           cardManager.cards[i].SetSortingOrder(cardCount - i);
+           cardManager.cards[i].CardAnimation.SetSortingOrder(cardCount - i);
         }
-        GameManager.Instance.TakeTurn();
+        InGameManager.Instance.SetTurn(GameStateType.PlayerTurn);
     }
     private async UniTask SpawnCard(int cardNumber)
     {
@@ -35,7 +35,7 @@ public class DistributeCardState : ICardState
         Card card = PoolingManager.Spawn(cardManager.CardsAvailable[cardId].gameObject, spawnPos, default,cardManager.transform).GetComponent<Card>();
         card.CardManager = cardManager;
         card.transform.localScale = spawnScale;
-        card.SetSortingLayer(card.selectedLayer);
+        card.CardAnimation.SetSortingLayer(card.selectedLayer);
         cardManager.cards.Add(card);
         Sequence sequence = DOTween.Sequence();
        
@@ -45,7 +45,7 @@ public class DistributeCardState : ICardState
             .Join(card.transform.DORotate(cardRotations[cardNumber], .5f, RotateMode.Fast));
         
         await UniTask.WaitUntil(() => !sequence.IsActive());
-        card.SetSortingLayer(card.inHandLayer);
+        card.CardAnimation.SetSortingLayer(card.inHandLayer);
     }
 
     public UniTask OnExit()

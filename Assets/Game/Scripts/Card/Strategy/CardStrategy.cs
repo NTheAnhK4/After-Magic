@@ -5,7 +5,6 @@ using UnityEngine.Serialization;
 
 public abstract class CardStrategy : ScriptableObject
 {
-    public GameObject WarningPrefab;
     public string AnimName;
     public bool MustReachTarget;
     public bool AppliesToAlly;

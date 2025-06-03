@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SimpleScale
   m_EditorClassIdentifier: 
   Duration: 0.5
-  ShowEaseType: 0
+  ShowEaseType: 1
   HideEaseType: 0

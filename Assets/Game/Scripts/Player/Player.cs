@@ -2,7 +2,7 @@ using System;
 
 using StateMachine;
 using UnityEngine;
-using UnityEngine.Serialization;
+
 
 
 public class Player : Entity
@@ -14,17 +14,9 @@ public class Player : Entity
     {
         base.Awake();
        
-        RunSpeed = 5f;
        
-        AttackRange = 2.5f;
-        Damage = 1;
-        MaxHP = 100;
-        CurHP = 100;
-        Armor = 0;
-        
-        IsOriginalFacingRight = true;
-        OnFinishedUsingCard += () => GameManager.Instance.SetTurn(GameStateType.PlayerTurn);
-        OnDead += () => Debug.Log("Lose");
+        OnFinishedUsingCard += () => InGameManager.Instance.SetTurn(GameStateType.PlayerTurn);
+        OnDead += () => ObserverManager<GameEventType>.Notify(GameEventType.Lose);
         
         Any(RunState, new FuncPredicate(RunToTargetCondition()), () => new RunStateData{TargetPosition = EnemyTarget.transform.position, IsRunningToTarget = true});
         At(IdleState, UseCardState, new FuncPredicate(CanEnterUseCardState()));    
@@ -32,12 +24,21 @@ public class Player : Entity
         
             
             
-        StateMachine.SetState(IdleState);
+       
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        ObserverManager<CardTargetType>.Attach(CardTargetType.Player, param => ToggleAim((bool)param));
+        RunSpeed = 10f;
+       
+        AttackRange = 2.5f;
+        Damage = 1;
+        MaxHP = 100;
+        CurHP = 1;
+        Armor = 0;
+        
+        IsOriginalFacingRight = true;
+        StateMachine.SetState(IdleState);
     }
 
     #endregion

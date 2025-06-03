@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace Game.UI
 			target.OnFinishedShow();
 		}
 
-		public static async UniTask PlayHideAnimation( UIView target, ViewAnimationType type)
+		public static async UniTask PlayHideAnimation( UIView target, ViewAnimationType type, Action afterHide = null)
 		{
 			if (target == null)
 			{
@@ -47,6 +48,7 @@ namespace Game.UI
 			}
 			Sequence sequence = GetAnimation(type).PlayHideAnimation(target);
 			await UniTask.WaitUntil(() => !sequence.IsActive());
+			afterHide?.Invoke();
 			target.Hide();
 		}
 	}

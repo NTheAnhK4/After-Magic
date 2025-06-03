@@ -12,10 +12,7 @@ public class EnemyManager : Singleton<EnemyManager>
         ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, param => EnemyPlanning());
     }
 
-    private void OnDisable()
-    {
-        ObserverManager<GameStateType>.DetachAll();
-    }
+  
 
     public void AddEnemy(Enemy enemy)
     {
@@ -25,9 +22,8 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void RemoveEnemy(Enemy enemy)
     {
-      
         Enemies.Remove(enemy);
-        
+        if (Enemies.Count == 0 && !InGameManager.Instance.IsGameOver) ObserverManager<GameEventType>.Notify(GameEventType.Win);
     }
 
     private async void DoEnemyAction()
@@ -37,7 +33,7 @@ public class EnemyManager : Singleton<EnemyManager>
             enemy.IsPlanningState = false;
             await enemy.DoAction();
         }
-        GameManager.Instance.TakeTurn();
+        InGameManager.Instance.SetTurn(GameStateType.DistributeCard);
     }
 
     private void EnemyPlanning()

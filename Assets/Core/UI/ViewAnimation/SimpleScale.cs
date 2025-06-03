@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using DG.Tweening;
 using Game.Defines;
@@ -14,6 +15,7 @@ namespace Game.UI
         public override Sequence PlayShowAnimation(UIView view)
         {
             _animation = DOTween.Sequence();
+           
 
             view.Container.transform.localScale = Vector3.zero;
             view.CanvasGroup.alpha = 0f;
