@@ -39,6 +39,7 @@ public class InGameManager : Singleton<InGameManager>
 
     #region Turn
 
+   
     public void SetTurn(GameStateType nextTurn)
     {
         if (currentStateType == nextTurn) return;

@@ -9,14 +9,14 @@ public  class Card : ComponentBehavior
 {
    
     
-    [HideInInspector] public CardManager CardManager;
+   
    
      public CardDataCtrl CardDataCtrl { get; private set; }
     public CardAnimation CardAnimation { get; private set; }
     public CardTargetHandler CardTargetHandler { get; private set; }
     public CardAction CardAction { get; private set; }
 
-    public bool CanUseCard { get; set; }
+    
 
     public readonly string inHandLayer = "CardInHand";
     public readonly string selectedLayer = "CardSelected";

@@ -4,7 +4,7 @@ public enum GameStateType
     PlayerTurn,
     CollectingCard,
     EnemyTurn,
-    UsingCard,
+    UsingCard
 }
 
 public enum EnemyActionType

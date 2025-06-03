@@ -9,13 +9,14 @@ public class CardInteraction : CardComponent
     private Vector3 offset;
     private float zCoord;
     private bool hasDragged;
-
+    private bool CanUseCard() => CardManager.Instance.CurrentUsingCard == null || CardManager.Instance.CurrentUsingCard ==this;
     private void OnMouseDown()
     {
-        if (!card.CanUseCard) return;
+        if (!CanUseCard()) return;
         if (!card.CardDataCtrl.CanUseData()) return;
-        InGameManager.Instance.SetTurn(GameStateType.UsingCard);
         
+        InGameManager.Instance.SetTurn(GameStateType.UsingCard);
+        CardManager.Instance.CurrentUsingCard = this;
         ObserverManager<CardTargetType>.Notify(card.CardDataCtrl.CardStrategy.AppliesToAlly ? CardTargetType.Player : CardTargetType.Enemy, true);
         if (Camera.main != null) zCoord = Camera.main.WorldToScreenPoint(transform.position).z;
 
@@ -25,23 +26,25 @@ public class CardInteraction : CardComponent
         cardTrf.rotation = Quaternion.Euler(Vector3.zero);
         cardTrf.localScale = new Vector3(.8f, .8f, 1);
 
-        card.CanUseCard = true;
+        
 
     }
 
     private void OnMouseDrag()
     {
-        if(!card.CanUseCard) return;
+        if(!CanUseCard()) return;
         card.CardAnimation.SetSortingLayer(card.selectedLayer);
         hasDragged = true;
         Vector3 mousePoint = GetMouseWorldPosition();
+        mousePoint.z = 0;
         transform.position = mousePoint + offset;
     }
 
     private void OnMouseUp()
     {
+        if (!CanUseCard()) return;
         ObserverManager<CardTargetType>.Notify(card.CardDataCtrl.CardStrategy.AppliesToAlly ? CardTargetType.Player : CardTargetType.Enemy, false);
-        if (!card.CanUseCard) return;
+       
         if (card.CardAction.TryUseCard()) return;
         if (hasDragged)
         {

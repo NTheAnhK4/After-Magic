@@ -81,6 +81,7 @@ public class InGameScreenUI : UIScreen
     {
         turnTxt.text = "Enemy Turn";
         turnBtn.interactable = false;
+        
         InGameManager.Instance.SetTurn(GameStateType.CollectingCard);
     }
 
@@ -95,15 +96,7 @@ public class InGameScreenUI : UIScreen
         manaTxt.text = value.ToString() + "/" + InGameManager.Instance.TotalMana.ToString();
     }
 
-    // private void ShowAchivement()
-    // {
-    //    
-    //     HideUI(null, true);
-    //   
-    //     ShowUI(achivementUI);
-    //    
-    // }
-
+   
     private void ShowAfterHide(UIView ui)
     {
         HideUI(null, true);

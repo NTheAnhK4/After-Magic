@@ -51,6 +51,8 @@ public class CardAnimation : CardComponent
             .Join(transform.DORotate(preQuaternion.eulerAngles,.3f))
             .Join(transform.DOScale(preScale, .3f));
         await sequence.AsyncWaitForCompletion();
+       
         InGameManager.Instance.SetTurn(GameStateType.PlayerTurn);
+       
     }
 }
