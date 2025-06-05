@@ -1,8 +1,6 @@
 
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
-using UnityEngine;
 
 public class CollectingCardState : ICardState
 {
@@ -15,7 +13,7 @@ public class CollectingCardState : ICardState
        
         List<UniTask> tasks = new List<UniTask>();
 
-        List<Card> cards = new List<Card>(CardManager.Instance.cards);
+        List<Card> cards = new List<Card>(CardManager.Instance.CardInHands);
         foreach (Card card in cards)
         {
             tasks.Add(CollectingCard(card));
@@ -23,7 +21,8 @@ public class CollectingCardState : ICardState
       
        
         await UniTask.WhenAll(tasks);
-       
+        //set discard pile count change
+        ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, CardManager.Instance.DisCardPile.Count);
    
         InGameManager.Instance.SetTurn(GameStateType.EnemyTurn);
        
@@ -33,6 +32,7 @@ public class CollectingCardState : ICardState
     {
         if (card == null) return;
         await CardManager.Instance.CollectingCard(card, true);
+        
     }
     public UniTask OnExit()
     {

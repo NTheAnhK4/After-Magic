@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ComponentBehavior : MonoBehaviour
 {
-    protected virtual void LoadComponent()
+    public virtual void LoadComponent()
     {
         
     }

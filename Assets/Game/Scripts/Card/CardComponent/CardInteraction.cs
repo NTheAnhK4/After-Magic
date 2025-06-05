@@ -1,8 +1,9 @@
 
 
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class CardInteraction : CardComponent
+public class CardInteraction : CardComponent, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
    
 
@@ -10,14 +11,14 @@ public class CardInteraction : CardComponent
     private float zCoord;
     private bool hasDragged;
     private bool CanUseCard() => CardManager.Instance.CurrentUsingCard == null || CardManager.Instance.CurrentUsingCard ==this;
-    private void OnMouseDown()
+    public void OnPointerDown(PointerEventData eventData)
     {
         if (!CanUseCard()) return;
         if (!card.CardDataCtrl.CanUseData()) return;
         
         InGameManager.Instance.SetTurn(GameStateType.UsingCard);
         CardManager.Instance.CurrentUsingCard = this;
-        ObserverManager<CardTargetType>.Notify(card.CardDataCtrl.CardStrategy.AppliesToAlly ? CardTargetType.Player : CardTargetType.Enemy, true);
+        ObserverManager<CardEventType>.Notify(card.CardDataCtrl.CardStrategy.AppliesToAlly ? CardEventType.PlayerTarget : CardEventType.EnemyTarget, true);
         if (Camera.main != null) zCoord = Camera.main.WorldToScreenPoint(transform.position).z;
 
         Vector3 mousePoint = GetMouseWorldPosition();
@@ -30,7 +31,7 @@ public class CardInteraction : CardComponent
 
     }
 
-    private void OnMouseDrag()
+    public void OnDrag(PointerEventData eventData)
     {
         if(!CanUseCard()) return;
         card.CardAnimation.SetSortingLayer(card.selectedLayer);
@@ -40,10 +41,10 @@ public class CardInteraction : CardComponent
         transform.position = mousePoint + offset;
     }
 
-    private void OnMouseUp()
+    public void OnPointerUp(PointerEventData eventData)
     {
         if (!CanUseCard()) return;
-        ObserverManager<CardTargetType>.Notify(card.CardDataCtrl.CardStrategy.AppliesToAlly ? CardTargetType.Player : CardTargetType.Enemy, false);
+        ObserverManager<CardEventType>.Notify(card.CardDataCtrl.CardStrategy.AppliesToAlly ? CardEventType.PlayerTarget : CardEventType.EnemyTarget, false);
        
         if (card.CardAction.TryUseCard()) return;
         if (hasDragged)

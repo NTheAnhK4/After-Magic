@@ -117,7 +117,7 @@ namespace StateMachine
       
        
     
-        protected override void LoadComponent()
+        public override void LoadComponent()
         {
             base.LoadComponent();
             if (Anim == null) Anim = GetComponent<Animator>();

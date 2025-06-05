@@ -15,10 +15,13 @@ public enum EnemyActionType
     Debuff
 }
 
-public enum CardTargetType
+public enum CardEventType
 {
-    Player,
-    Enemy
+    PlayerTarget,
+    EnemyTarget,
+    DrawPileCountChange,
+    DiscardPileCountChange,
+    DepleteCardsCountChange
 }
 
 public enum GameEventType

@@ -11,14 +11,21 @@ public class Selectable : ComponentBehavior
     private Vector3 originalScale;
     private Tween tween;
 
-    private CardTargetType _cardTargetType;
-    private void Start()
+    private CardEventType _cardEventType;
+    private Action<object> OnToggleAnimAction;
+  
+    private void OnEnable()
     {
-        ObserverManager<CardTargetType>.Attach(_cardTargetType, param => ToggleAim((bool)param));
+        OnToggleAnimAction = param => ToggleAim((bool)param);
+        ObserverManager<CardEventType>.Attach(_cardEventType, OnToggleAnimAction);
     }
 
-    
-    protected override void LoadComponent()
+    private void OnDisable()
+    {
+        ObserverManager<CardEventType>.Detach(_cardEventType, OnToggleAnimAction);
+    }
+
+    public override void LoadComponent()
     {
         base.LoadComponent();
         if (aim == null)
@@ -29,7 +36,7 @@ public class Selectable : ComponentBehavior
             originalScale = aim.transform.localScale;
         }
 
-        _cardTargetType = gameObject.tag.Equals("Player") ? CardTargetType.Player : CardTargetType.Enemy;
+        _cardEventType = gameObject.tag.Equals("Player") ? CardEventType.PlayerTarget : CardEventType.EnemyTarget;
        
     }
 

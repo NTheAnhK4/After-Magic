@@ -19,7 +19,7 @@ public class GameManager : Singleton<GameManager>
         if (currentScene == GameConstants.DungeonScene)
         {
             ObserverManager<GameStateType>.DetachAll();
-            ObserverManager<CardTargetType>.DetachAll();
+            ObserverManager<CardEventType>.DetachAll();
             ObserverManager<GameEventType>.DetachAll();
         }
         SceneManager.LoadScene(sceneName);

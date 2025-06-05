@@ -9,7 +9,7 @@ public class LoseUI : UIView
 {
     [SerializeField] private Button defeatBtn;
     [SerializeField] private Button continueBtn;
-    protected override void LoadComponent()
+    public override void LoadComponent()
     {
         base.LoadComponent();
         if (defeatBtn == null) defeatBtn = transform.Find("Defeat").GetComponent<Button>();

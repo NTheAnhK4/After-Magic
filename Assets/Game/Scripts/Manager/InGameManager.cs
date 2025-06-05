@@ -9,6 +9,7 @@ public class InGameManager : Singleton<InGameManager>
     public int TotalMana { get; private set; }
     private int curMana;
     public Action<int> OnManaChange;
+    private Action<object> onLoseAction;
 
     public int CurMana
     {
@@ -34,7 +35,13 @@ public class InGameManager : Singleton<InGameManager>
 
     private void OnEnable()
     {
-        ObserverManager<GameEventType>.Attach(GameEventType.Lose, param => { IsGameOver = true;});
+        onLoseAction = param => { IsGameOver = true; };
+        ObserverManager<GameEventType>.Attach(GameEventType.Lose, onLoseAction);
+    }
+
+    private void OnDisable()
+    {
+        ObserverManager<GameEventType>.Detach(GameEventType.Lose, onLoseAction);
     }
 
     #region Turn
@@ -61,8 +68,10 @@ public class InGameManager : Singleton<InGameManager>
     public void PlayGame()
     {
         PlayerPartyManager.Instance.SpawnPlayerParty();
+        CardManager.Instance.Init();
         TotalMana = 3;
         CurMana = 3;
+        
         currentStateType = GameStateType.DistributeCard;
         ObserverManager<GameStateType>.Notify(currentStateType);
         IsGameOver = false;

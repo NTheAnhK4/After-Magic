@@ -11,7 +11,7 @@ public class WinUI : UIView
     private Button takeAllBtn;
     [SerializeField] private Button skipRewardBtn;
 
-    protected override void LoadComponent()
+    public override void LoadComponent()
     {
         base.LoadComponent();
         if (takeAllBtn == null) takeAllBtn = transform.Find("Take All").GetComponent<Button>();
