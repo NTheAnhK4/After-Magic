@@ -21,7 +21,7 @@ namespace Game.UI
 
      
        
-        protected override void LoadComponent()
+        public override void LoadComponent()
         {
             base.LoadComponent();
             if (panelImage == null)

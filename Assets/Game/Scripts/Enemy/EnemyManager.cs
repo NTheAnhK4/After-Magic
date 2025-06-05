@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,13 +7,27 @@ using UnityEngine;
 public class EnemyManager : Singleton<EnemyManager>
 {
     [SerializeField] private List<Enemy> Enemies = new List<Enemy>();
+
+    #region Action
+
+    private Action<object> onEnemyTurnAction;
+    private Action<object> onPlayerTurnAction;
+
+    #endregion
     private void OnEnable()
     {
-        ObserverManager<GameStateType>.Attach(GameStateType.EnemyTurn, param => DoEnemyAction());
-        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, param => EnemyPlanning());
+        onEnemyTurnAction = param => DoEnemyAction();
+        onPlayerTurnAction = param => EnemyPlanning();
+        ObserverManager<GameStateType>.Attach(GameStateType.EnemyTurn, onEnemyTurnAction);
+        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, onPlayerTurnAction);
     }
 
-  
+    private void OnDisable()
+    {
+        ObserverManager<GameStateType>.Detach(GameStateType.EnemyTurn, onEnemyTurnAction);
+        ObserverManager<GameStateType>.Detach(GameStateType.PlayerTurn, onPlayerTurnAction);
+    }
+
 
     public void AddEnemy(Enemy enemy)
     {

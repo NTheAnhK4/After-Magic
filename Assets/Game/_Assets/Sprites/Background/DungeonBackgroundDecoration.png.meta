@@ -1,0 +1,1769 @@
+fileFormatVersion: 2
+guid: 334b186c305fc75489adb07e697ef198
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1328
+        width: 340
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2977dc4e78f60d245981f3a4e108d7fd
+      internalID: -404518798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_1
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 1493
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b65cf628f0733245b6fbe315c72d2cb
+      internalID: -1932033068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_2
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 1494
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c17f8da7a83363741bcb80f0d3bd6ec5
+      internalID: 1742057006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_3
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 1495
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1b38789240a48b4ea5ab20fea042941
+      internalID: 33924156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_4
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 1490
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afe7da88b68b7e745ac3655381c4c358
+      internalID: 272499384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_5
+      rect:
+        serializedVersion: 2
+        x: 1312
+        y: 1373
+        width: 367
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5319ea85a36fce4db02f05c9f0970f0
+      internalID: 2026508538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_6
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 1352
+        width: 507
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0314101b0e3c81438ec79c9f0b9db37
+      internalID: 58498154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_7
+      rect:
+        serializedVersion: 2
+        x: 932
+        y: 1352
+        width: 382
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf14f0a419f6b41488896db9940d48e9
+      internalID: 873502260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_8
+      rect:
+        serializedVersion: 2
+        x: 1701
+        y: 1390
+        width: 237
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86dfb67a8cf374647becad8f4c722991
+      internalID: 746515855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_9
+      rect:
+        serializedVersion: 2
+        x: 1993
+        y: 1362
+        width: 49
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83b1bd161479f3044b9343a320c4c8d0
+      internalID: 1621735359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 976
+        width: 236
+        height: 344
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9342d8c8a1c4e2147966c058b0486873
+      internalID: 1815605535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_11
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 1200
+        width: 115
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81ef57cb71363e2419f04d78a2622505
+      internalID: 527590880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_12
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 1200
+        width: 117
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 431f7a9810c1a8740aa0c2996847c238
+      internalID: -1028671925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_13
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 1186
+        width: 286
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 519d16b67281c8947bdd305e45248251
+      internalID: -247879647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_14
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 1267
+        width: 223
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: def289b895140c24495a62ab5a972840
+      internalID: 66259857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_15
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 1226
+        width: 84
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 016460b519f26b64f839e6a6ebc5f493
+      internalID: -1397328668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_16
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 1263
+        width: 67
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b50c4e4501ad6b3489802f6ebd8e04bd
+      internalID: -69927612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_17
+      rect:
+        serializedVersion: 2
+        x: 1479
+        y: 1256
+        width: 60
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a29d10da665ef74eb48761b4cb156ed
+      internalID: 689507535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_18
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 951
+        width: 270
+        height: 403
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87ed46276d1590a4db5f89c8743ef7b7
+      internalID: 1438461064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_19
+      rect:
+        serializedVersion: 2
+        x: 1939
+        y: 945
+        width: 111
+        height: 384
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 187fa7996904fc84ba415dc1348daf05
+      internalID: 1811384615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_20
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 985
+        width: 134
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e9178ee5ed233b4b8612685fdc44ced
+      internalID: -1426899412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_21
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 985
+        width: 133
+        height: 201
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5fd7233c6b10dc4c939b0fce2757d8a
+      internalID: 1043925709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_22
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 985
+        width: 186
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07a090db8e8aae645b22990852ddd60b
+      internalID: -522692660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_23
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 985
+        width: 132
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a47295ed3e62d04f93e678835d15834
+      internalID: -917086169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_24
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 985
+        width: 242
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7197dcb22641e86499493eb464cb2641
+      internalID: -138611846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_25
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 1129
+        width: 57
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a44888118271e046a3897f4483de628
+      internalID: 1524043403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_26
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 1124
+        width: 58
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c0be37cf48ca4f4eaac6edd097f6969
+      internalID: -1731855347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_27
+      rect:
+        serializedVersion: 2
+        x: 1524
+        y: 1124
+        width: 62
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 462431655c621184ab51f9416eaacb27
+      internalID: -292146659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_28
+      rect:
+        serializedVersion: 2
+        x: 1391
+        y: 994
+        width: 176
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a06d8734ee5426642a920d55bf828cfb
+      internalID: 1923911357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_29
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 691
+        width: 236
+        height: 238
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ee81e1973af9e84ea6de53ed3fb6a5b
+      internalID: -1381197957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_30
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 724
+        width: 89
+        height: 220
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9c8890c2f2a6d04f906a5714d16cf61
+      internalID: -1899674466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_31
+      rect:
+        serializedVersion: 2
+        x: 872
+        y: 723
+        width: 146
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4d1cac36c57cdd4b973b0aa046f4e56
+      internalID: 1273759318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_32
+      rect:
+        serializedVersion: 2
+        x: 1066
+        y: 708
+        width: 472
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f905f87a0a1175d4485963662a370b6f
+      internalID: 955610453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_33
+      rect:
+        serializedVersion: 2
+        x: 1566
+        y: 909
+        width: 71
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90685c33b75661048a91343296df4aad
+      internalID: -1848923793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_34
+      rect:
+        serializedVersion: 2
+        x: 1686
+        y: 809
+        width: 100
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8112de6cceddb7f4481841be0d066f07
+      internalID: -1617295984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_35
+      rect:
+        serializedVersion: 2
+        x: 1811
+        y: 606
+        width: 76
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fdbf1b910529d84fbfa49cc4f8e7cc0
+      internalID: 621574002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_36
+      rect:
+        serializedVersion: 2
+        x: 1922
+        y: 587
+        width: 65
+        height: 343
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acf42ddee13d2af4d918b75265e8a81d
+      internalID: -1709427285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_37
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 731
+        width: 299
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a9d1c74da0f4af4aafb629d4a506b72
+      internalID: -2125242022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_38
+      rect:
+        serializedVersion: 2
+        x: 1544
+        y: 821
+        width: 114
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b407c6a146e4a4428f508fb629a34f9
+      internalID: -1214324692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_39
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 535
+        width: 338
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 031ac2716835be542bb75a27556ecb40
+      internalID: 1892956169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_40
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 566
+        width: 310
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c794fe208cb465d49a7c2df838b198c0
+      internalID: 88524410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_41
+      rect:
+        serializedVersion: 2
+        x: 1551
+        y: 664
+        width: 88
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1eb78bc88311d8444aa96d9720b8f248
+      internalID: -1480699149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_42
+      rect:
+        serializedVersion: 2
+        x: 1687
+        y: 572
+        width: 75
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10e0ae72db328a3478f475d3e8393300
+      internalID: 1608458117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_43
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 541
+        width: 598
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d02599c1ba33634995394fdc997ee61
+      internalID: 202748345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_44
+      rect:
+        serializedVersion: 2
+        x: 1361
+        y: 566
+        width: 216
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc7133934575be44abfa7cd900406101
+      internalID: -890240057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_45
+      rect:
+        serializedVersion: 2
+        x: 1497
+        y: 627
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3aec664f755ddf347a5b57399e04e033
+      internalID: -1702960414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_46
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 393
+        width: 175
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28609c7c0ab17de48a33875c26325a10
+      internalID: -599213328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_48
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 300
+        width: 300
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e31d2f9f70eac7744a04ccee5028a341
+      internalID: -1337953168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_49
+      rect:
+        serializedVersion: 2
+        x: 1096
+        y: 333
+        width: 267
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1644abf23a9ec7740b4956ee51f9754e
+      internalID: 1837974043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_50
+      rect:
+        serializedVersion: 2
+        x: 1538
+        y: 361
+        width: 61
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fd0b2849c830074bb577b63341749a7
+      internalID: -1831098864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_51
+      rect:
+        serializedVersion: 2
+        x: 1677
+        y: 344
+        width: 103
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03a9272d50f358d44b885c221f4a3c7a
+      internalID: 1892921712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_52
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 294
+        width: 50
+        height: 218
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9743fd402f261fb4cb21fbf6588dbd7c
+      internalID: -1400080530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_53
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 313
+        width: 76
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 331a817d6640ee642bf0b81b901b51b4
+      internalID: -1370082102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_54
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 409
+        width: 103
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f7ead17f6339fa4e83ad27394d36105
+      internalID: -2101084408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_55
+      rect:
+        serializedVersion: 2
+        x: 1421
+        y: 266
+        width: 56
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19c3f6daf54dc2e4e895d6038021a354
+      internalID: -203643636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_56
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 205
+        width: 106
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ebb7fdc8bddb3a41adaa45336737da4
+      internalID: -1960706480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_57
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 121
+        width: 76
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2db5fb0047bb68741aa1a60bd292a60e
+      internalID: 97733142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_58
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 68
+        width: 45
+        height: 226
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c5b2aee3741f8d4995d7cb0b51e9b04
+      internalID: 2060157032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_59
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 268
+        width: 48
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 762953488a7e27e4a962733d67bd165d
+      internalID: 181132287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_60
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 262
+        width: 242
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd050e97354f4c146b36b8813fd4c818
+      internalID: -703933679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_61
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 37
+        width: 235
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 081e2eb3e7c9c4f43965be48ef1b5846
+      internalID: -13560177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_62
+      rect:
+        serializedVersion: 2
+        x: 1049
+        y: 232
+        width: 259
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c83e162bbe4d5f4ba3f1fa147ba71d3
+      internalID: 1819451686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_63
+      rect:
+        serializedVersion: 2
+        x: 1534
+        y: 87
+        width: 65
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6afd9275f8ec5448874e54df365df5b
+      internalID: 1514596397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_64
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 143
+        width: 100
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49aa993def6e99d4e939979d92314bf9
+      internalID: 1114504341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_65
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 185
+        width: 102
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb2cfb79736a75f46b036fa1b152856c
+      internalID: 802828020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_66
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 178
+        width: 222
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8af807f7286ca434d92871bfe488420f
+      internalID: 2022456925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_67
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 102
+        width: 115
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c07d40777e44c54e8e24748bd40058a
+      internalID: 1570517143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_68
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 68
+        width: 34
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50b15b03845f33342bd186c5a318e3d1
+      internalID: 593171361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_69
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 102
+        width: 131
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d03691ec481dc01489df2e41b5d8fd73
+      internalID: -811805114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_70
+      rect:
+        serializedVersion: 2
+        x: 1049
+        y: 71
+        width: 68
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f33941c020432b549b82aebd9081334d
+      internalID: -1935571459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_71
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 70
+        width: 61
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 723ee12ba99741f44afb94fef0e04c5a
+      internalID: -457826246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_72
+      rect:
+        serializedVersion: 2
+        x: 1251
+        y: 70
+        width: 63
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4881f8f66a35af241a52ebf91988e186
+      internalID: 1130902494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_73
+      rect:
+        serializedVersion: 2
+        x: 1341
+        y: 70
+        width: 66
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bfe43732e1d9ae449178b28738ed846
+      internalID: -942781930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonBackgroundDecoration_74
+      rect:
+        serializedVersion: 2
+        x: 1430
+        y: 75
+        width: 65
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33a7974312085e94cbaff0f0fde1d12c
+      internalID: -1748874299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      DungeonBackgroundDecoration_0: -404518798
+      DungeonBackgroundDecoration_1: -1932033068
+      DungeonBackgroundDecoration_10: 1815605535
+      DungeonBackgroundDecoration_11: 527590880
+      DungeonBackgroundDecoration_12: -1028671925
+      DungeonBackgroundDecoration_13: -247879647
+      DungeonBackgroundDecoration_14: 66259857
+      DungeonBackgroundDecoration_15: -1397328668
+      DungeonBackgroundDecoration_16: -69927612
+      DungeonBackgroundDecoration_17: 689507535
+      DungeonBackgroundDecoration_18: 1438461064
+      DungeonBackgroundDecoration_19: 1811384615
+      DungeonBackgroundDecoration_2: 1742057006
+      DungeonBackgroundDecoration_20: -1426899412
+      DungeonBackgroundDecoration_21: 1043925709
+      DungeonBackgroundDecoration_22: -522692660
+      DungeonBackgroundDecoration_23: -917086169
+      DungeonBackgroundDecoration_24: -138611846
+      DungeonBackgroundDecoration_25: 1524043403
+      DungeonBackgroundDecoration_26: -1731855347
+      DungeonBackgroundDecoration_27: -292146659
+      DungeonBackgroundDecoration_28: 1923911357
+      DungeonBackgroundDecoration_29: -1381197957
+      DungeonBackgroundDecoration_3: 33924156
+      DungeonBackgroundDecoration_30: -1899674466
+      DungeonBackgroundDecoration_31: 1273759318
+      DungeonBackgroundDecoration_32: 955610453
+      DungeonBackgroundDecoration_33: -1848923793
+      DungeonBackgroundDecoration_34: -1617295984
+      DungeonBackgroundDecoration_35: 621574002
+      DungeonBackgroundDecoration_36: -1709427285
+      DungeonBackgroundDecoration_37: -2125242022
+      DungeonBackgroundDecoration_38: -1214324692
+      DungeonBackgroundDecoration_39: 1892956169
+      DungeonBackgroundDecoration_4: 272499384
+      DungeonBackgroundDecoration_40: 88524410
+      DungeonBackgroundDecoration_41: -1480699149
+      DungeonBackgroundDecoration_42: 1608458117
+      DungeonBackgroundDecoration_43: 202748345
+      DungeonBackgroundDecoration_44: -890240057
+      DungeonBackgroundDecoration_45: -1702960414
+      DungeonBackgroundDecoration_46: -599213328
+      DungeonBackgroundDecoration_47: -1526935426
+      DungeonBackgroundDecoration_48: -1337953168
+      DungeonBackgroundDecoration_49: 1837974043
+      DungeonBackgroundDecoration_5: 2026508538
+      DungeonBackgroundDecoration_50: -1831098864
+      DungeonBackgroundDecoration_51: 1892921712
+      DungeonBackgroundDecoration_52: -1400080530
+      DungeonBackgroundDecoration_53: -1370082102
+      DungeonBackgroundDecoration_54: -2101084408
+      DungeonBackgroundDecoration_55: -203643636
+      DungeonBackgroundDecoration_56: -1960706480
+      DungeonBackgroundDecoration_57: 97733142
+      DungeonBackgroundDecoration_58: 2060157032
+      DungeonBackgroundDecoration_59: 181132287
+      DungeonBackgroundDecoration_6: 58498154
+      DungeonBackgroundDecoration_60: -703933679
+      DungeonBackgroundDecoration_61: -13560177
+      DungeonBackgroundDecoration_62: 1819451686
+      DungeonBackgroundDecoration_63: 1514596397
+      DungeonBackgroundDecoration_64: 1114504341
+      DungeonBackgroundDecoration_65: 802828020
+      DungeonBackgroundDecoration_66: 2022456925
+      DungeonBackgroundDecoration_67: 1570517143
+      DungeonBackgroundDecoration_68: 593171361
+      DungeonBackgroundDecoration_69: -811805114
+      DungeonBackgroundDecoration_7: 873502260
+      DungeonBackgroundDecoration_70: -1935571459
+      DungeonBackgroundDecoration_71: -457826246
+      DungeonBackgroundDecoration_72: 1130902494
+      DungeonBackgroundDecoration_73: -942781930
+      DungeonBackgroundDecoration_74: -1748874299
+      DungeonBackgroundDecoration_8: 746515855
+      DungeonBackgroundDecoration_9: 1621735359
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

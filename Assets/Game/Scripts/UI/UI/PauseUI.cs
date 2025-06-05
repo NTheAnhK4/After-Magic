@@ -10,7 +10,7 @@ public class PauseUI : UIView
     [SerializeField] private Button continueBtn;
     [SerializeField] private Button giveUpBtn;
 
-    protected override void LoadComponent()
+    public override void LoadComponent()
     {
         base.LoadComponent();
         if (settingBtn == null) settingBtn = transform.Find("Setting").GetComponent<Button>();

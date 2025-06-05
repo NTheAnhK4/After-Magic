@@ -9,7 +9,7 @@ public class SettingUI : UIView
 {
     [SerializeField] private Button exitGameBtn;
     [SerializeField] private Button exitUIBtn;
-    protected override void LoadComponent()
+    public override void LoadComponent()
     {
         base.LoadComponent();
         if (exitUIBtn == null) exitUIBtn = transform.Find("Exit").GetComponent<Button>();

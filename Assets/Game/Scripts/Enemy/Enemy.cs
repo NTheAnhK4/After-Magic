@@ -24,6 +24,12 @@ public class Enemy : Entity
    
     #endregion
 
+    #region Action
+
+    private Action<object> onPlayerTurnAction;
+    private Action<object> onEnemyTurnAction;
+
+    #endregion
     public override Entity EnemyTarget
     {
         get => PlayerPartyManager.Instance.GetRandomPartyMember(); 
@@ -59,27 +65,28 @@ public class Enemy : Entity
     }
     
 
-    protected override void LoadComponent()
+    public override void LoadComponent()
     {
         base.LoadComponent();
         if (PredictedActionTrf == null) PredictedActionTrf = transform.Find("UI").Find("NextAction");
     }
-
-    private void Start()
-    {
-        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, param => IsPlanningState = true);
-        ObserverManager<GameStateType>.Attach(GameStateType.EnemyTurn, param => IsPlanningState = false);
-       
-    }
-
+    
     private void OnEnable()
     {
+        onPlayerTurnAction = param => IsPlanningState = true;
+        onEnemyTurnAction = param => IsPlanningState = false;
+        
+        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, onPlayerTurnAction);
+        ObserverManager<GameStateType>.Attach(GameStateType.EnemyTurn, onEnemyTurnAction);
+
         if(EnemyManager.Instance != null) EnemyManager.Instance.AddEnemy(this);
         
     }
             
     private void OnDisable()
     {
+        ObserverManager<GameStateType>.Detach(GameStateType.PlayerTurn, onPlayerTurnAction);
+        ObserverManager<GameStateType>.Detach(GameStateType.EnemyTurn, onEnemyTurnAction);
         EnemyManager.Instance.RemoveEnemy(this);
     }
     

@@ -2,24 +2,42 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Unity.Mathematics;
 using UnityEngine;
-
+using UnityEngine.Serialization;
 
 
 public class CardManager : Singleton<CardManager>
 {
     
-    public List<Card> CardsAvailable = new List<Card>();
+    public List<PlayerCardData> CardsAvailable = new List<PlayerCardData>();
     
-    [HideInInspector] public List<Card> cards = new List<Card>();
+    #region Card In A Dungeon
+ 
+    public Card CardPrefab;
+    [HideInInspector] public List<Card> MainDesk = new List<Card>();
+    public List<Card> DrawPile;
+    public List<Card> DisCardPile;
+    [HideInInspector] public List<Card> DepleteCards;
+    
+     public List<Card> CardInHands = new List<Card>();
+
+    #endregion
+    
+ 
      public CardInteraction CurrentUsingCard;
     private float angleRange = 35f;
     private Vector2 centerPoint = new Vector2(0, -7);
     private float radius = 30;
     private float maxAngleStep = 5f;
 
-    private Vector3 despawnPos = new Vector3(14, -8);
-    private Vector3 despawnScale = new Vector3(.4f, .4f, 1);
+    [HideInInspector] public Vector3 despawnPos = new Vector3(14, -8);
+    [HideInInspector] public Vector3 despawnScale = new Vector3(.4f, .4f, 1);
+    [HideInInspector] public Vector3 despawnRotation = new Vector3(0, 0, 255);
+    
+    [HideInInspector] public Vector3 spawnPos = new Vector3(-10, -9.5f,0);
+    [HideInInspector] public Vector3 spawnScale = new Vector3(.8f, .8f, 1);
+    [HideInInspector] public Vector3 spawnRotation = new Vector3(0, 0, 45);
     private ICardState currentState;
     private DistributeCardState distributeCardState;
     private CollectingCardState collectingCardState;
@@ -43,6 +61,31 @@ public class CardManager : Singleton<CardManager>
         ObserverManager<GameStateType>.Attach(GameStateType.UsingCard, _=>ChangeState(usingCardState));
     }
 
+    public void Init()
+    {
+        DrawPile = new List<Card>();
+        MainDesk = new List<Card>();
+       
+        foreach (PlayerCardData cardData in CardsAvailable)
+        {
+            Card card = PoolingManager.Spawn(CardPrefab.gameObject, 
+                spawnPos, 
+                quaternion.Euler(spawnRotation), transform).
+                GetComponent<Card>();
+            MainDesk.Add(card);
+            DrawPile.Add(card);
+            
+            card.CardDataCtrl.Init(cardData);
+            card.transform.localScale = spawnScale;
+            card.gameObject.SetActive(false);
+           
+        }
+        DisCardPile = new List<Card>();
+        DepleteCards = new List<Card>();
+        ObserverManager<CardEventType>.Notify(CardEventType.DrawPileCountChange, DrawPile.Count);
+        ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, DisCardPile.Count);
+        ObserverManager<CardEventType>.Notify(CardEventType.DepleteCardsCountChange, DepleteCards.Count);
+    }
    
 
     public void ArrangeHand(int cardsCount, out List<Vector3> cardPositions, out List<Vector3> cardRotations)
@@ -81,8 +124,9 @@ public class CardManager : Singleton<CardManager>
         Sequence sequence = DOTween.Sequence();
         sequence.Append(card.transform.DOScale(despawnScale, .4f))
                     .Join(card.transform.DOMove(despawnPos, .65f))
-                    .Join(card.transform.DORotate(new Vector3(0,0,225),.6f));
-        cards.Remove(card);
+                    .Join(card.transform.DORotate(despawnRotation,.6f));
+        CardInHands.Remove(card);
+        DisCardPile.Add(card);
         if(!isCollectingAllCard) SetPositionAndQuaternion();
         await sequence.AsyncWaitForCompletion();
        
@@ -92,14 +136,14 @@ public class CardManager : Singleton<CardManager>
 
     private async void SetPositionAndQuaternion()
     {
-        if (cards.Count == 0) return;
+        if (CardInHands.Count == 0) return;
         List<Vector3> positions;
         List<Vector3> rotations;
         List<UniTask> uniTasks = new List<UniTask>();
-        ArrangeHand(cards.Count,out positions, out rotations);
-        for (int i = 0; i < cards.Count; ++i)
+        ArrangeHand(CardInHands.Count,out positions, out rotations);
+        for (int i = 0; i < CardInHands.Count; ++i)
         {
-            uniTasks.Add(SetCardPositionAndQuaternionAnim(positions[i], rotations[i], cards[i]));
+            uniTasks.Add(SetCardPositionAndQuaternionAnim(positions[i], rotations[i], CardInHands[i]));
         }
         await UniTask.WhenAll(uniTasks);
        
@@ -116,5 +160,7 @@ public class CardManager : Singleton<CardManager>
             card.CardAnimation.SaveInitialTransform();
         }
     }
+
+    
     
 }

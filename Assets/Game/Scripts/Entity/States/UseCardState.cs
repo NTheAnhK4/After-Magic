@@ -28,11 +28,13 @@ public class UseCardState : State<Entity>
     {
         base.Update();
         Card = entity.CardStrategy;
-        if (Card == null || !Card.HasFinisedUsingCard())
+        if (Card == null) return;
+        if (!Card.HasFinisedUsingCard())
         {
             Card.Execute();
             return;
         }
+        
         if(entity.MustReachTarget) entity.StateMachine.ChangeState(entity.RunState, () => new RunStateData(){IsRunningToTarget = false, TargetPosition = entity.StandPoint});
         else
         {

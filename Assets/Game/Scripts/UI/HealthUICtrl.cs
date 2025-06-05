@@ -9,7 +9,7 @@ public class HealthUICtrl : ComponentBehavior
 {
     [SerializeField] private Entity _entity;
     [SerializeField] private Image hpImg;
-    protected override void LoadComponent()
+    public override void LoadComponent()
     {
         base.LoadComponent();
         if (hpImg == null) hpImg = transform.Find("HP Mask").Find("HP").GetComponent<Image>();
