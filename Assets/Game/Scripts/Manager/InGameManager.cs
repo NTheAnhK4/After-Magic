@@ -1,5 +1,6 @@
 
 using System;
+using DG.Tweening;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
@@ -42,6 +43,7 @@ public class InGameManager : Singleton<InGameManager>
 
     private void OnDisable()
     {
+        DOTween.KillAll();
         ObserverManager<GameEventType>.Detach(GameEventType.Lose, onLoseAction);
     }
 

@@ -18,7 +18,12 @@ public class UsingCardState : ICardState
         bool canUseCard = true;
         if (getCanUseCard != null) canUseCard = getCanUseCard.Invoke();
         await UniTask.Delay(250);
-        if (canUseCard) CardManager.Instance.CurrentUsingCard = null;
+        if (canUseCard)
+        {
+            CardManager.Instance.CurrentUsingCard = null;
+            CardManager.Instance.EnableAllCardsRayCast();
+        }
+        else CardManager.Instance.DisableOtherCardsRayCast();
         
     }
 

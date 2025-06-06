@@ -10,7 +10,7 @@ public class CollectingCardState : ICardState
     public async UniTask OnEnter()
     {
         CardManager.Instance.CurrentUsingCard = null;
-       
+        CardManager.Instance.EnableAllCardsRayCast();
         List<UniTask> tasks = new List<UniTask>();
 
         List<Card> cards = new List<Card>(CardManager.Instance.CardInHands);

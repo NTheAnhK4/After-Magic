@@ -16,7 +16,7 @@ public class DungeonMapUI : UIView
     public RoomUIInteraction RoomUIInteraction;
     public int[][] rooms;
     public bool IsVirtualMap;
-    [FormerlySerializedAs("isShown")] public bool IsShown;
+    public bool IsShown;
     [SerializeField] private Button exitBtn;
     protected override void Awake()
     {
@@ -55,20 +55,18 @@ public class DungeonMapUI : UIView
     public override void Show()
     {
         base.Show();
+        exitBtn.gameObject.SetActive(IsVirtualMap);
+        if(IsVirtualMap) exitBtn.onClick.AddListener(() => UIScreen.HideUI());
         if(!IsShown) RoomUISpawner.SpawnRooms(rooms);
         else RoomUISpawner.ShowRooms();
        
         IsShown = true;
     }
 
-    private void OnEnable()
-    {
-        exitBtn.onClick.AddListener(() => UIScreen.HideUI());
-    }
-
+ 
     private void OnDisable()
     {
-        exitBtn.onClick.RemoveAllListeners();
+        if(IsVirtualMap) exitBtn.onClick.RemoveAllListeners();
     }
 
     
