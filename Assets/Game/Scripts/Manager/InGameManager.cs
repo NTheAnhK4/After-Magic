@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class InGameManager : Singleton<InGameManager>
 {
+    public DungeonRoomType DungeonRoomType;
     public int TotalMana { get; private set; }
     private int curMana;
     public Action<int> OnManaChange;

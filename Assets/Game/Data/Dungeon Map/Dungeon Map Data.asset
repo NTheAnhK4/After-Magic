@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d37cb35788cfae4cb9aff3c6f3a8292, type: 3}
+  m_Name: Dungeon Map Data
+  m_EditorClassIdentifier: 
+  RoomPrefab: {fileID: 241716935415211946, guid: c4d4b6e1f22360e498f2c3fa538445ee, type: 3}
+  VerticalPath: {fileID: 1430374006369841676, guid: 8a535d43c8b23d34bb84e719abe28d59, type: 3}
+  HorizontalPath: {fileID: 6537856213277393292, guid: 44b3dcf5a6f764d46ba7ffc2fc42b4d3, type: 3}
+  RoomSprites:
+  - Name: Battle
+    Sprite: {fileID: -226651767, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+  - Name: Campfire
+    Sprite: {fileID: 375268481, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+  - Name: Door
+    Sprite: {fileID: 876994493, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+  - Name: Empty
+    Sprite: {fileID: 1616722192, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+  - Name: Entry
+    Sprite: {fileID: 911997544, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+  - Name: Mystery
+    Sprite: {fileID: 1011719919, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+  - Name: Shop
+    Sprite: {fileID: 1876129114, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}

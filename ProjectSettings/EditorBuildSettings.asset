@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Game/Scenes/Lobby.unity
     guid: 04a00d810635f21409f09d6671d2c4bd
   - enabled: 1
-    path: Assets/Game/Scenes/DungeonMap.unity
-    guid: b7f16df08030e4346973520e5e423e41
-  - enabled: 1
     path: Assets/Game/Scenes/Dungeon.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
+    path: Assets/Game/Scenes/DungeonMap.unity
+    guid: b7f16df08030e4346973520e5e423e41
   m_configObjects: {}

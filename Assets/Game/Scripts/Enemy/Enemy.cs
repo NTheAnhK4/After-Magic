@@ -48,7 +48,7 @@ public class Enemy : Entity
         AttackRange = 2.5f;
         Damage = 1;
         MaxHP = 20;
-        CurHP = 20;
+        CurHP = 1;
         Armor = 0;
         
         IsOriginalFacingRight = false;

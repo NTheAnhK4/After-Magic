@@ -21,6 +21,8 @@ public class InGameScreenUI : UIScreen
 
     [SerializeField] private Button availableCardsBtn;
 
+    [SerializeField] private Button mapBtn;
+
     [SerializeField] private TextMeshProUGUI drawPileTxt;
     [SerializeField] private TextMeshProUGUI discardPileTxt;
     [SerializeField] private TextMeshProUGUI depleteCardsTxt;
@@ -30,12 +32,12 @@ public class InGameScreenUI : UIScreen
     [Header("UI View")] 
     [SerializeField] private WinUI winUI;
 
-    [SerializeField] private LoseUI loseUI;
-    [SerializeField] private AchivementUI achivementUI;
-    [SerializeField] private PauseUI pauseUI;
-    [SerializeField] private SettingUI settingUI;
-    [SerializeField] private PileUI pileUI;
-
+    public LoseUI LoseUI;
+    public AchivementUI AchivementUI;
+    public PauseUI PauseUI;
+    public SettingUI SettingUI; 
+    public PileUI PileUI;
+    public DungeonMapUI DungeonMapUI;
     public Action OnShowAchivement;
     public Action OnRevivePlayer;
     public Action OnShowSetting;
@@ -59,6 +61,7 @@ public class InGameScreenUI : UIScreen
         FindUI(ref drawPileBtn, cardDesk, "Draw Pile");
         FindUI(ref discardPileBtn, cardDesk, "Discard Pile");
         FindUI(ref depleteCardsBtn, cardDesk, "Deplete Cards");
+        FindUI(ref mapBtn, "Top/Top Right/Map");
 
         FindUI(ref drawPileTxt, cardDesk, "Draw Pile/Text (TMP)");
         FindUI(ref discardPileTxt, cardDesk, "Discard Pile/Text (TMP)");
@@ -66,11 +69,12 @@ public class InGameScreenUI : UIScreen
 
         Transform ui = transform.parent.Find("UI");
         InitUI(ref winUI, ui);
-        InitUI(ref loseUI, ui);
-        InitUI(ref achivementUI, ui);
-        InitUI(ref pauseUI, ui);
-        InitUI(ref settingUI, ui);
-        InitUI(ref pileUI, ui);
+        InitUI(ref LoseUI, ui);
+        InitUI(ref AchivementUI, ui);
+        InitUI(ref PauseUI, ui);
+        InitUI(ref SettingUI, ui);
+        InitUI(ref PileUI, ui);
+        InitUI(ref DungeonMapUI, ui);
 
         if (turnTxt != null) turnTxt.text = "End Turn";
     }
@@ -89,18 +93,21 @@ public class InGameScreenUI : UIScreen
 
     private void Start()
     {
-        OnShowAchivement += () => ShowAfterHide(achivementUI);
-        OnShowSetting += () => ShowAfterHide(settingUI);
+        OnShowAchivement += () => ShowAfterHide(AchivementUI);
+        OnShowSetting += () => ShowAfterHide(SettingUI);
         OnRevivePlayer += RevivePlayer;
-        
+
        
+        DungeonMapUI.IsVirtualMap = false;
+        ShowUI(DungeonMapUI);
+
     }
 
     private void OnEnable()
     {
         onUsingCardAction = param => turnBtn.interactable = false;
         onWinAction = param => ShowUI(winUI);
-        onLoseAction = param => ShowUI(loseUI);
+        onLoseAction = param => ShowUI(LoseUI);
         
       
         RegisterUIEvents();
@@ -145,8 +152,9 @@ public class InGameScreenUI : UIScreen
 
     private void RegisterUIEvents()
     {
+        mapBtn.onClick.AddListener(ShowMap);
         turnBtn.onClick.AddListener(OnTurnBtnClick);
-        pauseBtn.onClick.AddListener(() => ShowUI(pauseUI));
+        pauseBtn.onClick.AddListener(() => ShowUI(PauseUI));
         turnBtn.interactable = false;
         drawPileBtn.onClick.AddListener(() => ShowCardPile(CardManager.Instance.DrawPile, "Draw Pile"));
         discardPileBtn.onClick.AddListener(() => ShowCardPile(CardManager.Instance.DisCardPile, "Discard Pile"));
@@ -156,6 +164,7 @@ public class InGameScreenUI : UIScreen
     
     private void UnregisterUIEvents()
     {
+        mapBtn.onClick.RemoveAllListeners();
         turnBtn.onClick.RemoveAllListeners();
         pauseBtn.onClick.RemoveAllListeners();
         drawPileBtn.onClick.RemoveAllListeners();
@@ -183,7 +192,7 @@ public class InGameScreenUI : UIScreen
     }
 
    
-    private void ShowAfterHide(UIView ui)
+    public void ShowAfterHide(UIView ui)
     {
         HideUI(null, true);
         ShowUI(ui);
@@ -199,8 +208,8 @@ public class InGameScreenUI : UIScreen
     private void ShowCardPile(List<Card> cards, string title)
     {
         HideUI();
-        pileUI.Init(cards, title);
-        ShowUI(pileUI);
+        PileUI.Init(cards, title);
+        ShowUI(PileUI);
     }
 
     private void OnDrawPileCountChange(object param)
@@ -220,5 +229,11 @@ public class InGameScreenUI : UIScreen
         discardPileBtn.interactable = count > 0;
         discardPileTxt.gameObject.SetActive(count > 0);
         discardPileTxt.text = count.ToString();
+    }
+
+    private void ShowMap()
+    {
+        DungeonMapUI.IsVirtualMap = true;
+        ShowUI(DungeonMapUI);
     }
 }
