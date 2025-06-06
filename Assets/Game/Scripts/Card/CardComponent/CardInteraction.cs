@@ -3,60 +3,50 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardInteraction : CardComponent, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class CardInteraction : CardComponent,  IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-   
 
-    private Vector3 offset;
-    private float zCoord;
-  
-    private bool CanUseCard() => CardManager.Instance.CurrentUsingCard == null || CardManager.Instance.CurrentUsingCard ==this;
-    public void OnPointerDown(PointerEventData eventData)
+    private RectTransform rectTransform;
+   
+    public override void LoadComponent()
     {
-        if (!CanUseCard()) return;
+        base.LoadComponent();
+        if (rectTransform == null) rectTransform = GetComponent<RectTransform>();
+    }
+
+   
+ 
+  
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+       
+      
         if (!card.CardDataCtrl.CanUseData()) return;
+        ObserverManager<CardEventType>.Notify(card.CardDataCtrl.CardStrategy.AppliesToAlly ? CardEventType.PlayerTarget : CardEventType.EnemyTarget, true);
+        transform.localScale = new Vector3(.8f, .8f, 1);
+        transform.rotation = Quaternion.Euler(Vector3.zero);
+        CardManager.Instance.CurrentUsingCard = this.card;
+       
         
         InGameManager.Instance.SetTurn(GameStateType.UsingCard);
-        CardManager.Instance.CurrentUsingCard = this;
-        ObserverManager<CardEventType>.Notify(card.CardDataCtrl.CardStrategy.AppliesToAlly ? CardEventType.PlayerTarget : CardEventType.EnemyTarget, true);
-        if (Camera.main != null) zCoord = Camera.main.WorldToScreenPoint(transform.position).z;
-
-        Vector3 mousePoint = GetMouseWorldPosition();
-        var cardTrf = transform;
-        offset = cardTrf.position - mousePoint;
-        cardTrf.rotation = Quaternion.Euler(Vector3.zero);
-        cardTrf.localScale = new Vector3(.8f, .8f, 1);
-
         
-
+       
+        card.CardAnimation.SelectCard();
     }
-
     public void OnDrag(PointerEventData eventData)
     {
-        if(!CanUseCard()) return;
-        card.CardAnimation.SetSortingLayer(card.selectedLayer);
-      
-        Vector3 mousePoint = GetMouseWorldPosition();
-
-        Vector3 newPosition = new Vector3((mousePoint.x + offset.x), mousePoint.y + offset.y, 0);
-        transform.position = newPosition;
-
+        rectTransform.anchoredPosition += eventData.delta / CardManager.Instance.Canvas.scaleFactor;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+
+    public void OnEndDrag(PointerEventData eventDaata)
     {
-       
         ObserverManager<CardEventType>.Notify(card.CardDataCtrl.CardStrategy.AppliesToAlly ? CardEventType.PlayerTarget : CardEventType.EnemyTarget, false);
-       
+        
         if (card.CardAction.TryUseCard()) return;
         card.CardAnimation.ReturnHand();
+       
     }
 
-    private Vector3 GetMouseWorldPosition()
-    {
-        Vector3 mousePoint = Input.mousePosition;
-        mousePoint.z = zCoord;
-        if (Camera.main != null) return Camera.main.ScreenToWorldPoint(mousePoint);
-        return Vector3.zero;
-    }
+   
 }

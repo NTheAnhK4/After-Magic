@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
+
 
 
 public class CardManager : Singleton<CardManager>
@@ -16,33 +17,43 @@ public class CardManager : Singleton<CardManager>
  
     public Card CardPrefab;
     [HideInInspector] public List<Card> MainDesk = new List<Card>();
-    public List<Card> DrawPile;
-    public List<Card> DisCardPile;
+    [HideInInspector] public List<Card> DrawPile;
+    [HideInInspector] public List<Card> DisCardPile;
     [HideInInspector] public List<Card> DepleteCards;
     
-     public List<Card> CardInHands = new List<Card>();
+    [HideInInspector] public List<Card> CardInHands = new List<Card>();
 
     #endregion
     
  
-     public CardInteraction CurrentUsingCard;
+    public Card CurrentUsingCard;
     private float angleRange = 35f;
     private Vector2 centerPoint = new Vector2(0, -7);
     private float radius = 30;
     private float maxAngleStep = 5f;
 
-    [HideInInspector] public Vector3 despawnPos = new Vector3(14, -8);
+    #region Spawn And Despawn
+
+    [HideInInspector] public Vector3 despawnPos = new Vector3(14, -7.25f,0);
     [HideInInspector] public Vector3 despawnScale = new Vector3(.4f, .4f, 1);
     [HideInInspector] public Vector3 despawnRotation = new Vector3(0, 0, 255);
     
-    [HideInInspector] public Vector3 spawnPos = new Vector3(-10, -9.5f,0);
+    [HideInInspector] public Vector3 spawnPos = new Vector3(-14, -7.25f,0);
     [HideInInspector] public Vector3 spawnScale = new Vector3(.8f, .8f, 1);
     [HideInInspector] public Vector3 spawnRotation = new Vector3(0, 0, 45);
+
+    #endregion
+
+    #region State
+
     private ICardState currentState;
     private DistributeCardState distributeCardState;
     private CollectingCardState collectingCardState;
     private UsingCardState usingCardState;
 
+    #endregion
+
+    public Canvas Canvas;
     protected override void Awake()
     {
         base.Awake();
@@ -51,7 +62,18 @@ public class CardManager : Singleton<CardManager>
         usingCardState = new UsingCardState(() => InGameManager.Instance.IsTurn(GameStateType.PlayerTurn));
     }
 
+    public override void LoadComponent()
+    {
+        base.LoadComponent();
+        if (Canvas == null) Canvas = transform.parent.parent.parent.GetComponent<Canvas>();
+        despawnPos = new Vector3(14, -7.25f,0);
+        despawnScale = new Vector3(.4f, .4f, 1);
+        despawnRotation = new Vector3(0, 0, 255);
     
+        spawnPos = new Vector3(-14, -7.25f,0);
+        spawnScale = new Vector3(.8f, .8f, 1);
+        spawnRotation = new Vector3(0, 0, 45);
+    }
 
     private void OnEnable()
     {
@@ -160,7 +182,26 @@ public class CardManager : Singleton<CardManager>
             card.CardAnimation.SaveInitialTransform();
         }
     }
+    public void DisableOtherCardsRayCast()
+    {
+       
+        foreach (Card card in CardInHands)
+        {
+            if(card == null) continue;
+            if(card == CurrentUsingCard) continue;
+            card.SetUsable(false);
+        }
+    }
 
+    public void EnableAllCardsRayCast()
+    {
+       
+        foreach (Card card in CardInHands)
+        {
+            if(card == null) continue;
+            card.SetUsable(true);
+        }
+    }
     
     
 }

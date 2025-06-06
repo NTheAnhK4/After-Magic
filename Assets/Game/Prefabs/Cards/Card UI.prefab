@@ -152,7 +152,6 @@ GameObject:
   - component: {fileID: 4545662925823275697}
   - component: {fileID: 66005959359557881}
   - component: {fileID: 6729414095679788203}
-  - component: {fileID: 5295813884927781248}
   m_Layer: 5
   m_Name: Card UI
   m_TagString: Untagged
@@ -334,18 +333,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!210 &5295813884927781248
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2729220193221772537}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
 --- !u!1 &4547516494190731431
 GameObject:
   m_ObjectHideFlags: 0

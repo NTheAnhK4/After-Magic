@@ -18,6 +18,7 @@ public class DistributeCardState : ICardState
     public async UniTask OnEnter()
     {
         CardManager.Instance.CurrentUsingCard = null;
+        CardManager.Instance.EnableAllCardsRayCast();
         
         CardManager.Instance.CardInHands.Clear();
         
@@ -36,7 +37,8 @@ public class DistributeCardState : ICardState
         {
           
             Card card = await SpawnCard(i);
-            card.CardAnimation.SetSortingOrder(cardCount - i);
+            card.CardAnimation.SetSiblingIndex(cardCount - 1 - i);
+            
         }
         ObserverManager<CardEventType>.Notify(CardEventType.DrawPileCountChange, CardManager.Instance.DrawPile.Count);
         //player turn
@@ -53,7 +55,7 @@ public class DistributeCardState : ICardState
         CardManager.Instance.DrawPile.RemoveAt(cardId);
        
        
-        card.CardAnimation.SetSortingLayer(card.selectedLayer);
+        card.CardAnimation.SelectCard();
         
         CardManager.Instance.CardInHands.Add(card);
         Sequence sequence = DOTween.Sequence();
@@ -63,7 +65,7 @@ public class DistributeCardState : ICardState
             .Join(card.transform.DORotate(cardRotations[cardNumber], .15f, RotateMode.Fast));
         
         await sequence.AsyncWaitForCompletion();
-        card.CardAnimation.SetSortingLayer(card.inHandLayer);
+        card.CardAnimation.DeselectCard();
         return card;
     }
 
@@ -88,7 +90,7 @@ public class DistributeCardState : ICardState
     private async UniTask EachCardToDrawPile(Card card)
     {
         card.gameObject.SetActive(true);
-
+     
         Sequence sequence = DOTween.Sequence();
         sequence.
             Append(card.transform.DORotate(new Vector3(0, 0, 45), .5f))
