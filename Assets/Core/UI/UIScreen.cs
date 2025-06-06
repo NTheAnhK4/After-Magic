@@ -14,7 +14,7 @@ namespace Game.UI
    
     public class UIScreen : ComponentBehavior
     {
-        private Image panelImage;
+        protected Image panelImage;
         private CanvasGroup canvasGroup;
 
         private Stack<UIView> uiViewStack = new Stack<UIView>();

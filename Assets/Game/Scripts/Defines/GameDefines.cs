@@ -28,3 +28,13 @@ public enum GameEventType
 {
     Win, Lose
 }
+public enum DungeonRoomType
+{
+    Battle,
+    Campfire,
+    Door,
+    Empty,
+    Entry,
+    Mystery,
+    Shop
+}

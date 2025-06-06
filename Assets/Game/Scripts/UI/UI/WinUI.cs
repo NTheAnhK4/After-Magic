@@ -18,14 +18,27 @@ public class WinUI : UIView
         if (skipRewardBtn == null) skipRewardBtn = transform.Find("Skip Reward").GetComponent<Button>();
     }
 
-    private void Start()
+   
+    private void OnEnable()
     {
-        skipRewardBtn.onClick.AddListener(() => GameManager.LoadScene(GameConstants.DungeonMapScene));
+        skipRewardBtn.onClick.AddListener(ShowDungeonMapUI);
     }
-    
+
+    private void OnDisable()
+    {
+        skipRewardBtn.onClick.RemoveAllListeners();
+    }
+
     private void CloseUI()
     {
         if(UIScreen != null) UIScreen.HideUI();
         else Hide();
+    }
+
+    private void ShowDungeonMapUI()
+    {
+        DungeonMapUI dungeonMapUI = ((InGameScreenUI)(UIScreen)).DungeonMapUI;
+        dungeonMapUI.IsVirtualMap = false;
+        ((InGameScreenUI)(UIScreen)).ShowAfterHide(dungeonMapUI);
     }
 }

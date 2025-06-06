@@ -9,7 +9,7 @@ public class CardInteraction : CardComponent, IPointerDownHandler, IPointerUpHan
 
     private Vector3 offset;
     private float zCoord;
-    private bool hasDragged;
+  
     private bool CanUseCard() => CardManager.Instance.CurrentUsingCard == null || CardManager.Instance.CurrentUsingCard ==this;
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -35,23 +35,21 @@ public class CardInteraction : CardComponent, IPointerDownHandler, IPointerUpHan
     {
         if(!CanUseCard()) return;
         card.CardAnimation.SetSortingLayer(card.selectedLayer);
-        hasDragged = true;
+      
         Vector3 mousePoint = GetMouseWorldPosition();
-        mousePoint.z = 0;
-        transform.position = mousePoint + offset;
+
+        Vector3 newPosition = new Vector3((mousePoint.x + offset.x), mousePoint.y + offset.y, 0);
+        transform.position = newPosition;
+
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (!CanUseCard()) return;
+       
         ObserverManager<CardEventType>.Notify(card.CardDataCtrl.CardStrategy.AppliesToAlly ? CardEventType.PlayerTarget : CardEventType.EnemyTarget, false);
        
         if (card.CardAction.TryUseCard()) return;
-        if (hasDragged)
-        {
-            card.CardAnimation.ReturnHand();
-            hasDragged = false;
-        }
+        card.CardAnimation.ReturnHand();
     }
 
     private Vector3 GetMouseWorldPosition()
