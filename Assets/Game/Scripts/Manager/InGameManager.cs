@@ -1,17 +1,20 @@
 
 using System;
 using DG.Tweening;
-using Unity.VisualScripting.Dependencies.NCalc;
+
 using UnityEngine;
 
 
 public class InGameManager : Singleton<InGameManager>
 {
     public DungeonRoomType DungeonRoomType;
+
+    public RoomUIBtn CurrentRoom;
     public int TotalMana { get; private set; }
     private int curMana;
     public Action<int> OnManaChange;
     private Action<object> onLoseAction;
+    private Action<object> onWinAction;
 
     public int CurMana
     {
@@ -29,21 +32,22 @@ public class InGameManager : Singleton<InGameManager>
   
     [SerializeField] private GameStateType currentStateType;
     public bool IsGameOver;
-
-    private void Start()
-    {
-        PlayGame();
-    }
-
+    
     private void OnEnable()
     {
         onLoseAction = param => { IsGameOver = true; };
+        onWinAction = param =>
+        {
+            if (CurrentRoom != null) CurrentRoom.SetInteracableNeighboringRoom();
+        };
         ObserverManager<GameEventType>.Attach(GameEventType.Lose, onLoseAction);
+        ObserverManager<GameEventType>.Attach(GameEventType.Win, onWinAction);
     }
 
     private void OnDisable()
     {
         DOTween.KillAll();
+        ObserverManager<GameEventType>.Detach(GameEventType.Win, onWinAction);
         ObserverManager<GameEventType>.Detach(GameEventType.Lose, onLoseAction);
     }
 
@@ -71,6 +75,8 @@ public class InGameManager : Singleton<InGameManager>
     public void PlayGame()
     {
         PlayerPartyManager.Instance.SpawnPlayerParty();
+        EnemyManager.Instance.SpawnEnemy();
+        CardManager.Instance.ClearDesks();
         CardManager.Instance.Init();
         TotalMana = 3;
         CurMana = 3;

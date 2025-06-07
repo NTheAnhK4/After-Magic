@@ -12,7 +12,7 @@ namespace Game.UI
 { 
     [RequireComponent(typeof(CanvasGroup))]
    
-    public class UIScreen : ComponentBehavior
+    public class UIScreen : Singleton<UIScreen>
     {
         protected Image panelImage;
         private CanvasGroup canvasGroup;
@@ -20,7 +20,7 @@ namespace Game.UI
         private Stack<UIView> uiViewStack = new Stack<UIView>();
 
      
-       
+      
         public override void LoadComponent()
         {
             base.LoadComponent();
@@ -56,6 +56,7 @@ namespace Game.UI
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
            
+            
             panelImage.DOFade(1f, .3f).SetUpdate(true);
             
             await ViewAnimationController.PlayShowAnimation(view, view.ShowAnimation);

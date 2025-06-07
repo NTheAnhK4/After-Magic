@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -25,12 +26,18 @@ public class CardManager : Singleton<CardManager>
 
     #endregion
     
- 
+    
     public Card CurrentUsingCard;
+
+    #region Card In Hand Param
+
     private float angleRange = 35f;
     private Vector2 centerPoint = new Vector2(0, -7);
     private float radius = 30;
     private float maxAngleStep = 5f;
+
+    #endregion
+   
 
     #region Spawn And Despawn
 
@@ -53,6 +60,15 @@ public class CardManager : Singleton<CardManager>
 
     #endregion
 
+    #region Action
+
+    private Action<object> onDistributeCard;
+    private Action<object> onCollectingCard;
+    private Action<object> onPlayerTurn;
+    private Action<object> onUsingCard;
+
+    #endregion
+
     public Canvas Canvas;
     protected override void Awake()
     {
@@ -60,6 +76,10 @@ public class CardManager : Singleton<CardManager>
         distributeCardState = new DistributeCardState();
         collectingCardState = new CollectingCardState();
         usingCardState = new UsingCardState(() => InGameManager.Instance.IsTurn(GameStateType.PlayerTurn));
+        onDistributeCard = _ => ChangeState(distributeCardState);
+        onCollectingCard = _ => ChangeState(collectingCardState);
+        onPlayerTurn = _ => ChangeState(usingCardState);
+        onUsingCard = _ => ChangeState(usingCardState);
     }
 
     public override void LoadComponent()
@@ -77,38 +97,74 @@ public class CardManager : Singleton<CardManager>
 
     private void OnEnable()
     {
-        ObserverManager<GameStateType>.Attach(GameStateType.DistributeCard,  _ => ChangeState(distributeCardState));
-        ObserverManager<GameStateType>.Attach(GameStateType.CollectingCard,  _ => ChangeState(collectingCardState));
-        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, _=>ChangeState(usingCardState));
-        ObserverManager<GameStateType>.Attach(GameStateType.UsingCard, _=>ChangeState(usingCardState));
+        ObserverManager<GameStateType>.Attach(GameStateType.DistributeCard, onDistributeCard );
+        ObserverManager<GameStateType>.Attach(GameStateType.CollectingCard, onCollectingCard );
+        ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, onPlayerTurn);
+        ObserverManager<GameStateType>.Attach(GameStateType.UsingCard, onUsingCard);
     }
 
+    private void OnDisable()
+    {
+        ObserverManager<GameStateType>.Detach(GameStateType.DistributeCard, onDistributeCard );
+        ObserverManager<GameStateType>.Detach(GameStateType.CollectingCard, onCollectingCard );
+        ObserverManager<GameStateType>.Detach(GameStateType.PlayerTurn, onPlayerTurn);
+        ObserverManager<GameStateType>.Detach(GameStateType.UsingCard, onUsingCard);
+    }
+    
     public void Init()
     {
-        DrawPile = new List<Card>();
-        MainDesk = new List<Card>();
-       
-        foreach (PlayerCardData cardData in CardsAvailable)
+        if (MainDesk == null || MainDesk.Count == 0)
         {
-            Card card = PoolingManager.Spawn(CardPrefab.gameObject, 
-                spawnPos, 
-                quaternion.Euler(spawnRotation), transform).
-                GetComponent<Card>();
-            MainDesk.Add(card);
-            DrawPile.Add(card);
+            DrawPile = new List<Card>();
+            MainDesk = new List<Card>();
+       
+            foreach (PlayerCardData cardData in CardsAvailable)
+            {
+                Card card = PoolingManager.Spawn(CardPrefab.gameObject, 
+                        spawnPos, 
+                        quaternion.Euler(spawnRotation), transform).
+                    GetComponent<Card>();
+                card.CardDataCtrl.Init(cardData);
+                MainDesk.Add(card);
+                DrawPile.Add(card);
             
-            card.CardDataCtrl.Init(cardData);
-            card.transform.localScale = spawnScale;
-            card.gameObject.SetActive(false);
+                card.transform.localScale = spawnScale;
+                card.gameObject.SetActive(false);
+            }
            
+        }
+        else
+        {
+            DrawPile = new List<Card>();
+            foreach (Card card in MainDesk)
+            {
+                card.gameObject.SetActive(false);
+                card.transform.SetPositionAndRotation(spawnPos, Quaternion.Euler(spawnRotation));
+                DrawPile.Add(card);
+            }
         }
         DisCardPile = new List<Card>();
         DepleteCards = new List<Card>();
+        
         ObserverManager<CardEventType>.Notify(CardEventType.DrawPileCountChange, DrawPile.Count);
         ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, DisCardPile.Count);
         ObserverManager<CardEventType>.Notify(CardEventType.DepleteCardsCountChange, DepleteCards.Count);
     }
-   
+
+    public void ClearDesks()
+    {
+        ClearDesk(DrawPile);
+        ClearDesk(DisCardPile);
+        ClearDesk(DepleteCards);
+    }
+    private void ClearDesk(List<Card> cards)
+    {
+        foreach (Card card in cards)
+        {
+            if(card != null) PoolingManager.Despawn(card.gameObject);
+        }
+        cards.Clear();
+    }
 
     public void ArrangeHand(int cardsCount, out List<Vector3> cardPositions, out List<Vector3> cardRotations)
     {
@@ -149,7 +205,11 @@ public class CardManager : Singleton<CardManager>
                     .Join(card.transform.DORotate(despawnRotation,.6f));
         CardInHands.Remove(card);
         DisCardPile.Add(card);
-        if(!isCollectingAllCard) SetPositionAndQuaternion();
+        if (!isCollectingAllCard)
+        {
+            ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, DisCardPile.Count);
+            SetPositionAndQuaternion();
+        }
         await sequence.AsyncWaitForCompletion();
        
         PoolingManager.Despawn(card.gameObject);
@@ -165,6 +225,8 @@ public class CardManager : Singleton<CardManager>
         ArrangeHand(CardInHands.Count,out positions, out rotations);
         for (int i = 0; i < CardInHands.Count; ++i)
         {
+            if(CardInHands[i] == null) continue;
+            CardInHands[i].CardAnimation.SetSiblingIndex(CardInHands.Count - 1 - i);
             uniTasks.Add(SetCardPositionAndQuaternionAnim(positions[i], rotations[i], CardInHands[i]));
         }
         await UniTask.WhenAll(uniTasks);
@@ -189,7 +251,7 @@ public class CardManager : Singleton<CardManager>
         {
             if(card == null) continue;
             if(card == CurrentUsingCard) continue;
-            card.SetUsable(false);
+            card.SetUsable(false, false);
         }
     }
 
@@ -199,7 +261,7 @@ public class CardManager : Singleton<CardManager>
         foreach (Card card in CardInHands)
         {
             if(card == null) continue;
-            card.SetUsable(true);
+            card.SetUsable(true,true);
         }
     }
     

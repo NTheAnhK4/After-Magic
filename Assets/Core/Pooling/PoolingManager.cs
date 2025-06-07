@@ -97,12 +97,14 @@ public class Pool
             if (gameObject != null) return gameObject;
         }
         gameObject = Object.Instantiate(prefab);
+        gameObject.SetActive(false);
         memberIDs.Add(gameObject.GetInstanceID());
         return gameObject;
     }
     public GameObject Spawn(Vector3 pos, Quaternion rot)
     {
         GameObject gameObject = GetObjectFromStack();
+       
         gameObject.transform.SetPositionAndRotation(pos,rot);
         gameObject.name = prefab.name + " " + id;
         if(holder != null) gameObject.transform.SetParent(holder);

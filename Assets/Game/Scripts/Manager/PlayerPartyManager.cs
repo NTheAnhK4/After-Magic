@@ -13,10 +13,18 @@ public class PlayerPartyManager : Singleton<PlayerPartyManager>
 
     private List<Entity> playerPartyEntities = new List<Entity>();
 
-    private void Start()
+    private void OnEnable()
     {
-        ObserverManager<GameEventType>.Attach(GameEventType.Lose, param => DespawnAllParty());
+        ObserverManager<GameEventType>.Attach(GameEventType.Win, DespawnAllParty);
+        ObserverManager<GameEventType>.Attach(GameEventType.Lose,  DespawnAllParty);
     }
+
+    private void OnDisable()
+    {
+        ObserverManager<GameEventType>.Detach(GameEventType.Win, DespawnAllParty);
+        ObserverManager<GameEventType>.Detach(GameEventType.Lose,  DespawnAllParty);
+    }
+
 
     public void SpawnPlayerParty()
     {
@@ -40,7 +48,8 @@ public class PlayerPartyManager : Singleton<PlayerPartyManager>
         }
     }
 
-    public void DespawnAllParty()
+  
+    public void DespawnAllParty(object param)
     {
         foreach (Entity entity in playerPartyEntities)
         {

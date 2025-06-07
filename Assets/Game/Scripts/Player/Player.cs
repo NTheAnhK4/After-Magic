@@ -20,23 +20,22 @@ public class Player : Entity
         
         Any(RunState, new FuncPredicate(RunToTargetCondition()), () => new RunStateData{TargetPosition = EnemyTarget.transform.position, IsRunningToTarget = true});
         At(IdleState, UseCardState, new FuncPredicate(CanEnterUseCardState()));    
-       
         
-            
-            
        
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        SetFacing(true);
         RunSpeed = 10f;
-       
+        
         AttackRange = 2.5f;
         Damage = 1;
         MaxHP = 100;
         CurHP = 100;
         Armor = 0;
-        
+        OnHPChange?.Invoke();
         IsOriginalFacingRight = true;
         StateMachine.SetState(IdleState);
     }

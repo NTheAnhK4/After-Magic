@@ -19,11 +19,11 @@ public class DungeonMapDataEditor : Editor
 
        
         var enumValues = Enum.GetValues(typeof(DungeonRoomType));
-        if (data.RoomSprites == null) data.RoomSprites = new List<DungeonRoomSpriteInfor>();
-        while (data.RoomSprites.Count < enumValues.Length)
-            data.RoomSprites.Add(new DungeonRoomSpriteInfor());
-        while (data.RoomSprites.Count > enumValues.Length)
-            data.RoomSprites.RemoveAt(data.RoomSprites.Count - 1);
+        if (data.RoomInfor == null) data.RoomInfor = new List<DungeonRoomSpriteInfor>();
+        while (data.RoomInfor.Count < enumValues.Length)
+            data.RoomInfor.Add(new DungeonRoomSpriteInfor());
+        while (data.RoomInfor.Count > enumValues.Length)
+            data.RoomInfor.RemoveAt(data.RoomInfor.Count - 1);
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Room Sprites", EditorStyles.boldLabel);
@@ -34,14 +34,23 @@ public class DungeonMapDataEditor : Editor
         for (int i = 0; i < enumValues.Length; ++i)
         {
             var roomType = (DungeonRoomType)enumValues.GetValue(i);
-            var roomInfo = data.RoomSprites[i];
+            var roomInfo = data.RoomInfor[i];
             roomInfo.Name = roomType.ToString(); 
 
             EditorGUILayout.BeginVertical("box");
             EditorGUILayout.LabelField(roomInfo.Name, EditorStyles.boldLabel);
             roomInfo.Sprite = (Sprite)EditorGUILayout.ObjectField("Sprite", roomInfo.Sprite, typeof(Sprite), false);
+
+           
+            roomInfo.RoomEventStrategy = (RoomEventStrategy)EditorGUILayout.ObjectField(
+                "Room Event Strategy",
+                roomInfo.RoomEventStrategy,
+                typeof(RoomEventStrategy),
+                false);
+
             EditorGUILayout.EndVertical();
         }
+
 
         if (EditorGUI.EndChangeCheck())
         {

@@ -16,16 +16,13 @@ public class HealthUICtrl : ComponentBehavior
         if (_entity == null) _entity = transform.parent.GetComponentInParent<Entity>();
     }
 
-    private void OnEnable()
+    protected override void Awake()
     {
+        base.Awake();
         if (_entity != null) _entity.OnHPChange += OnHPChange;
     }
 
-    private void OnDisable()
-    {
-        if (_entity != null) _entity.OnHPChange -= OnHPChange;
-    }
-
+  
     private void OnHPChange()
     {
         hpImg.fillAmount = 1.0f *_entity.CurHP / _entity.MaxHP;
