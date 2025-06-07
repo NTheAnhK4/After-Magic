@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
+    [SerializeField] private List<GameObject> enemyPrefabs = new List<GameObject>();
     [SerializeField] private List<Enemy> Enemies = new List<Enemy>();
 
     #region Action
@@ -60,5 +61,12 @@ public class EnemyManager : Singleton<EnemyManager>
         }
     }
 
+    public void SpawnEnemy()
+    {
+        Enemy enemy = PoolingManager.Spawn(enemyPrefabs[0], new Vector3(4, 0, 0)).GetComponent<Enemy>();
+        AddEnemy(enemy);
+        enemy =  PoolingManager.Spawn(enemyPrefabs[0], new Vector3(9, 0, 0)).GetComponent<Enemy>();
+        AddEnemy(enemy);
+    }
     
 }

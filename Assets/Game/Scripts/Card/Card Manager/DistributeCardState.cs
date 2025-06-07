@@ -18,7 +18,7 @@ public class DistributeCardState : ICardState
     public async UniTask OnEnter()
     {
         CardManager.Instance.CurrentUsingCard = null;
-        CardManager.Instance.EnableAllCardsRayCast();
+        CardManager.Instance.DisableOtherCardsRayCast();
         
         CardManager.Instance.CardInHands.Clear();
         
@@ -49,7 +49,7 @@ public class DistributeCardState : ICardState
     {
         int cardId = Random.Range(0, CardManager.Instance.DrawPile.Count);
 
-        Card card = CardManager.Instance.DrawPile[cardId];
+        Card card = CardManager.Instance.DrawPile[cardId];  
         card.gameObject.SetActive(true);
         
         CardManager.Instance.DrawPile.RemoveAt(cardId);

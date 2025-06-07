@@ -30,10 +30,12 @@ public  class Card : ComponentBehavior
         if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public void SetUsable(bool canUse)
+    public void SetUsable(bool canUse, bool isWhiteColor )
     {
         canvasGroup.interactable = canUse;
         canvasGroup.blocksRaycasts = canUse;
+        CardAnimation.SetColor(isWhiteColor);
+       
     }
 }
 

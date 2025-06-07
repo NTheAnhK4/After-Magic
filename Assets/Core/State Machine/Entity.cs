@@ -83,11 +83,7 @@ namespace StateMachine
             DeadState = new DeadState(this, "Dead");
             UseCardState = new UseCardState(this, String.Empty);
 
-            StandPoint = transform.position;
-            MustReachTarget = false;
-            
-            IsRunningToTarget = false;
-            IsHurting = false;
+           
             StateMachine = new StateMachine();
             Any(DeadState, new FuncPredicate(() => CurHP <= 0));
             Any(HurtState, new FuncPredicate(() => IsHurting));
@@ -95,6 +91,15 @@ namespace StateMachine
             Any(IdleState, new FuncPredicate(() => InGameManager.Instance.IsTurn(GameStateType.DistributeCard)));
 
           
+        }
+
+        protected virtual void OnEnable()
+        {
+            StandPoint = transform.position;
+            MustReachTarget = false;
+            
+            IsRunningToTarget = false;
+            IsHurting = false;
         }
 
         protected virtual void Update() => StateMachine.Update();

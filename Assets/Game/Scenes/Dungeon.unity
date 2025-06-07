@@ -6061,6 +6061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DungeonRoomType: 0
+  CurrentRoom: {fileID: 0}
   currentStateType: 0
   IsGameOver: 0
 --- !u!4 &1354342283
@@ -8852,7 +8853,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2018229571}
   - component: {fileID: 2018229570}
-  - component: {fileID: 2018229572}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -8872,6 +8872,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b9e4cf280c3a34a889f9cebbd95915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 2152421160073035486, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
   Enemies: []
 --- !u!4 &2018229571
 Transform:
@@ -8888,20 +8890,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1354342283}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2018229572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2018229569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83fdc3dd09525414dac97e93a23ae6b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyPrefabs:
-  - {fileID: 2152421160073035486, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
 --- !u!1 &2064097585
 GameObject:
   m_ObjectHideFlags: 0
@@ -11304,6 +11292,7 @@ MonoBehaviour:
   ShowAnimation: 1
   HideAnimation: 1
   Container: {fileID: 5478906256326628186}
+  DungeonMapData: {fileID: 11400000, guid: db73f692cde27f945ac717faa4fbb141, type: 2}
   RoomUISpawner: {fileID: 8949568691350012660}
   RoomUIInteraction: {fileID: 1012494976807641678}
   IsVirtualMap: 0
@@ -11455,6 +11444,7 @@ GameObject:
   - component: {fileID: 8949568691350012660}
   - component: {fileID: 1012494976807641678}
   - component: {fileID: 8949568691350012661}
+  - component: {fileID: 8949568691350012662}
   m_Layer: 5
   m_Name: Map
   m_TagString: Untagged
@@ -11965,7 +11955,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonMapUI: {fileID: 6970569507991709564}
-  DungeonMapData: {fileID: 11400000, guid: db73f692cde27f945ac717faa4fbb141, type: 2}
   RoomHolder: {fileID: 8989827400482202941}
   roomDistance: 100
 --- !u!225 &8949568691350012661
@@ -11980,6 +11969,19 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &8949568691350012662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7200853940628477529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ea07f4124376b41b38ba8cc093619e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonMapUI: {fileID: 6970569507991709564}
 --- !u!225 &8950526082066452089
 CanvasGroup:
   m_ObjectHideFlags: 0

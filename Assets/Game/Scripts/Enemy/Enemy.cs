@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using StateMachine;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : Entity
 {
-   
+    [SerializeField] private OscillatingMovement oscillatingMovement;
     #region State
     
     public EnemyPlanningState PlanningState { get; set; }
@@ -39,6 +40,29 @@ public class Enemy : Entity
     protected override void Awake()
     {
         base.Awake();
+       
+        PlanningState = new EnemyPlanningState(this, "Idle");
+        
+        Any(PlanningState, new FuncPredicate(InPlanningState()), () => new EnemyPlanningStateData(){Player = PlayerPartyManager.Instance.GetPlayer()});
+        Any(RunState, new FuncPredicate(RunToTargetCondition()), () => new RunStateData{TargetPosition = EnemyTarget.transform.position, IsRunningToTarget = true});
+        At(IdleState, UseCardState, new FuncPredicate(CanEnterUseCardState()));    
+
+       
+       
+    }
+    
+
+    public override void LoadComponent()
+    {
+        base.LoadComponent();
+        if (PredictedActionTrf == null) PredictedActionTrf = transform.Find("UI").Find("NextAction");
+        if (oscillatingMovement == null) oscillatingMovement = transform.Find("UI").GetComponentInChildren<OscillatingMovement>();
+    }
+    
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        oscillatingMovement.Initialized();
         CanUseCard = false;
         
        
@@ -48,38 +72,21 @@ public class Enemy : Entity
         AttackRange = 2.5f;
         Damage = 1;
         MaxHP = 20;
-        CurHP = 20;
+        CurHP = 2;
         Armor = 0;
+        OnHPChange?.Invoke();
         
         IsOriginalFacingRight = false;
 
-        OnFinishedUsingCard += () => CanUseCard = false;
-        PlanningState = new EnemyPlanningState(this, "Idle");
-        
-        Any(PlanningState, new FuncPredicate(InPlanningState()), () => new EnemyPlanningStateData(){Player = PlayerPartyManager.Instance.GetPlayer()});
-        Any(RunState, new FuncPredicate(RunToTargetCondition()), () => new RunStateData{TargetPosition = EnemyTarget.transform.position, IsRunningToTarget = true});
-        At(IdleState, UseCardState, new FuncPredicate(CanEnterUseCardState()));    
-
-       
-        StateMachine.SetState(IdleState);
-    }
-    
-
-    public override void LoadComponent()
-    {
-        base.LoadComponent();
-        if (PredictedActionTrf == null) PredictedActionTrf = transform.Find("UI").Find("NextAction");
-    }
-    
-    private void OnEnable()
-    {
+        OnFinishedUsingCard = () => CanUseCard = false;
+        OnDead = () => EnemyManager.Instance.RemoveEnemy(this);
         onPlayerTurnAction = param => IsPlanningState = true;
         onEnemyTurnAction = param => IsPlanningState = false;
         
         ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, onPlayerTurnAction);
         ObserverManager<GameStateType>.Attach(GameStateType.EnemyTurn, onEnemyTurnAction);
-
-        if(EnemyManager.Instance != null) EnemyManager.Instance.AddEnemy(this);
+        StateMachine.SetState(IdleState);
+       
         
     }
             
@@ -87,7 +94,7 @@ public class Enemy : Entity
     {
         ObserverManager<GameStateType>.Detach(GameStateType.PlayerTurn, onPlayerTurnAction);
         ObserverManager<GameStateType>.Detach(GameStateType.EnemyTurn, onEnemyTurnAction);
-        EnemyManager.Instance.RemoveEnemy(this);
+        
     }
     
 

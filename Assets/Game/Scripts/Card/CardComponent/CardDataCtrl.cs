@@ -34,8 +34,8 @@ public class CardDataCtrl : ComponentBehavior
     private void OnEnable()
     {
         InGameManager.Instance.OnManaChange += OnManaChange;
-        
 
+        manaCost.color = ManaCost <= InGameManager.Instance.CurMana ? Color.white : Color.red;
     }
 
     public void Init(PlayerCardData playerCardData)
@@ -48,8 +48,8 @@ public class CardDataCtrl : ComponentBehavior
         }
         ManaCost = PlayerCardData.ManaCost;
         manaCost.text = ManaCost.ToString();
-        manaCost.color = ManaCost <= InGameManager.Instance.CurMana ? Color.white : Color.red;
-
+        manaCost.color = Color.white;
+    
         cardImage.sprite = PlayerCardData.CardImage;
         cardDesciption.text = PlayerCardData.CardDescription;
         cardType.sprite = PlayerCardData.CardType;

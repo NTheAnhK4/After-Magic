@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.Serialization;
+
 
 public class OscillatingMovement : MonoBehaviour
 {
@@ -10,7 +8,10 @@ public class OscillatingMovement : MonoBehaviour
     public Vector3 EndOffset;
     private Vector3 originalPosition;
     public float Speed = 1;
-    private void Start()
+   
+    
+
+    public void Initialized()
     {
         originalPosition = transform.position;
     }

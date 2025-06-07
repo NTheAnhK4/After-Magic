@@ -60,7 +60,7 @@ public class PileUI : UIView
         foreach (Card card in cardPile)
         {
             if(card == null) continue;
-            card.SetUsable(false);
+            card.SetUsable(false, true);
             GameObject cardObj = PoolingManager.Spawn(card.gameObject, cardHolder.transform);
             cardObj.transform.localScale = Vector3.one;
         }

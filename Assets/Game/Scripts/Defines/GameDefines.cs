@@ -30,11 +30,11 @@ public enum GameEventType
 }
 public enum DungeonRoomType
 {
-    Battle,
-    Campfire,
-    Door,
-    Empty,
-    Entry,
-    Mystery,
-    Shop
+    Battle = 0,
+    Campfire = 1,
+    Door = 2,
+    Empty = 3,
+    Entry = 4,
+    Mystery = 5,
+    Shop = 6
 }
