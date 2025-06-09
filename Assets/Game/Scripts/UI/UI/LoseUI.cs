@@ -18,8 +18,15 @@ public class LoseUI : UIView
 
     private void OnEnable()
     {
-        defeatBtn.onClick.AddListener(() => ((InGameScreenUI)UIScreen).OnShowAchivement?.Invoke());
+        defeatBtn.onClick.AddListener(OnDefeatBtnClick);
         continueBtn.onClick.AddListener(() => ((InGameScreenUI)UIScreen).OnRevivePlayer?.Invoke());
+    }
+
+    private void OnDefeatBtnClick()
+    {
+        InventoryManager.Instance.SetDungeonLootPercentage(0);
+        UIScreen.GetUIView<AchivementUI>().SetLoseAchiveMent();
+        UIScreen.ShowAfterHide<AchivementUI>();
     }
 
     private void OnDisable()

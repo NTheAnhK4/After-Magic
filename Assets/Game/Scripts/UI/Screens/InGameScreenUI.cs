@@ -28,26 +28,19 @@ public class InGameScreenUI : UIScreen
     [SerializeField] private TextMeshProUGUI depleteCardsTxt;
     [Header("Mana")] [SerializeField] private TextMeshProUGUI manaTxt;
 
-   
-    [Header("UI View")] 
-    [SerializeField] private WinUI winUI;
 
-    public LoseUI LoseUI;
-    public AchivementUI AchivementUI;
-    public PauseUI PauseUI;
-    public SettingUI SettingUI; 
-    public PileUI PileUI;
-    public DungeonMapUI DungeonMapUI;
-    public Action OnShowAchivement;
+
+    [SerializeField] private TextMeshProUGUI coinTxt;
+  
     public Action OnRevivePlayer;
-    public Action OnShowSetting;
+  
 
     private Action<object> onUsingCardAction;
     private Action<object> onWinAction;
     private Action<object> onLoseAction;
 
-    
-    
+
+   
     public override void LoadComponent()
     {
         base.LoadComponent();
@@ -66,15 +59,20 @@ public class InGameScreenUI : UIScreen
         FindUI(ref drawPileTxt, cardDesk, "Draw Pile/Text (TMP)");
         FindUI(ref discardPileTxt, cardDesk, "Discard Pile/Text (TMP)");
         FindUI(ref depleteCardsTxt, cardDesk, "Deplete Cards/Text (TMP)");
-
-        Transform ui = transform.parent.Find("UI");
-        InitUI(ref winUI, ui);
-        InitUI(ref LoseUI, ui);
-        InitUI(ref AchivementUI, ui);
-        InitUI(ref PauseUI, ui);
-        InitUI(ref SettingUI, ui);
-        InitUI(ref PileUI, ui);
-        InitUI(ref DungeonMapUI, ui);
+        
+        FindUI(ref coinTxt, "Top/Top Left/Coin Infor/CoinTxt");
+        
+        AddUIView<WinUI>();
+        AddUIView<LoseUI>();
+        
+        AddUIView<WinUI>();
+        AddUIView<LoseUI>();
+        AddUIView<AchivementUI>();
+        AddUIView<PauseUI>();
+        AddUIView<SettingUI>();
+        AddUIView<PileUI>();
+        AddUIView<DungeonMapUI>();
+        AddUIView<CardRewardUI>();
 
         if (turnTxt != null) turnTxt.text = "End Turn";
     }
@@ -93,21 +91,23 @@ public class InGameScreenUI : UIScreen
 
     private void Start()
     {
-        OnShowAchivement += () => ShowAfterHide(AchivementUI);
-        OnShowSetting += () => ShowAfterHide(SettingUI);
+        
+       
         OnRevivePlayer += RevivePlayer;
 
-       
-        DungeonMapUI.IsVirtualMap = false;
-        ShowUI(DungeonMapUI);
+        DungeonMapUI dungeonMapUI = GetUIView<DungeonMapUI>();
+        dungeonMapUI.IsVirtualMap = false;
+        ShowUI<DungeonMapUI>();
 
     }
 
+  
     private void OnEnable()
     {
+        if (coinTxt != null) coinTxt.text = GameManager.Instance.CoinAmount.ToString();
         onUsingCardAction = param => turnBtn.interactable = false;
-        onWinAction = param => ShowUI(winUI);
-        onLoseAction = param => ShowUI(LoseUI);
+        onWinAction = param => ShowUI<WinUI>();
+        onLoseAction = param => ShowUI<LoseUI>();
         
       
         RegisterUIEvents();
@@ -134,6 +134,8 @@ public class InGameScreenUI : UIScreen
         ObserverManager<CardEventType>.Attach(CardEventType.DrawPileCountChange, OnDrawPileCountChange);
         ObserverManager<CardEventType>.Attach(CardEventType.DiscardPileCountChange, OnDiscardPileCountChange);
         ObserverManager<CardEventType>.Attach(CardEventType.DepleteCardsCountChange, OnDepleteCardsCountChange);
+        
+        ObserverManager<GameEventType>.Attach(GameEventType.GainCoin, GainCoin);
     }
 
     private void UnregisterEvents()
@@ -148,13 +150,14 @@ public class InGameScreenUI : UIScreen
         ObserverManager<CardEventType>.Detach(CardEventType.DiscardPileCountChange, OnDiscardPileCountChange);
         ObserverManager<CardEventType>.Detach(CardEventType.DepleteCardsCountChange, OnDepleteCardsCountChange);
 
+        ObserverManager<GameEventType>.Detach(GameEventType.GainCoin, GainCoin);
     }
 
     private void RegisterUIEvents()
     {
         mapBtn.onClick.AddListener(ShowMap);
         turnBtn.onClick.AddListener(OnTurnBtnClick);
-        pauseBtn.onClick.AddListener(() => ShowUI(PauseUI));
+        pauseBtn.onClick.AddListener(() => ShowUI<PauseUI>());
         turnBtn.interactable = false;
         drawPileBtn.onClick.AddListener(() => ShowCardPile(CardManager.Instance.DrawPile, "Draw Pile"));
         discardPileBtn.onClick.AddListener(() => ShowCardPile(CardManager.Instance.DisCardPile, "Discard Pile"));
@@ -192,24 +195,19 @@ public class InGameScreenUI : UIScreen
     }
 
    
-    public void ShowAfterHide(UIView ui)
-    {
-        HideUI(null, true);
-        ShowUI(ui);
-    }
-
+  
  
     private void RevivePlayer()
     {
-        HideUI();
+        HideUIOnTop();
         InGameManager.Instance.RevivePlayer();
     }
 
-    private void ShowCardPile(List<Card> cards, string title)
+    private void ShowCardPile(List<PlayerCardData> cards, string title)
     {
-        HideUI();
-        PileUI.Init(cards, title);
-        ShowUI(PileUI);
+        PileUI pileUI = GetUIView<PileUI>();
+        pileUI.Init(cards,title);
+        ShowUI<PileUI>();
     }
 
     private void OnDrawPileCountChange(object param)
@@ -233,7 +231,20 @@ public class InGameScreenUI : UIScreen
 
     private void ShowMap()
     {
-        DungeonMapUI.IsVirtualMap = true;
-        ShowUI(DungeonMapUI);
+        GetUIView<DungeonMapUI>().IsVirtualMap = true;
+        ShowUI<DungeonMapUI>();
+        
+    }
+
+    private void GainCoin(object amount)
+    {
+        if (coinTxt == null)
+        {
+            Debug.LogWarning("Coin text is null");
+            return;
+        }
+        int coinAdd = (int)amount;
+        int currentCoin = Convert.ToInt32(coinTxt.text);
+        coinTxt.text = (coinAdd + currentCoin).ToString();
     }
 }

@@ -32,6 +32,7 @@ namespace Game.UI
         public override void LoadComponent()
         {
             base.LoadComponent();
+            transform.name = this.GetType().Name;
             canvasGroup = GetComponent<CanvasGroup>();
             Container = transform;
         }

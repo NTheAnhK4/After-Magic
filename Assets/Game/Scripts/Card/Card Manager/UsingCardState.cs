@@ -13,18 +13,16 @@ public class UsingCardState : ICardState
     {
         this.getCanUseCard = getCanUseCard;
     }
-    public async UniTask OnEnter()
+    public UniTask OnEnter()
     {
         bool canUseCard = true;
         if (getCanUseCard != null) canUseCard = getCanUseCard.Invoke();
-        await UniTask.Delay(250);
-        if (canUseCard)
-        {
-            CardManager.Instance.CurrentUsingCard = null;
-            CardManager.Instance.EnableAllCardsRayCast();
-        }
-        else CardManager.Instance.DisableOtherCardsRayCast();
+        CardManager.Instance.CurrentUsingCard = null;
         
+        if (canUseCard) CardManager.Instance.EnableAllCardsRayCast();
+        else CardManager.Instance.DisableOtherCardsRayCast();
+
+        return UniTask.CompletedTask;
     }
 
     public UniTask OnExit()

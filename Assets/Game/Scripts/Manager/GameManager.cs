@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    public int CoinAmount = 100;
     private static string currentScene = GameConstants.DungeonScene;
     protected override void Awake()
     {

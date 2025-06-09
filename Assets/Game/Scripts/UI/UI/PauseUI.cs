@@ -20,9 +20,9 @@ public class PauseUI : UIView
 
     private void OnEnable()
     {
-        continueBtn.onClick.AddListener(() => UIScreen.HideUI());
-        giveUpBtn.onClick.AddListener(() => ((InGameScreenUI)UIScreen).OnShowAchivement?.Invoke());
-        settingBtn.onClick.AddListener(() => ((InGameScreenUI)UIScreen).OnShowSetting?.Invoke());
+        continueBtn.onClick.AddListener(() => UIScreen.HideUI<PauseUI>());
+        giveUpBtn.onClick.AddListener(OnGiveUpBtnClick);
+        settingBtn.onClick.AddListener(() => UIScreen.ShowAfterHide<SettingUI>());
     }
 
     private void OnDisable()
@@ -31,4 +31,12 @@ public class PauseUI : UIView
         giveUpBtn.onClick.RemoveAllListeners();
         settingBtn.onClick.RemoveAllListeners();
     }
+
+    private void OnGiveUpBtnClick()
+    {
+        InventoryManager.Instance.SetDungeonLootPercentage(20);
+        UIScreen.GetUIView<AchivementUI>().SetLoseAchiveMent();
+        UIScreen.ShowAfterHide<AchivementUI>();
+    }
+    
 }

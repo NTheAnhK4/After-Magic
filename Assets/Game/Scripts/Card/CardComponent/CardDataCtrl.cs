@@ -16,8 +16,8 @@ public class CardDataCtrl : ComponentBehavior
    
     
     public int ManaCost { get; private set;}
-    
 
+    private bool _isRewardCard;
   
     public bool CanUseData() => PlayerCardData != null;
     public override void LoadComponent()
@@ -34,11 +34,10 @@ public class CardDataCtrl : ComponentBehavior
     private void OnEnable()
     {
         InGameManager.Instance.OnManaChange += OnManaChange;
-
-        manaCost.color = ManaCost <= InGameManager.Instance.CurMana ? Color.white : Color.red;
+        if(!_isRewardCard) manaCost.color = ManaCost <= InGameManager.Instance.CurMana ? Color.white : Color.red;
     }
 
-    public void Init(PlayerCardData playerCardData)
+    public void Init(PlayerCardData playerCardData, bool isRewardCard)
     {
         PlayerCardData = playerCardData;
         if (PlayerCardData == null)
@@ -54,6 +53,8 @@ public class CardDataCtrl : ComponentBehavior
         cardDesciption.text = PlayerCardData.CardDescription;
         cardType.sprite = PlayerCardData.CardType;
         cardName.text = PlayerCardData.CardName;
+        _isRewardCard = isRewardCard;
+        
     }
 
     private void OnDisable()

@@ -34,7 +34,7 @@ namespace Game.UI
 			}
 			target.Show();
 			Sequence sequence = GetAnimation(type).PlayShowAnimation(target);
-			await UniTask.WaitUntil(() => !sequence.IsActive());
+			await sequence.AsyncWaitForCompletion();
 
 			target.OnFinishedShow();
 		}
@@ -48,8 +48,9 @@ namespace Game.UI
 			}
 			Sequence sequence = GetAnimation(type).PlayHideAnimation(target);
 			await UniTask.WaitUntil(() => !sequence.IsActive());
-			afterHide?.Invoke();
+			
 			target.Hide();
+			afterHide?.Invoke();
 		}
 	}
 }

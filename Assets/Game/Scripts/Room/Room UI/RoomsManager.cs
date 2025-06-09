@@ -2,17 +2,13 @@
 
 using UnityEngine;
 
-public class RoomsManager : Singleton<RoomsManager>
+public class RoomsManager : RoomUIComponent
 {
-    [SerializeField] private DungeonMapUI dungeonMapUI;
+  
   
     private RoomUIBtn[][] dungeonFloorRooms;
     
-    public override void LoadComponent()
-    {
-        base.LoadComponent();
-        if (dungeonMapUI == null) dungeonMapUI = GetComponent<DungeonMapUI>();
-    }
+   
 
     public void Build(int height, int width)
     {
@@ -23,7 +19,7 @@ public class RoomsManager : Singleton<RoomsManager>
 
     public void AddRoom(int posX, int posY, RoomUIBtn roomUIBtn, DungeonRoomType dungeonRoomType)
     {
-        
+        roomUIBtn.RoomsManager = this;
         dungeonFloorRooms[posX][posY] = roomUIBtn;
         SetRoomUIInfor(roomUIBtn, dungeonRoomType);
     }
@@ -95,8 +91,8 @@ public class RoomsManager : Singleton<RoomsManager>
                 beforeEnterID = (int)dungeonRoomType;
                 afterEnterID = (int)DungeonRoomType.Empty;
               
-                roomUIBtn.StrategyBeforeEnter = dungeonMapUI.DungeonMapData.RoomInfor[(int)dungeonRoomType].RoomEventStrategy;
-                roomUIBtn.StrategyBeforeEnter = dungeonMapUI.DungeonMapData.RoomInfor[(int)DungeonRoomType.Empty].RoomEventStrategy;
+                roomUIBtn.StrategyBeforeEnter = DungeonMapUI.DungeonMapData.RoomInfor[(int)dungeonRoomType].RoomEventStrategy;
+                roomUIBtn.StrategyBeforeEnter = DungeonMapUI.DungeonMapData.RoomInfor[(int)DungeonRoomType.Empty].RoomEventStrategy;
                 break;
             case DungeonRoomType.Campfire:
             case DungeonRoomType.Door:
@@ -115,11 +111,11 @@ public class RoomsManager : Singleton<RoomsManager>
 
               
         }
-        roomUIBtn.RoomSpriteBeforeEnter = dungeonMapUI.DungeonMapData.RoomInfor[beforeEnterID].Sprite;
-        roomUIBtn.RoomSpriteAfterEnter = dungeonMapUI.DungeonMapData.RoomInfor[afterEnterID].Sprite;
+        roomUIBtn.RoomSpriteBeforeEnter = DungeonMapUI.DungeonMapData.RoomInfor[beforeEnterID].Sprite;
+        roomUIBtn.RoomSpriteAfterEnter = DungeonMapUI.DungeonMapData.RoomInfor[afterEnterID].Sprite;
 
-        roomUIBtn.StrategyBeforeEnter = dungeonMapUI.DungeonMapData.RoomInfor[beforeEnterID].RoomEventStrategy;
-        roomUIBtn.StrategyAfterEnter = dungeonMapUI.DungeonMapData.RoomInfor[afterEnterID].RoomEventStrategy;
+        roomUIBtn.StrategyBeforeEnter = DungeonMapUI.DungeonMapData.RoomInfor[beforeEnterID].RoomEventStrategy;
+        roomUIBtn.StrategyAfterEnter = DungeonMapUI.DungeonMapData.RoomInfor[afterEnterID].RoomEventStrategy;
         roomUIBtn.SetRoomSprite();
     }
 }

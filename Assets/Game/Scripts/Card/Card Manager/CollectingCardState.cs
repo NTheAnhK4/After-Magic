@@ -10,17 +10,23 @@ public class CollectingCardState : ICardState
     public async UniTask OnEnter()
     {
         CardManager.Instance.CurrentUsingCard = null;
-        CardManager.Instance.EnableAllCardsRayCast();
+        CardManager.Instance.DisableOtherCardsRayCast();
         List<UniTask> tasks = new List<UniTask>();
 
-        List<Card> cards = new List<Card>(CardManager.Instance.CardInHands);
-        foreach (Card card in cards)
+        
+        foreach (Card card in CardManager.Instance.CardInHands)
         {
             tasks.Add(CollectingCard(card));
         }
       
        
         await UniTask.WhenAll(tasks);
+        foreach (Card card in CardManager.Instance.CardInHands)
+        {
+            CardManager.Instance.DisCardPile.Add(card.CardDataCtrl.PlayerCardData);
+        }
+      
+        CardManager.Instance.CardInHands.Clear();
         //set discard pile count change
         ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, CardManager.Instance.DisCardPile.Count);
    

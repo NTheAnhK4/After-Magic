@@ -26,7 +26,7 @@ public enum CardEventType
 
 public enum GameEventType
 {
-    Win, Lose
+    Win, Lose,GainCoin
 }
 public enum DungeonRoomType
 {
@@ -37,4 +37,9 @@ public enum DungeonRoomType
     Entry = 4,
     Mystery = 5,
     Shop = 6
+}
+
+public enum ItemType
+{
+    Coin
 }

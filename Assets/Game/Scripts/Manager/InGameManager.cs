@@ -1,7 +1,9 @@
 
 using System;
+using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using DG.Tweening;
-
+using Game.UI;
 using UnityEngine;
 
 
@@ -72,18 +74,21 @@ public class InGameManager : Singleton<InGameManager>
 
    
 
-    public void PlayGame()
+    public async void PlayGame()
     {
+        Time.timeScale = .5f;
         PlayerPartyManager.Instance.SpawnPlayerParty();
         EnemyManager.Instance.SpawnEnemy();
         CardManager.Instance.ClearDesks();
         CardManager.Instance.Init();
+       
         TotalMana = 3;
         CurMana = 3;
-        
+        IsGameOver = false;
+        await UniTask.Delay(300);
         currentStateType = GameStateType.DistributeCard;
         ObserverManager<GameStateType>.Notify(currentStateType);
-        IsGameOver = false;
+        
     }
     public void RevivePlayer()
     {
