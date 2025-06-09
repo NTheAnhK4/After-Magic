@@ -7,38 +7,69 @@ using UnityEngine.UI;
 
 public class WinUI : UIView
 {
-    [Header("Buttons")] [SerializeField] 
-    private Button takeAllBtn;
+    [Header("Buttons")] 
+    [SerializeField] private Button takeAllBtn;
     [SerializeField] private Button skipRewardBtn;
-
+    [SerializeField] private Transform rewardHolder;
     public override void LoadComponent()
     {
         base.LoadComponent();
         if (takeAllBtn == null) takeAllBtn = transform.Find("Take All").GetComponent<Button>();
         if (skipRewardBtn == null) skipRewardBtn = transform.Find("Skip Reward").GetComponent<Button>();
+        if (rewardHolder == null) rewardHolder = transform.Find("Reward/View/Content");
+    }
+    
+
+    public override void Show()
+    {
+        base.Show();
+        CanvasGroup.interactable = false;
     }
 
-   
+    public override async void OnFinishedShow()
+    {
+        base.OnFinishedShow();
+        await RewardManager.Instance.ShowRewards(rewardHolder);
+        CanvasGroup.interactable = true;
+    }
+
     private void OnEnable()
     {
-        skipRewardBtn.onClick.AddListener(ShowDungeonMapUI);
+        skipRewardBtn.onClick.AddListener(SkipReward);
+        takeAllBtn.onClick.AddListener(TakeAllReward);
+        RewardManager.Instance.CurrentRewardEmpty += CurrentRewardEmpty;
     }
 
     private void OnDisable()
     {
+        takeAllBtn.onClick.RemoveAllListeners();
         skipRewardBtn.onClick.RemoveAllListeners();
+        RewardManager.Instance.CurrentRewardEmpty -= CurrentRewardEmpty;
     }
 
-    private void CloseUI()
+    private void TakeAllReward()
     {
-        if(UIScreen != null) UIScreen.HideUI();
-        else Hide();
+        CanvasGroup.interactable = false;
+        RewardManager.Instance.TakeAllReward();
+    }
+
+    private void SkipReward()
+    {
+        CanvasGroup.interactable = false;
+        RewardManager.Instance.SkipReward();
     }
 
     private void ShowDungeonMapUI()
     {
-        DungeonMapUI dungeonMapUI = ((InGameScreenUI)(UIScreen)).DungeonMapUI;
+        DungeonMapUI dungeonMapUI = UIScreen.GetUIView<DungeonMapUI>();
+        
         dungeonMapUI.IsVirtualMap = false;
-        ((InGameScreenUI)(UIScreen)).ShowAfterHide(dungeonMapUI);
+        UIScreen.ShowAfterHide<DungeonMapUI>();
+       
+    }
+
+    private void CurrentRewardEmpty()
+    {
+        ShowDungeonMapUI();
     }
 }

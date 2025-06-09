@@ -18,13 +18,13 @@ public class SettingUI : UIView
 
     private void Start()
     {
-        exitUIBtn.onClick.AddListener(() => UIScreen.HideUI(this));
+        exitUIBtn.onClick.AddListener(() => UIScreen.HideUI<SettingUI>());
         exitGameBtn.onClick.AddListener(ExitGame);
     }
 
     private void ExitGame()
     {
-        UIScreen.HideUI(this, false, () =>
+        UIScreen.HideUI<SettingUI>( false, () =>
         {
 #if UNITY_EDITOR
             EditorApplication.isPlaying = false;

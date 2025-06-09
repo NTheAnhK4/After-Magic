@@ -10,14 +10,17 @@ using UnityEngine.UI;
 
 public class PileUI : UIView
 {
-    private List<Card> cardPile = new List<Card>();
-
+    private List<PlayerCardData> cardPile = new List<PlayerCardData>();
+    public GameObject CardShowPrefab;
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private GameObject cardHolder;
     [SerializeField] private Button exitBtn;
-    public void Init(List<Card> cards, string title)
+
+    [SerializeField] private List<GameObject> cardShowLists = new List<GameObject>();
+    public void Init(List<PlayerCardData> cards, string title)
     {
-        cardPile = cards;
+        
+        cardPile = new List<PlayerCardData>(cards);
       
         titleText.text = title;
     }
@@ -34,7 +37,7 @@ public class PileUI : UIView
     
     private void OnEnable()
     {
-        exitBtn.onClick.AddListener(() => UIScreen.HideUI(this));
+        exitBtn.onClick.AddListener(() => UIScreen.HideUI<PileUI>());
     }
 
     private void OnDisable()
@@ -57,21 +60,37 @@ public class PileUI : UIView
 
     private void ShowCards()
     {
-        foreach (Card card in cardPile)
+        cardShowLists.Clear();
+        foreach (PlayerCardData playerCardData in cardPile)
         {
-            if(card == null) continue;
-            card.SetUsable(false, true);
-            GameObject cardObj = PoolingManager.Spawn(card.gameObject, cardHolder.transform);
+            if (playerCardData == null)
+            {
+                Debug.Log("Player card data is null");
+                continue;
+            }
+            
+            
+            GameObject cardObj = PoolingManager.Spawn(CardShowPrefab, cardHolder.transform);
+            if (cardObj == null)
+            {
+                Debug.LogWarning("Can not spawn Card Show in pile ui");
+                continue;
+            }
+            cardShowLists.Add(cardObj);
+            CardDataCtrl cardDataCtrl = cardObj.GetComponentInChildren<CardDataCtrl>();
+            if(cardDataCtrl != null) cardDataCtrl.Init(playerCardData, true);
             cardObj.transform.localScale = Vector3.one;
         }
+
+        
     }
 
     private void HideCards()
     {
-        foreach (Transform card in cardHolder.transform)
+        foreach (GameObject card in cardShowLists)
         {
-            
-            PoolingManager.Despawn(card.gameObject);
+            PoolingManager.Despawn(card);
         }
+     
     }
 }

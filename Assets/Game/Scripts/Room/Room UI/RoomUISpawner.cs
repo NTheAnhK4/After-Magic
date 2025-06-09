@@ -27,7 +27,7 @@ public class RoomUISpawner : RoomUIComponent
                 SpawnRoom(i,j,rooms);
             }
         }
-        RoomsManager.Instance.FinishAddRoom();
+        DungeonMapUI.RoomsManager.FinishAddRoom();
     }
    
 
@@ -41,7 +41,7 @@ public class RoomUISpawner : RoomUIComponent
 
         Vector3 roomPosition = GetPosition(posX, posY, rooms);
       
-        GameObject roomGO = PoolingManager.Spawn(dungeonMapUI.DungeonMapData.RoomPrefab.gameObject, roomPosition, default, RoomHolder);
+        GameObject roomGO = PoolingManager.Spawn(DungeonMapUI.DungeonMapData.RoomPrefab.gameObject, roomPosition, default, RoomHolder);
  
         RectTransform rect = roomGO.GetComponent<RectTransform>();
         rect.anchoredPosition = roomPosition;
@@ -49,7 +49,7 @@ public class RoomUISpawner : RoomUIComponent
         
         RoomUIBtn roomUIBtn = roomGO.GetComponent<RoomUIBtn>();
         
-        RoomsManager.Instance.AddRoom(posY, posX, roomUIBtn, (DungeonRoomType)rooms[posY][posX]);
+        DungeonMapUI.RoomsManager.AddRoom(posY, posX, roomUIBtn, (DungeonRoomType)rooms[posY][posX]);
         
         roomUIBtn.RoomPosition = new Vector2Int(posY, posX);
         
@@ -64,14 +64,14 @@ public class RoomUISpawner : RoomUIComponent
         if (posY > 0 && rooms[posY - 1][posX] != -1)
         {
             Vector3 spawnPos = GetPosition(posX, posY, rooms) + new Vector3(0, roomDistance, 0);
-            GameObject prefab = dungeonMapUI.DungeonMapData.VerticalPath;
+            GameObject prefab = DungeonMapUI.DungeonMapData.VerticalPath;
             SpawnPath(posY, posX, prefab, spawnPos);
         }
 
         if (posX > 0 && rooms[posY][posX - 1] != -1)
         {
             Vector3 spawnPos = GetPosition(posX, posY,rooms) - new Vector3(roomDistance, 0, 0);
-            GameObject prefab = dungeonMapUI.DungeonMapData.HorizontalPath;
+            GameObject prefab = DungeonMapUI.DungeonMapData.HorizontalPath;
             SpawnPath(posY, posX, prefab, spawnPos);
         }
     }

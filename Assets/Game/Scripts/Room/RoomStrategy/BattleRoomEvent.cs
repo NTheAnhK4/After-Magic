@@ -7,7 +7,7 @@ public class BattleRoomEvent : RoomEventStrategy
 {
     public override void OnEnter()
     {
-        UIScreen.Instance.HideUI();
+        UIScreen.Instance.HideUI<DungeonMapUI>();
         InGameManager.Instance.PlayGame();
     }
 }

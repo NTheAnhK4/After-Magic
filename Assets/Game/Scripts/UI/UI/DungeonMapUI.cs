@@ -15,10 +15,17 @@ public class DungeonMapUI : UIView
     
     public RoomUISpawner RoomUISpawner;
     public RoomUIInteraction RoomUIInteraction;
- 
+  
+    
+
+    public RoomsManager RoomsManager;
+
+  
+
     public int[][] rooms;
     public bool IsVirtualMap;
     public bool IsShown;
+    
     [SerializeField] private Button exitBtn;
     protected override void Awake()
     {
@@ -29,11 +36,13 @@ public class DungeonMapUI : UIView
     public override void LoadComponent()
     {
         base.LoadComponent();
-      
+        if (RoomsManager == null) RoomsManager = GetComponent<RoomsManager>();
         if (RoomUISpawner == null) RoomUISpawner = GetComponent<RoomUISpawner>();
         if (RoomUIInteraction == null) RoomUIInteraction = GetComponent<RoomUIInteraction>();
    
         if (exitBtn == null) exitBtn = transform.Find("Exit").GetComponent<Button>();
+        
+        
         rooms = new int[5][];
         for (int i = 0; i < 5; ++i)
         {
@@ -59,27 +68,31 @@ public class DungeonMapUI : UIView
                 }
             }
         }
-        
         RoomUISpawner.LoadComponent();
         RoomUIInteraction.LoadComponent();
         RoomUIInteraction.Init();
        
     }
-
-
+    
 
     public override void Show()
     {
+        
         base.Show();
         exitBtn.gameObject.SetActive(IsVirtualMap);
-        if(IsVirtualMap) exitBtn.onClick.AddListener(() => UIScreen.HideUI());
+        if(IsVirtualMap) exitBtn.onClick.AddListener(() => UIScreen.HideUI<DungeonMapUI>());
         if (!IsShown)
         {
-            RoomsManager.Instance. Build(rooms.Length, rooms[0].Length);
+            if (rooms == null)
+            {
+                Debug.Log("Room is null");
+                return;
+            }
+            RoomsManager. Build(rooms.Length, rooms[0].Length);
             RoomUISpawner.SpawnRooms(rooms);
             IsShown = true;
         }
-        else RoomsManager.Instance.ShowRoom(IsVirtualMap);
+        else RoomsManager.ShowRoom(IsVirtualMap);
        
         IsShown = true;
     }

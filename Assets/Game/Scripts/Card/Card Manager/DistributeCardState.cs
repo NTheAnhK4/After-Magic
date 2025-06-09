@@ -32,6 +32,7 @@ public class DistributeCardState : ICardState
             ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, CardManager.Instance.DisCardPile.Count);
         }
         cardCount = Math.Min(cardCount, CardManager.Instance.DrawPile.Count);
+        
         CardManager.Instance.ArrangeHand(cardCount, out cardPositions, out cardRotations);
         for (int i = 0; i < cardCount; ++i)
         {
@@ -41,17 +42,28 @@ public class DistributeCardState : ICardState
             
         }
         ObserverManager<CardEventType>.Notify(CardEventType.DrawPileCountChange, CardManager.Instance.DrawPile.Count);
+        await UniTask.Delay(200);
         //player turn
         InGameManager.Instance.SetTurn(GameStateType.PlayerTurn);
        
     }
     private async UniTask<Card> SpawnCard(int cardNumber)
     {
+       
         int cardId = Random.Range(0, CardManager.Instance.DrawPile.Count);
 
-        Card card = CardManager.Instance.DrawPile[cardId];  
+        PlayerCardData playerCardData = CardManager.Instance.DrawPile[cardId];
+
+        Card card = PoolingManager.Spawn(CardManager.Instance.CardPrefab.gameObject, CardManager.Instance.spawnPos, Quaternion.Euler(CardManager.Instance.spawnRotation),
+            CardManager.Instance.transform).GetComponent<Card>();
+        card.gameObject.SetActive(false);
+        card.CardDataCtrl.Init(playerCardData, false);
+        card.SetUsable(false, true);
+        card.transform.localScale = CardManager.Instance.spawnScale;
+        
         card.gameObject.SetActive(true);
         
+      
         CardManager.Instance.DrawPile.RemoveAt(cardId);
        
        
@@ -59,31 +71,37 @@ public class DistributeCardState : ICardState
         
         CardManager.Instance.CardInHands.Add(card);
         Sequence sequence = DOTween.Sequence();
-        
+     
         sequence.Append(card.transform.DOScale(1, .2f))
             .Join(card.transform.DOMove(cardPositions[cardNumber],.2f))
             .Join(card.transform.DORotate(cardRotations[cardNumber], .15f, RotateMode.Fast));
         
         await sequence.AsyncWaitForCompletion();
-        card.CardAnimation.DeselectCard();
+        if(!card.gameObject.activeInHierarchy) Debug.Log("Card is deactive");
         return card;
     }
 
     private async UniTask DisCardPileToDrawPile()
     {
-        List<Card> disCardPile = new List<Card>(CardManager.Instance.DisCardPile);
-        if (disCardPile.Count == 0) return;
-
-      
-
+        if (CardManager.Instance.DisCardPile.Count == 0) return;
+        
         List<UniTask> uniTasks = new List<UniTask>();
-        foreach (Card disCard in CardManager.Instance.DisCardPile)
+        foreach (PlayerCardData playerCardData in CardManager.Instance.DisCardPile)
         {
-            uniTasks.Add(EachCardToDrawPile(disCard));
+            Card card = PoolingManager.Spawn(CardManager.Instance.CardPrefab.gameObject, CardManager.Instance.despawnPos, Quaternion.Euler(CardManager.Instance.despawnRotation),
+                CardManager.Instance.transform).GetComponent<Card>();
+            card.gameObject.SetActive(false);
+            card.CardDataCtrl.Init(playerCardData, false);
+            card.SetUsable(false, true);
+            card.transform.localScale = CardManager.Instance.despawnScale;
+        
+            card.gameObject.SetActive(true);
+            uniTasks.Add(EachCardToDrawPile(card));
         }
+        
 
         await UniTask.WhenAll(uniTasks);
-        CardManager.Instance.DrawPile.AddRange(disCardPile);
+        CardManager.Instance.DrawPile.AddRange(CardManager.Instance.DisCardPile);
         CardManager.Instance.DisCardPile.Clear();
     }
 

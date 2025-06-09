@@ -4,8 +4,9 @@ using UnityEngine.UI;
 
 public class RoomUIBtn : ComponentBehavior
 {
+    public RoomsManager RoomsManager;
     public DungeonRoomType DungeonRoomType;
-
+    
     #region Sprite
     public Sprite RoomSpriteBeforeEnter;
     public Sprite RoomSpriteAfterEnter;
@@ -81,10 +82,10 @@ public class RoomUIBtn : ComponentBehavior
     public void SetInteracableNeighboringRoom()
     {
      
-        RoomsManager.Instance.SetRoomInteracable(RoomPosition.x - 1, RoomPosition.y);
-        RoomsManager.Instance.SetRoomInteracable(RoomPosition.x + 1, RoomPosition.y);
-        RoomsManager.Instance.SetRoomInteracable(RoomPosition.x, RoomPosition.y + 1);
-        RoomsManager.Instance.SetRoomInteracable(RoomPosition.x, RoomPosition.y - 1);
+        RoomsManager.SetRoomInteracable(RoomPosition.x - 1, RoomPosition.y);
+        RoomsManager.SetRoomInteracable(RoomPosition.x + 1, RoomPosition.y);
+        RoomsManager.SetRoomInteracable(RoomPosition.x, RoomPosition.y + 1);
+        RoomsManager.SetRoomInteracable(RoomPosition.x, RoomPosition.y - 1);
     }
 
     public void SelectRoom()

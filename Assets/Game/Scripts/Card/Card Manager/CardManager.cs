@@ -12,18 +12,19 @@ using UnityEngine;
 public class CardManager : Singleton<CardManager>
 {
     
-    public List<PlayerCardData> CardsAvailable = new List<PlayerCardData>();
+    //public List<PlayerCardData> CardsAvailable = new List<PlayerCardData>();
     
     #region Card In A Dungeon
  
     public Card CardPrefab;
-    [HideInInspector] public List<Card> MainDesk = new List<Card>();
-    [HideInInspector] public List<Card> DrawPile;
-    [HideInInspector] public List<Card> DisCardPile;
-    [HideInInspector] public List<Card> DepleteCards;
+    public List<PlayerCardData> MainDesk = new List<PlayerCardData>();
+    public List<PlayerCardData> DrawPile = new List<PlayerCardData>();
+    public List<PlayerCardData> DisCardPile = new List<PlayerCardData>();
     
-    [HideInInspector] public List<Card> CardInHands = new List<Card>();
-
+    
+    public List<Card> CardInHands = new List<Card>();
+    
+    [HideInInspector] public List<PlayerCardData> DepleteCards;
     #endregion
     
     
@@ -101,6 +102,8 @@ public class CardManager : Singleton<CardManager>
         ObserverManager<GameStateType>.Attach(GameStateType.CollectingCard, onCollectingCard );
         ObserverManager<GameStateType>.Attach(GameStateType.PlayerTurn, onPlayerTurn);
         ObserverManager<GameStateType>.Attach(GameStateType.UsingCard, onUsingCard);
+        ObserverManager<GameEventType>.Attach(GameEventType.Win, ClearDesks);
+        ObserverManager<GameEventType>.Attach(GameEventType.Lose, ClearDesks);
     }
 
     private void OnDisable()
@@ -109,62 +112,34 @@ public class CardManager : Singleton<CardManager>
         ObserverManager<GameStateType>.Detach(GameStateType.CollectingCard, onCollectingCard );
         ObserverManager<GameStateType>.Detach(GameStateType.PlayerTurn, onPlayerTurn);
         ObserverManager<GameStateType>.Detach(GameStateType.UsingCard, onUsingCard);
+        ObserverManager<GameEventType>.Detach(GameEventType.Win, ClearDesks);
+        ObserverManager<GameEventType>.Detach(GameEventType.Lose, ClearDesks);
     }
     
     public void Init()
     {
-        if (MainDesk == null || MainDesk.Count == 0)
-        {
-            DrawPile = new List<Card>();
-            MainDesk = new List<Card>();
-       
-            foreach (PlayerCardData cardData in CardsAvailable)
-            {
-                Card card = PoolingManager.Spawn(CardPrefab.gameObject, 
-                        spawnPos, 
-                        quaternion.Euler(spawnRotation), transform).
-                    GetComponent<Card>();
-                card.CardDataCtrl.Init(cardData);
-                MainDesk.Add(card);
-                DrawPile.Add(card);
-            
-                card.transform.localScale = spawnScale;
-                card.gameObject.SetActive(false);
-            }
-           
-        }
-        else
-        {
-            DrawPile = new List<Card>();
-            foreach (Card card in MainDesk)
-            {
-                card.gameObject.SetActive(false);
-                card.transform.SetPositionAndRotation(spawnPos, Quaternion.Euler(spawnRotation));
-                DrawPile.Add(card);
-            }
-        }
-        DisCardPile = new List<Card>();
-        DepleteCards = new List<Card>();
+        CardInHands = new List<Card>();
+        DrawPile = new List<PlayerCardData>(MainDesk);
+        DepleteCards = new List<PlayerCardData>();
+        DisCardPile = new List<PlayerCardData>();
         
         ObserverManager<CardEventType>.Notify(CardEventType.DrawPileCountChange, DrawPile.Count);
         ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, DisCardPile.Count);
         ObserverManager<CardEventType>.Notify(CardEventType.DepleteCardsCountChange, DepleteCards.Count);
     }
 
-    public void ClearDesks()
+   
+
+    
+    public void ClearDesks(object param = null)
     {
-        ClearDesk(DrawPile);
-        ClearDesk(DisCardPile);
-        ClearDesk(DepleteCards);
-    }
-    private void ClearDesk(List<Card> cards)
-    {
-        foreach (Card card in cards)
+        foreach (Card card in CardInHands)
         {
-            if(card != null) PoolingManager.Despawn(card.gameObject);
+            PoolingManager.Despawn(card.gameObject);
         }
-        cards.Clear();
+        CardInHands.Clear();
     }
+  
 
     public void ArrangeHand(int cardsCount, out List<Vector3> cardPositions, out List<Vector3> cardRotations)
     {
@@ -203,10 +178,12 @@ public class CardManager : Singleton<CardManager>
         sequence.Append(card.transform.DOScale(despawnScale, .4f))
                     .Join(card.transform.DOMove(despawnPos, .65f))
                     .Join(card.transform.DORotate(despawnRotation,.6f));
-        CardInHands.Remove(card);
-        DisCardPile.Add(card);
+        
         if (!isCollectingAllCard)
         {
+            CardInHands.Remove(card);
+            
+            DisCardPile.Add(card.CardDataCtrl.PlayerCardData);
             ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, DisCardPile.Count);
             SetPositionAndQuaternion();
         }
@@ -249,8 +226,8 @@ public class CardManager : Singleton<CardManager>
        
         foreach (Card card in CardInHands)
         {
-            if(card == null) continue;
-            if(card == CurrentUsingCard) continue;
+            if(card == null || card == CurrentUsingCard) continue;
+            
             card.SetUsable(false, false);
         }
     }
@@ -260,7 +237,11 @@ public class CardManager : Singleton<CardManager>
        
         foreach (Card card in CardInHands)
         {
-            if(card == null) continue;
+            if (card == null)
+            {
+                Debug.LogWarning("Card in hand is null");
+                continue;
+            }
             card.SetUsable(true,true);
         }
     }
