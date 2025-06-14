@@ -60,6 +60,7 @@ public class InGameManager : Singleton<InGameManager>
     {
         if (currentStateType == nextTurn) return;
         if (nextTurn == GameStateType.DistributeCard) CurMana = TotalMana;
+       
         currentStateType = nextTurn;
         ObserverManager<GameStateType>.Notify(currentStateType);
         

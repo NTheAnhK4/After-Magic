@@ -1,30 +1,42 @@
 
 
 using System;
+using BrokerChain;
 using StateMachine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthUICtrl : ComponentBehavior
 {
-    [SerializeField] private Entity _entity;
+   
     [SerializeField] private Image hpImg;
+    [SerializeField] private TextMeshProUGUI hpTxt;
     public override void LoadComponent()
     {
         base.LoadComponent();
         if (hpImg == null) hpImg = transform.Find("HP Mask").Find("HP").GetComponent<Image>();
-        if (_entity == null) _entity = transform.parent.GetComponentInParent<Entity>();
+        if (hpTxt == null) hpTxt = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    protected override void Awake()
+   
+
+    public void Init(EntityStats entityStats)
     {
-        base.Awake();
-        if (_entity != null) _entity.OnHPChange += OnHPChange;
+        entityStats.OnHPChange += OnHPChange;
     }
 
   
-    private void OnHPChange()
+    private void OnHPChange(int curHP, int maxHP)
     {
-        hpImg.fillAmount = 1.0f *_entity.CurHP / _entity.MaxHP;
+        hpImg.fillAmount = 1.0f * curHP / maxHP;
+        if (hpTxt == null) hpTxt = GetComponentInChildren<TextMeshProUGUI>();
+        if (hpTxt == null)
+        {
+            Debug.Log("Can not find hptxt ");
+            return;
+        }
+
+        hpTxt.text = curHP.ToString() + " / " + maxHP.ToString();
     }
 }

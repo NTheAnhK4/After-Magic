@@ -31,17 +31,23 @@ public class Player : Entity
         RunSpeed = 10f;
         
         AttackRange = 2.5f;
-        Damage = 1;
-        MaxHP = 100;
-        CurHP = 100;
-        Armor = 0;
-        OnHPChange?.Invoke();
+      
         IsOriginalFacingRight = true;
         StateMachine.SetState(IdleState);
+        ObserverManager<GameStateType>.Attach(GameStateType.CollectingCard,EndTurn);
+        ObserverManager<GameStateType>.Attach(GameStateType.DistributeCard, StartTurn);
+    }
+
+    private void OnDisable()
+    {
+        ObserverManager<GameStateType>.Detach(GameStateType.CollectingCard,EndTurn);
+        ObserverManager<GameStateType>.Detach(GameStateType.DistributeCard, StartTurn);
     }
 
     #endregion
+
     
+
     Func<bool> RunToTargetCondition() => () => CardStrategy != null  && MustReachTarget && EnemyTarget != null
                                                && Vector2.Distance(EnemyTarget.transform.position, transform.position) > AttackRange;
 

@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67a1f43122219644a9bfe14aff5be2ab, type: 3}
-  m_Name: Shield Card
+  m_Script: {fileID: 11500000, guid: ea4b4cda42184a2987517a883773bad9, type: 3}
+  m_Name: ShieldEffect
   m_EditorClassIdentifier: 
-  AnimName: Buff
-  MustReachTarget: 0
-  AppliesToAlly: 1
-  StatusEffectData: {fileID: 11400000, guid: e9487e699d42e824c9a89594c5eb92bb, type: 2}
+  Name: Shield Effect
+  Icon: {fileID: 21300000, guid: 40ad198f7db9ff343bd23f68640d2c16, type: 3}
+  TurnApply: 1
+  Value: 3
+  Type: 1
+  ExpireTiming: 1
+  OperatorType: 0

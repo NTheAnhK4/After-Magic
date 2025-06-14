@@ -19,6 +19,7 @@ public class UseCardState : State<Entity>
             Card = entity.CardStrategy;
             entity.Anim.SetBool(Card.AnimName, true);
             Card.Apply(entity, entity.EnemyTarget);
+            if(entity.CardStrategy.StatusEffectData != null) entity.StatsSystem.AddModifier(entity.CardStrategy.StatusEffectData);
         }
         
        

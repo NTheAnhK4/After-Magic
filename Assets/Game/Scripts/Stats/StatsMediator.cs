@@ -1,59 +1,47 @@
 using System;
 using System.Collections.Generic;
+using BrokerChain.Status;
 
-namespace Develop
+namespace BrokerChain
 {
     public class StatsMediator
     {
         private readonly LinkedList<StatModifier> modifiers = new();
 
         public event EventHandler<Query> Queries;
-        public void PerformQery(object sender, Query query) => Queries?.Invoke(sender, query);
+        public void PerformQuery(object sender, Query query) => Queries?.Invoke(sender, query);
 
-        public void AddModifier(StatModifier modifier)
+        public void AddModifier(StatModifier modifier, Action onRemoved = null)
         {
+            modifier.OnRemoved = onRemoved;
             modifiers.AddLast(modifier);
             Queries += modifier.Handle;
-
             modifier.OnDispose += _ =>
             {
                 modifiers.Remove(modifier);
                 Queries -= modifier.Handle;
             };
         }
-
-        public void Update(float deltaTime)
+        
+        public void Update(ExpireTiming expireTiming)
         {
-            //Update all modifier will deltatime
             var node = modifiers.First;
+            //Update all modifier
             while (node != null)
             {
                 var modifier = node.Value;
-                modifier.Update(deltaTime);
+                modifier.Update(expireTiming);
                 node = node.Next;
             }
-            // Dispose any that are finished, a.k.a Mark and Sweep
-
+            //Dispose any that are finished
             node = modifiers.First;
             while (node != null)
             {
                 var nextNode = node.Next;
-                if (node.Value.MarkedForRemoval) node.Value.Dispose();
-
+                if(node.Value.MarkedForRemoval) node.Value.Dispose();
                 node = nextNode;
             }
         }
-    }
 
-    public class Query
-    {
-        public readonly StatsType StatsType;
-        public int Value;
-
-        public Query(StatsType statsType, int value)
-        {
-            this.StatsType = statsType;
-            this.Value = value; 
-        }
     }
 }

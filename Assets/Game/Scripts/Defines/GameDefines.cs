@@ -39,7 +39,25 @@ public enum DungeonRoomType
     Shop = 6
 }
 
-public enum ItemType
+
+namespace BrokerChain
 {
-    Coin
+    public enum StatsType
+    {
+        Damage,
+        Defense,
+       
+    }
+
+    public enum ExpireTiming
+    {
+        EndOfThisTurn,
+        StartOfThisTurn
+    }
+
+    public enum OperatorType
+    {
+        Add,
+        Multiply
+    }
 }

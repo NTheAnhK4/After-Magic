@@ -47,8 +47,8 @@ namespace StateMachine
         //use for specific condition
         public void SetState(IState state, Func<StateData> stateData = null)
         {
-            
-            current = nodes[state.GetType()];
+            current = GetOrAddNode(state);
+            //current =  nodes[state.GetType()];
             current.State?.OnEnter(stateData?.Invoke());
         }
 
@@ -67,16 +67,25 @@ namespace StateMachine
 
         ITransition GetTransition()
         {
-            foreach (var transition in anyTransitions)
+            if (anyTransitions != null)
             {
-                if (transition.Condition.Evaluate()) return transition;
+                foreach (var transition in anyTransitions)
+                {
+                    if (transition.Condition.Evaluate()) return transition;
+                }
             }
 
-          
-            foreach (var transition in current.Transitions)
+            if (current.Transitions != null)
             {
-                if (transition.Condition.Evaluate()) return transition;
+                foreach (var transition in current.Transitions)
+                {
+                    if (transition.Condition.Evaluate()) return transition;
+                }
             }
+            
+
+          
+           
 
             return null;
         }

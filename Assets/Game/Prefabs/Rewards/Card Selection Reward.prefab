@@ -149,8 +149,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278209023
-  m_fontColor: {r: 1, g: 0.28755605, b: 0, a: 1}
+    rgba: 4281519410
+  m_fontColor: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -380,8 +380,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5989a568b832ecb478ebe10e08abca54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: {fileID: 5482035262609214170}
+  ItemData: {fileID: 0}
+  amountTxt: {fileID: 0}
   rewardBtn: {fileID: 4155531408832824738}
   rewardBackground: {fileID: 1034773092490842136}
   rewardImg: {fileID: 9215802816846545658}
   RewardPosition: {x: 0, y: 0, z: 0}
+  amount: 0
+  CardRewardUI: {fileID: 0}

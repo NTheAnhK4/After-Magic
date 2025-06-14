@@ -1,6 +1,6 @@
 using System;
 
-namespace Develop.Utilities
+namespace Utilities
 {
     public abstract class Timer {
         protected float initialTime;

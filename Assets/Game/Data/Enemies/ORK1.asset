@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67a1f43122219644a9bfe14aff5be2ab, type: 3}
-  m_Name: Shield Card
+  m_Script: {fileID: 11500000, guid: 161d90282583cbf46a8f276a73cb8c9c, type: 3}
+  m_Name: ORK1
   m_EditorClassIdentifier: 
-  AnimName: Buff
-  MustReachTarget: 0
-  AppliesToAlly: 1
-  StatusEffectData: {fileID: 11400000, guid: e9487e699d42e824c9a89594c5eb92bb, type: 2}
+  HP: 20
+  Defense: 2
+  Damage: 2
