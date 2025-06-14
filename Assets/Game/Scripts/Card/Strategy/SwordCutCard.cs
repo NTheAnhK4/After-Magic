@@ -28,11 +28,11 @@ public class SwordCutCard : CardStrategy
     public override void AnimationTrigger()
     {
         base.AnimationTrigger();
-        if (_enemy != null) _enemy.TakeDamage(GetDamage());
+        if (_enemy != null) _enemy.StatsSystem.TakeDamage(GetDamage());
     }
 
     private int GetDamage()
     {
-        return _owner.Damage + BaseDamage + DamageRate * Level;
+        return _owner.StatsSystem.Stats.Damage + BaseDamage + DamageRate * Level;
     }
 }

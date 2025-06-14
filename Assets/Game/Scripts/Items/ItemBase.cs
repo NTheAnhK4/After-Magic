@@ -9,6 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 using Sequence = DG.Tweening.Sequence;
 
 
@@ -24,8 +25,10 @@ public  class ItemBase : ComponentBehavior
 
     public Vector3 RewardPosition;
     public int amount;
-    
-   
+
+    protected int minAmountGained;
+    protected int maxAmountGained;
+    protected int bossRewardMultiplier;
     public override void LoadComponent()
     {
         base.LoadComponent();
@@ -55,6 +58,8 @@ public  class ItemBase : ComponentBehavior
 
     public virtual async UniTask ShowReward()
     {
+        int amountGained = Random.Range(minAmountGained, maxAmountGained + 1);
+        SetAmount(amountGained);
         transform.localScale = Vector3.zero;
         amountTxt.text = amount.ToString();
         Sequence seq = DOTween.Sequence();

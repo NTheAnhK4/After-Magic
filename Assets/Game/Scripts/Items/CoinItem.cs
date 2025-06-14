@@ -18,5 +18,9 @@ public class CoinItem : ItemBase
     {
         base.LoadComponent();
         RewardPosition = new Vector3(-16, 9);
+        minAmountGained = 10;
+        maxAmountGained = 100;
+        bossRewardMultiplier = 10;
     }
+    
 }

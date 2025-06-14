@@ -25,7 +25,7 @@ public class RewardManager : Singleton<RewardManager>
         {
             int rewardID = i % 2;
             ItemBase itemBase = PoolingManager.Spawn(rewards[rewardID], parent).GetComponent<ItemBase>();
-            itemBase.SetAmount(300);
+           
             itemBase.SetInteracable(true);
             itemBase.transform.SetSiblingIndex(i);
             currentRewards.Add(itemBase);

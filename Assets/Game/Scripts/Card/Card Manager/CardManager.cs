@@ -18,12 +18,9 @@ public class CardManager : Singleton<CardManager>
  
     public Card CardPrefab;
     public List<PlayerCardData> MainDesk = new List<PlayerCardData>();
-    public List<PlayerCardData> DrawPile = new List<PlayerCardData>();
-    public List<PlayerCardData> DisCardPile = new List<PlayerCardData>();
-    
-    
-    public List<Card> CardInHands = new List<Card>();
-    
+    [HideInInspector] public List<PlayerCardData> DrawPile = new List<PlayerCardData>();
+    [HideInInspector] public List<PlayerCardData> DisCardPile = new List<PlayerCardData>();
+    [HideInInspector] public List<Card> CardInHands = new List<Card>();
     [HideInInspector] public List<PlayerCardData> DepleteCards;
     #endregion
     

@@ -21,7 +21,10 @@ public class ItemCardSelection : ItemBase
     public override void LoadComponent()
     {
         base.LoadComponent();
-        SetAmount(3);
+        minAmountGained = 3;
+        maxAmountGained = 3;
+        bossRewardMultiplier = 1;
+        
     }
 
     public override UniTask GainReward()

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using StateMachine;
-using Unity.VisualScripting;
+
 using UnityEngine;
 
 public class Enemy : Entity
@@ -70,11 +70,8 @@ public class Enemy : Entity
         RunSpeed = 10f;
         
         AttackRange = 2.5f;
-        Damage = 1;
-        MaxHP = 20;
-        CurHP = 2;
-        Armor = 0;
-        OnHPChange?.Invoke();
+       
+       
         
         IsOriginalFacingRight = false;
 
@@ -100,8 +97,11 @@ public class Enemy : Entity
 
     public async UniTask DoAction()
     {
+        StartTurn(null);
+      
         CanUseCard = true;
         await UniTask.WaitUntil(() => CanUseCard== false);
+        EndTurn(null);
     }
   
     Func<bool> RunToTargetCondition() => () =>CanUseCard && CardStrategy != null  && MustReachTarget && EnemyTarget != null

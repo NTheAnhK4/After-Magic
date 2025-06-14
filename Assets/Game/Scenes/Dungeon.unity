@@ -983,10 +983,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardPrefab: {fileID: 6367183643179973043, guid: 191050c84a421354b9ae361faf6ff1c3, type: 3}
   MainDesk:
+  - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
   - {fileID: 11400000, guid: d141404dacaa5964781c522453bad4b0, type: 2}
-  - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
-  - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
-  - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
+  - {fileID: 11400000, guid: d141404dacaa5964781c522453bad4b0, type: 2}
+  - {fileID: 11400000, guid: d141404dacaa5964781c522453bad4b0, type: 2}
   - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
   - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
   - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
