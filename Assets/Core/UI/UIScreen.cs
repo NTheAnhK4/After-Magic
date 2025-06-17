@@ -1,7 +1,5 @@
-
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 
@@ -35,6 +33,7 @@ namespace Game.UI
             return (T)uiDict[type];
         }
 
+        
         protected void AddUIView<T>() where T : UIView
         {
             if (uiDict.ContainsKey(typeof(T))) return;
@@ -71,9 +70,20 @@ namespace Game.UI
                 }
             }
         }
-     
-        public async void ShowUI<T>() where T: UIView
+
+        public async UniTask ShowPanel(float duration = .3f)
         {
+            await panelImage.DOFade(1f, duration).SetUpdate(true).AsyncWaitForCompletion();
+        }
+
+        public async UniTask HidePanel(float duration = .3f)
+        {
+            await panelImage.DOFade(0, duration).SetUpdate(true).AsyncWaitForCompletion();
+        }
+     
+        public async void ShowUI<T>() where T : UIView
+        {
+           
             T view = GetUIView<T>();
             if (view == null)
             {
@@ -81,14 +91,62 @@ namespace Game.UI
                 return;
             }
 
+            if (uiViewStack.Count > 0 &&  view == uiViewStack.Peek())
+            {
+                Debug.LogWarning(typeof(T) + " has already been shown");
+                return;
+            }
+
+            await ShowUIViewInternal(view);
+        }
+
+        public async void ShowUI(GameObject uiPrefab)
+        {
+            if (uiPrefab == null)
+            {
+                Debug.LogWarning("UI prefab is null");
+                return;
+            }
+
+            GameObject ui = PoolingManager.Spawn(uiPrefab, UIViewHolder);
+            ui.transform.SetAsLastSibling();
+
+            RectTransform rectTransform = ui.GetComponent<RectTransform>();
+            rectTransform.localScale = Vector3.one;
+            rectTransform.localPosition = Vector3.zero;
+            rectTransform.anchoredPosition = Vector2.zero;
+            rectTransform.anchorMin = Vector2.zero;
+            rectTransform.anchorMax = Vector2.one;
+            rectTransform.offsetMin = Vector2.zero;
+            rectTransform.offsetMax = Vector2.zero;
+
+            UIView view = ui.GetComponent<UIView>();
+            if (view == null)
+            {
+                Debug.LogWarning("Spawned UI does not contain UIView component");
+                return;
+            }
+
+            await ShowUIViewInternal(view);
+        }
+
+        private async UniTask ShowUIViewInternal(UIView view)
+        {
+            view.transform.SetAsLastSibling();
+
             Time.timeScale = 0f;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
-            panelImage.DOFade(1f, .3f).SetUpdate(true);
-            await ViewAnimationController.PlayShowAnimation(view, view.ShowAnimation);
+
+            await UniTask.WhenAll(
+                ShowPanel(),
+                ViewAnimationController.PlayShowAnimation(view, view.ShowAnimation)
+            );
+
             uiViewStack.Push(view);
         }
 
+      
         public async void HideUI<T>(bool skipReset = false, Action afterHide = null) where T : UIView
         {
             T view = GetUIView<T>();
@@ -105,17 +163,24 @@ namespace Game.UI
                     Debug.LogWarning($"[UI Manager] Attempted to hide UI '{view.name}' which is not on top of the stack.");
                     return;
                 }
-                await  ViewAnimationController.PlayHideAnimation(view, view.HideAnimation, afterHide);
-                if (uiViewStack.Count == 0 && !skipReset)
-                {
-                    canvasGroup.interactable = true;
-                    canvasGroup.blocksRaycasts = true;
-                    panelImage.DOFade(0, .3f).SetUpdate(true);
-
-
-                    Time.timeScale = 1;
-                }
             }
+
+           
+            if (uiViewStack.Count == 0 && !skipReset)
+            {
+                canvasGroup.interactable = true;
+                canvasGroup.blocksRaycasts = true;
+
+                await UniTask.WhenAll(
+                    HidePanel(),
+                    ViewAnimationController.PlayHideAnimation(view, view.HideAnimation, afterHide)
+                );
+                   
+
+
+                Time.timeScale = 1;
+            }
+            else await  ViewAnimationController.PlayHideAnimation(view, view.HideAnimation, afterHide);
         }
 
         public async void HideUIOnTop(bool skipReset = false, Action afterHide = null)
@@ -127,24 +192,29 @@ namespace Game.UI
             }
 
             UIView view = uiViewStack.Pop();
-            await  ViewAnimationController.PlayHideAnimation(view, view.HideAnimation, afterHide);
+        
             if (uiViewStack.Count == 0 && !skipReset)
             {
                 canvasGroup.interactable = true;
                 canvasGroup.blocksRaycasts = true;
-                panelImage.DOFade(0, .3f).SetUpdate(true);
+
+                await UniTask.WhenAll(
+                    HidePanel(),
+                    ViewAnimationController.PlayHideAnimation(view, view.HideAnimation, afterHide)
+                );
+               
 
 
                 Time.timeScale = 1;
             }
+            else     await  ViewAnimationController.PlayHideAnimation(view, view.HideAnimation, afterHide);
         }
         public void ShowAfterHide<T>(bool skipReset = false, Action afterHide = null) where T : UIView
         {
             HideUIOnTop(skipReset, afterHide);
             ShowUI<T>();
-           
         }
-
+        
 
     }
  

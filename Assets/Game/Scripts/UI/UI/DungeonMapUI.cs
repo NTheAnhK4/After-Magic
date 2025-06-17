@@ -43,29 +43,39 @@ public class DungeonMapUI : UIView
         if (exitBtn == null) exitBtn = transform.Find("Exit").GetComponent<Button>();
         
         
-        rooms = new int[5][];
-        for (int i = 0; i < 5; ++i)
+        // rooms = new int[5][];
+        // for (int i = 0; i < 5; ++i)
+        // {
+        //     rooms[i] = new int[5];
+        //     for (int j = 0; j < 5; ++j)
+        //     {
+        //         if (i == 0) rooms[i][j] = j == 4 ? 0 : -1;
+        //         if (i == 1) rooms[i][j] = (j == 1 || j == 2 || j == 4) ? 2 : -1;
+        //         if (i == 2)
+        //         {
+        //             if (j == 1 || j == 4) rooms[i][j] = 0;
+        //             else if (j == 0 || j == 3) rooms[i][j] = -1;
+        //             else rooms[i][j] = 4;                    
+        //         }
+        //
+        //         if (i == 3) rooms[i][j] = (j == 1 || j == 4) ? 0 : -1;
+        //         if (i == 4)
+        //         {
+        //             if (j == 0) rooms[i][j] = 2;
+        //             else if (j == 1) rooms[i][j] = 6;
+        //             else if (j == 2 || j == 4) rooms[i][j] = 0;
+        //             else rooms[i][j] = 1;
+        //         }
+        //     }
+        // }
+        rooms = new int[2][];
+        for (int i = 0; i < 2; ++i)
         {
-            rooms[i] = new int[5];
-            for (int j = 0; j < 5; ++j)
+            rooms[i] = new int[2];
+            for (int j = 0; j < 2; ++j)
             {
-                if (i == 0) rooms[i][j] = j == 4 ? 0 : -1;
-                if (i == 1) rooms[i][j] = (j == 1 || j == 2 || j == 4) ? 0 : -1;
-                if (i == 2)
-                {
-                    if (j == 1 || j == 4) rooms[i][j] = 0;
-                    else if (j == 0 || j == 3) rooms[i][j] = -1;
-                    else rooms[i][j] = 4;                    
-                }
-
-                if (i == 3) rooms[i][j] = (j == 1 || j == 4) ? 0 : -1;
-                if (i == 4)
-                {
-                    if (j == 0) rooms[i][j] = 2;
-                    else if (j == 1) rooms[i][j] = 6;
-                    else if (j == 2 || j == 4) rooms[i][j] = 0;
-                    else rooms[i][j] = 1;
-                }
+                if (i == 1 && j == 1) rooms[i][j] = 4;
+                else rooms[i][j] = 2;
             }
         }
         RoomUISpawner.LoadComponent();

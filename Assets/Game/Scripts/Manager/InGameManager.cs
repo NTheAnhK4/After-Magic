@@ -9,9 +9,14 @@ using UnityEngine;
 
 public class InGameManager : Singleton<InGameManager>
 {
+    public bool IsGoDeep = false;
     public DungeonRoomType DungeonRoomType;
 
     public RoomUIBtn CurrentRoom;
+
+    public int CurrentDepth;
+    public int MaxDepth;
+    
     public int TotalMana { get; private set; }
     private int curMana;
     public Action<int> OnManaChange;
@@ -37,6 +42,8 @@ public class InGameManager : Singleton<InGameManager>
     
     private void OnEnable()
     {
+        CurrentDepth = 1;
+        MaxDepth = 5;
         onLoseAction = param => { IsGameOver = true; };
         onWinAction = param =>
         {

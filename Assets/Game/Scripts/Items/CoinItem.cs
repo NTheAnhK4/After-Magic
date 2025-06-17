@@ -22,5 +22,12 @@ public class CoinItem : ItemBase
         maxAmountGained = 100;
         bossRewardMultiplier = 10;
     }
-    
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        itemType = ItemType.Coin;
+    }
+
+    protected override bool CanTakeRewardToLoot() => true;
 }

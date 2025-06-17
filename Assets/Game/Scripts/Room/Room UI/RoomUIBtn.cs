@@ -1,9 +1,12 @@
 
+
 using UnityEngine;
 using UnityEngine.UI;
 
+using System.Reflection;
 public class RoomUIBtn : ComponentBehavior
 {
+    
     public RoomsManager RoomsManager;
     public DungeonRoomType DungeonRoomType;
     
@@ -29,6 +32,7 @@ public class RoomUIBtn : ComponentBehavior
     private GameObject roomFrame;
 
     private bool _reachable;
+   
     public override void LoadComponent()
     {
         base.LoadComponent();
@@ -41,18 +45,37 @@ public class RoomUIBtn : ComponentBehavior
         }
     }
 
+    public void ResetRoom()
+    {
+        isEntered = false;
+        _reachable = false;
+        roomBtn.onClick.RemoveAllListeners();
+        StrategyAfterEnter = null;
+        StrategyBeforeEnter = null;
+    }
     public void SetRoomReachable(bool reachable)
     {
         roomBtn.interactable = reachable;
         _reachable = reachable;
-        if(reachable) roomBtn.onClick.AddListener(EnterRoom);
+        if (reachable)
+        {
+            roomBtn.onClick.RemoveAllListeners();
+            roomBtn.onClick.AddListener(EnterRoom);
+        }
+       
     }
 
     public void SetVirtualRoom(bool isVirtualRoom)
     {
-        if (isVirtualRoom) return;
         roomBtn.interactable = _reachable;
-        if(_reachable) roomBtn.onClick.AddListener(EnterRoom);
+        if (isVirtualRoom) return;
+
+        if (_reachable)
+        {
+            roomBtn.onClick.RemoveAllListeners();
+            roomBtn.onClick.AddListener(EnterRoom);
+        }
+        
     }
 
     public void SetRoomSprite() =>  RoomImg.sprite = isEntered ? RoomSpriteAfterEnter : RoomSpriteBeforeEnter;
@@ -64,19 +87,28 @@ public class RoomUIBtn : ComponentBehavior
     {
         roomBtn.onClick.RemoveAllListeners();
     }
+  
 
     private void EnterRoom()
     {
         
+        roomBtn.interactable = false;
        SelectRoom();
+       
        RoomEventStrategy strategy = isEntered ? StrategyAfterEnter : StrategyBeforeEnter;
+       
        if (strategy == null)
        {
            Debug.LogWarning("Strategy is null");
            return;
        }
-       strategy.OnEnter();
+
+      
        isEntered = true;
+       strategy.OnEnter();
+      
+      
+      
     }
 
     public void SetInteracableNeighboringRoom()
@@ -91,7 +123,7 @@ public class RoomUIBtn : ComponentBehavior
     public void SelectRoom()
     {
         if(InGameManager.Instance.CurrentRoom != null) InGameManager.Instance.CurrentRoom.DeselectRoom();
-        InGameManager.Instance.DungeonRoomType = this.DungeonRoomType;
+        InGameManager.Instance.DungeonRoomType = DungeonRoomType;
 
         InGameManager.Instance.CurrentRoom = this;
 

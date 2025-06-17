@@ -32,15 +32,22 @@ public class DistributeCardState : ICardState
             ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, CardManager.Instance.DisCardPile.Count);
         }
         cardCount = Math.Min(cardCount, CardManager.Instance.DrawPile.Count);
-        
+
+        List<Card> cards = new List<Card>();
         CardManager.Instance.ArrangeHand(cardCount, out cardPositions, out cardRotations);
         for (int i = 0; i < cardCount; ++i)
         {
           
             Card card = await SpawnCard(i);
-            card.CardAnimation.SetSiblingIndex(cardCount - 1 - i);
+            cards.Add(card);
             
         }
+
+        for (int i = 0; i < cardCount; ++i)
+        {
+            cards[i].CardAnimation.SetSiblingIndex(cardCount - 1 - i);
+        }
+        
         ObserverManager<CardEventType>.Notify(CardEventType.DrawPileCountChange, CardManager.Instance.DrawPile.Count);
         await UniTask.Delay(200);
         //player turn

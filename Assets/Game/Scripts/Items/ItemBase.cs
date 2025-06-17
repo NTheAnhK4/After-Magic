@@ -7,7 +7,7 @@ using DG.Tweening;
 using TMPro;
 
 using UnityEngine;
-using UnityEngine.Serialization;
+
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using Sequence = DG.Tweening.Sequence;
@@ -15,7 +15,8 @@ using Sequence = DG.Tweening.Sequence;
 
 public  class ItemBase : ComponentBehavior
 {
-    public ItemData ItemData;
+    [SerializeField] protected ItemType itemType;
+    
     [SerializeField] private TextMeshProUGUI amountTxt;
     [SerializeField] protected Button rewardBtn;
     [SerializeField] protected Image rewardBackground;
@@ -47,7 +48,8 @@ public  class ItemBase : ComponentBehavior
     public void SetAmount(int amountValue)
     {
         amount = amountValue;
-        if(ItemData != null) ItemData.Amount = amountValue;
+        
+        if(amountTxt != null) amountTxt.text = amount.ToString();
     }
 
     public void SetInteracable(bool interacable)
@@ -56,12 +58,12 @@ public  class ItemBase : ComponentBehavior
     }
     
 
-    public virtual async UniTask ShowReward()
-    {
-        int amountGained = Random.Range(minAmountGained, maxAmountGained + 1);
+    public virtual async UniTask ShowReward(int amountGained = -1)
+    { 
+        if(amountGained < 0) amountGained = Random.Range(minAmountGained, maxAmountGained + 1);
         SetAmount(amountGained);
         transform.localScale = Vector3.zero;
-        amountTxt.text = amount.ToString();
+       
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOScale(1.2f, duration).SetEase(Ease.OutBack))
             .Append(transform.DOScale(1.0f, duration / 2).SetEase(Ease.OutBack)).SetUpdate(true);
@@ -69,7 +71,7 @@ public  class ItemBase : ComponentBehavior
         await seq.AsyncWaitForCompletion();
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         rewardBtn.onClick.AddListener(()  => GainReward().Forget());
         rewardImg.transform.position = rewardImgPosition;
@@ -105,10 +107,12 @@ public  class ItemBase : ComponentBehavior
     protected virtual void Despawn()
     {
         RewardManager.Instance.TakeEachReward();
-        if(ItemData != null) InventoryManager.Instance.AddToLoot(ItemData);
+        if(CanTakeRewardToLoot()) InventoryManager.Instance.AddToLoot(itemType,gameObject, amount);
         RewardManager.Instance.RemoveCurrentReward(this);
         PoolingManager.Despawn(gameObject);
     }
-   
-    
+
+    protected virtual bool CanTakeRewardToLoot() => false;
+
+
 }
