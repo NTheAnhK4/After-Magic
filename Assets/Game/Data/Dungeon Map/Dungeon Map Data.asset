@@ -24,7 +24,7 @@ MonoBehaviour:
     RoomEventStrategy: {fileID: 11400000, guid: 546d54b7e51fb4d43a5b096da3863c44, type: 2}
   - Name: Door
     Sprite: {fileID: 876994493, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
-    RoomEventStrategy: {fileID: 11400000, guid: 65b003134cd0d5c478fa43f650ab1289, type: 2}
+    RoomEventStrategy: {fileID: 11400000, guid: e3bbe6f24f7384f4592a1af0e1f78e26, type: 2}
   - Name: Empty
     Sprite: {fileID: 1616722192, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
     RoomEventStrategy: {fileID: 11400000, guid: f128b796dabfd864997a2427ccd848ce, type: 2}
@@ -36,4 +36,4 @@ MonoBehaviour:
     RoomEventStrategy: {fileID: 11400000, guid: 546d54b7e51fb4d43a5b096da3863c44, type: 2}
   - Name: Shop
     Sprite: {fileID: 1876129114, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
-    RoomEventStrategy: {fileID: 11400000, guid: 546d54b7e51fb4d43a5b096da3863c44, type: 2}
+    RoomEventStrategy: {fileID: 11400000, guid: 61752a50e43c51e42907f7df7df4902a, type: 2}

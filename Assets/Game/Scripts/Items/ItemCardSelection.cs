@@ -10,7 +10,7 @@ public class ItemCardSelection : ItemBase
 {
    
     public CardRewardUI CardRewardUI;
-    public override UniTask ShowReward()
+    public override UniTask ShowReward(int amountGained = -1)
     {
         Color color = rewardImg.color;
         color.a = 1;

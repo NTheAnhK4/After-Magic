@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +10,9 @@ public class RoomUISpawner : RoomUIComponent
 
     
     public float roomDistance = 100f;
-    
 
+    [SerializeField] private List<GameObject> pathList = new List<GameObject>();
+    [SerializeField] private List<GameObject> roomList = new List<GameObject>();
     public override void LoadComponent()
     {
         base.LoadComponent();
@@ -43,6 +45,8 @@ public class RoomUISpawner : RoomUIComponent
       
         GameObject roomGO = PoolingManager.Spawn(DungeonMapUI.DungeonMapData.RoomPrefab.gameObject, roomPosition, default, RoomHolder);
  
+        roomList.Add(roomGO);
+        
         RectTransform rect = roomGO.GetComponent<RectTransform>();
         rect.anchoredPosition = roomPosition;
         roomGO.transform.localScale = Vector3.one;
@@ -79,9 +83,26 @@ public class RoomUISpawner : RoomUIComponent
     private void SpawnPath(int posY, int posX, GameObject prefab, Vector3 spawnPos)
     {
         GameObject pathGO = PoolingManager.Spawn(prefab, spawnPos, prefab.transform.rotation, RoomHolder);
+        pathList.Add(pathGO);
         pathGO.transform.localScale = Vector3.one;
 
         RectTransform rect = pathGO.GetComponent<RectTransform>();
         rect.anchoredPosition = spawnPos;
+    }
+
+    public void ResetRoom()
+    {
+       
+        foreach (GameObject path in pathList)
+        {
+            if(path != null) PoolingManager.Despawn(path);
+        }
+        pathList.Clear();
+
+        foreach (GameObject room in roomList)
+        {
+            if(room != null) PoolingManager.Despawn(room);
+        }
+        roomList.Clear();
     }
 }

@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class InGameScreenUI : UIScreen
 {
+  
     [Header("Button")]
     [SerializeField] private Button turnBtn;
 
@@ -247,4 +248,6 @@ public class InGameScreenUI : UIScreen
         int currentCoin = Convert.ToInt32(coinTxt.text);
         coinTxt.text = (coinAdd + currentCoin).ToString();
     }
+
+   
 }
