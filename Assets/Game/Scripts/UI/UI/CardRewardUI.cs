@@ -75,6 +75,6 @@ public class CardRewardUI : UIView
 
         await UniTask.WhenAll(uniTasks);
         currentCardOptions.Clear();
-        UIScreen.HideUI<CardRewardUI>(false, OnFinishChooseCard);
+        await UIScreen.HideUI<CardRewardUI>(false, OnFinishChooseCard);
     }
 }

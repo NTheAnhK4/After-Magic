@@ -310,6 +310,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomHolder: {fileID: 6611740329941279022}
   roomDistance: 100
+  pathList: []
+  roomList: []
 --- !u!114 &6995048301850594766
 MonoBehaviour:
   m_ObjectHideFlags: 0

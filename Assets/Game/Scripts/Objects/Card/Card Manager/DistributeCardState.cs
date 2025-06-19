@@ -39,6 +39,7 @@ public class DistributeCardState : ICardState
         {
           
             Card card = await SpawnCard(i);
+            card.transform.SetAsFirstSibling();
             cards.Add(card);
             
         }

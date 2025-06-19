@@ -1,5 +1,4 @@
 
-using DG.Tweening;
 using Game.UI;
 using UnityEditor;
 using UnityEngine;
@@ -18,13 +17,15 @@ public class SettingUI : UIView
 
     private void Start()
     {
-        exitUIBtn.onClick.AddListener(() => UIScreen.HideUI<SettingUI>());
+        exitUIBtn.onClick.AddListener(OnExitBtnClick);
         exitGameBtn.onClick.AddListener(ExitGame);
     }
 
-    private void ExitGame()
+    private async void OnExitBtnClick() => await UIScreen.HideUI<SettingUI>();
+
+    private async void ExitGame()
     {
-        UIScreen.HideUI<SettingUI>( false, () =>
+        await UIScreen.HideUI<SettingUI>( false, () =>
         {
 #if UNITY_EDITOR
             EditorApplication.isPlaying = false;

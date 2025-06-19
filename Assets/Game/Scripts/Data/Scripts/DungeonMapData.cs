@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 
-[CreateAssetMenu(fileName = "Dungeon Map Data", menuName = "Data/Dungeon Map")]
+[CreateAssetMenu(fileName = "Dungeon Map Data", menuName = "Data/Dungeon/Dungeon Map")]
 public class DungeonMapData : ScriptableObject
 {
     public GameObject RoomPrefab;

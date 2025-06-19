@@ -1,5 +1,6 @@
 
 using System;
+using Cysharp.Threading.Tasks;
 using Game.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,9 +21,9 @@ public class PauseUI : UIView
 
     private void OnEnable()
     {
-        continueBtn.onClick.AddListener(() => UIScreen.HideUI<PauseUI>());
+        continueBtn.onClick.AddListener(() => UIScreen.HideUI<PauseUI>().Forget());
         giveUpBtn.onClick.AddListener(OnGiveUpBtnClick);
-        settingBtn.onClick.AddListener(() => UIScreen.ShowAfterHide<SettingUI>());
+        settingBtn.onClick.AddListener(() => UIScreen.ShowAfterHide<SettingUI>().Forget());
     }
 
     private void OnDisable()
@@ -32,11 +33,11 @@ public class PauseUI : UIView
         settingBtn.onClick.RemoveAllListeners();
     }
 
-    private void OnGiveUpBtnClick()
+    private async void OnGiveUpBtnClick()
     {
         InventoryManager.Instance.SetDungeonLootPercentage(20);
         UIScreen.GetUIView<AchivementUI>().SetLoseAchiveMent();
-        UIScreen.ShowAfterHide<AchivementUI>();
+        await UIScreen.ShowAfterHide<AchivementUI>();
     }
     
 }

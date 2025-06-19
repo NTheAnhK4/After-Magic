@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using Game.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,12 +57,12 @@ public class WinUI : UIView
         RewardManager.Instance.SkipReward();
     }
 
-    private void ShowDungeonMapUI()
+    private async void ShowDungeonMapUI()
     {
         DungeonMapUI dungeonMapUI = UIScreen.GetUIView<DungeonMapUI>();
         
         dungeonMapUI.IsVirtualMap = false;
-        UIScreen.ShowAfterHide<DungeonMapUI>();
+        await UIScreen.ShowAfterHide<DungeonMapUI>(true);
        
     }
 

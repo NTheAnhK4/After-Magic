@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Game.UI;
 using TMPro;
 using UnityEngine;
@@ -90,7 +91,7 @@ public class InGameScreenUI : UIScreen
    
    
 
-    private void Start()
+    private async void Start()
     {
         
        
@@ -98,7 +99,7 @@ public class InGameScreenUI : UIScreen
 
         DungeonMapUI dungeonMapUI = GetUIView<DungeonMapUI>();
         dungeonMapUI.IsVirtualMap = false;
-        ShowUI<DungeonMapUI>();
+        await ShowUI<DungeonMapUI>();
 
     }
 
@@ -107,8 +108,8 @@ public class InGameScreenUI : UIScreen
     {
         if (coinTxt != null) coinTxt.text = GameManager.Instance.CoinAmount.ToString();
         onUsingCardAction = param => turnBtn.interactable = false;
-        onWinAction = param => ShowUI<WinUI>();
-        onLoseAction = param => ShowUI<LoseUI>();
+        onWinAction = param =>  ShowUI<WinUI>().Forget();
+        onLoseAction = param => ShowUI<LoseUI>().Forget();
         
       
         RegisterUIEvents();
@@ -158,14 +159,15 @@ public class InGameScreenUI : UIScreen
     {
         mapBtn.onClick.AddListener(ShowMap);
         turnBtn.onClick.AddListener(OnTurnBtnClick);
-        pauseBtn.onClick.AddListener(() => ShowUI<PauseUI>());
+        pauseBtn.onClick.AddListener(OnPauseBtnClick);
         turnBtn.interactable = false;
         drawPileBtn.onClick.AddListener(() => ShowCardPile(CardManager.Instance.DrawPile, "Draw Pile"));
         discardPileBtn.onClick.AddListener(() => ShowCardPile(CardManager.Instance.DisCardPile, "Discard Pile"));
         depleteCardsBtn.onClick.AddListener(() => ShowCardPile(CardManager.Instance.DepleteCards, "Deplete Cards"));
         availableCardsBtn.onClick.AddListener(() => ShowCardPile(CardManager.Instance.MainDesk, "Main Desk"));
     }
-    
+
+    private async void OnPauseBtnClick() => await ShowUI<PauseUI>();
     private void UnregisterUIEvents()
     {
         mapBtn.onClick.RemoveAllListeners();
@@ -198,17 +200,17 @@ public class InGameScreenUI : UIScreen
    
   
  
-    private void RevivePlayer()
+    private async void RevivePlayer()
     {
-        HideUIOnTop();
+        await HideUIOnTop();
         InGameManager.Instance.RevivePlayer();
     }
 
-    private void ShowCardPile(List<PlayerCardData> cards, string title)
+    private async void ShowCardPile(List<PlayerCardData> cards, string title)
     {
         PileUI pileUI = GetUIView<PileUI>();
         pileUI.Init(cards,title);
-        ShowUI<PileUI>();
+        await ShowUI<PileUI>();
     }
 
     private void OnDrawPileCountChange(object param)
@@ -230,10 +232,10 @@ public class InGameScreenUI : UIScreen
         discardPileTxt.text = count.ToString();
     }
 
-    private void ShowMap()
+    private async void ShowMap()
     {
         GetUIView<DungeonMapUI>().IsVirtualMap = true;
-        ShowUI<DungeonMapUI>();
+        await ShowUI<DungeonMapUI>();
         
     }
 

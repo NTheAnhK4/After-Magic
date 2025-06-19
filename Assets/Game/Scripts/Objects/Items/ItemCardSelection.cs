@@ -33,11 +33,11 @@ public class ItemCardSelection : ItemBase
         return UniTask.CompletedTask;
     }
     
-    private  void ShowCardRewardUI()
+    private  async void ShowCardRewardUI()
     {
         CardRewardUI cardRewardUI = UIScreen.Instance.GetUIView<CardRewardUI>();
         cardRewardUI.OnFinishChooseCard = OnFinishChooseCard;
-        UIScreen.Instance.ShowUI<CardRewardUI>();
+        await UIScreen.Instance.ShowUI<CardRewardUI>();
     }
 
     protected override async UniTask GainRewardAnim()

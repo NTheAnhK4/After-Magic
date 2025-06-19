@@ -3603,7 +3603,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 12
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4309,6 +4309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 833531802}
+  canvas: {fileID: 0}
 --- !u!114 &695642353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6221,9 +6222,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerPartyPrefabs:
-  - {fileID: 6749208883941458743, guid: 0370a89de997631439957c55b7ecf2d3, type: 3}
+  - {fileID: 1592363818115742730, guid: 0370a89de997631439957c55b7ecf2d3, type: 3}
   SpawnPositions:
-  - {x: -7, y: 1, z: 0}
+  - {x: -5.5, y: 0, z: 0}
+  - {x: -10.5, y: 0, z: 0}
+  - {x: -15.5, y: 0, z: 0}
+  - {x: -12, y: 4, z: 0}
+  - {x: -7, y: 4, z: 0}
+  - {x: -2, y: 4, z: 0}
 --- !u!4 &1083794154
 Transform:
   m_ObjectHideFlags: 0
@@ -7385,6 +7391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4577a8138579442970ab8be1fa7fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsGoDeep: 0
   DungeonRoomType: 0
   CurrentRoom: {fileID: 0}
   CurrentDepth: 0
@@ -10607,8 +10614,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b9e4cf280c3a34a889f9cebbd95915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 2152421160073035486, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+  TestEnemyGroup:
+    GroupName: 
+    Enemies: []
+  Data: {fileID: 11400000, guid: decb6ef37ad434448ac166ab28889d64, type: 2}
+  SpawnPos:
+  - {x: 5.5, y: 0, z: 0}
+  - {x: 10.5, y: 0, z: 0}
+  - {x: 15.5, y: 0, z: 0}
+  - {x: 12, y: 4, z: 0}
+  - {x: 15.5, y: 4, z: 0}
+  - {x: 2, y: 4, z: 0}
   Enemies: []
 --- !u!4 &2018229571
 Transform:
@@ -10653,7 +10669,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.574003, y: 2.574003, z: 1}
+  m_LocalScale: {x: 2.777778, y: 3.088803, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -11260,10 +11276,11 @@ MonoBehaviour:
   ShowAnimation: 1
   HideAnimation: 1
   Container: {fileID: 7305279053504290897}
+  DungeonFloorConfig: {fileID: 11400000, guid: 45afa457a5c63c2408e30f4e22c4a592, type: 2}
   DungeonMapData: {fileID: 11400000, guid: db73f692cde27f945ac717faa4fbb141, type: 2}
   RoomUISpawner: {fileID: 7745499763105773708}
   RoomUIInteraction: {fileID: 6919618467289020881}
-  RoomsManager: {fileID: 0}
+  RoomsManager: {fileID: 2726174486097674187}
   IsVirtualMap: 0
   IsShown: 1
   exitBtn: {fileID: 7257775786086135132}
@@ -11920,6 +11937,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomHolder: {fileID: 6545302318072042801}
   roomDistance: 100
+  pathList: []
+  roomList: []
 --- !u!114 &7939719424696982556
 MonoBehaviour:
   m_ObjectHideFlags: 0
