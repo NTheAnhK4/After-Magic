@@ -1,12 +1,16 @@
 
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    [SerializeField] private List<GameObject> enemyPrefabs = new List<GameObject>();
+    public EnemyGroup TestEnemyGroup;
+    [SerializeField] private RoomEnemyGroupConfig Data;
+
+    [SerializeField] private List<Vector3> SpawnPos = new List<Vector3>();
     [SerializeField] private List<Enemy> Enemies = new List<Enemy>();
 
     #region Action
@@ -61,12 +65,41 @@ public class EnemyManager : Singleton<EnemyManager>
         }
     }
 
-    public void SpawnEnemy()
+    public async UniTask SpawnEnemy()
     {
-        Enemy enemy = PoolingManager.Spawn(enemyPrefabs[0], new Vector3(4, 0, 0)).GetComponent<Enemy>();
-        AddEnemy(enemy);
-        enemy =  PoolingManager.Spawn(enemyPrefabs[0], new Vector3(9, 0, 0)).GetComponent<Enemy>();
-        AddEnemy(enemy);
+        
+        if (Data == null)
+        {
+            Debug.LogWarning("Data for enemy spawning is null");
+            return;
+        }
+
+        EnemyGroup enemyGroup = Data.GetRandomGroupByFloor(InGameManager.Instance.CurrentDepth, InGameManager.Instance.MaxDepth, InGameManager.Instance.CurrentRoom.DungeonRoomType is DungeonRoomType.Door);
+
+        TestEnemyGroup = enemyGroup;
+        if (enemyGroup == null || enemyGroup.Enemies == null)
+        {
+            Debug.LogWarning("Can not caculate enemy group");
+            return;
+        }
+
+        for (int i = 0; i < enemyGroup.Enemies.Count; ++i)
+        {
+            Enemy prefab = enemyGroup.Enemies[i];
+            if(prefab == null) Debug.LogWarning("Prefab is null");
+            if(prefab == null) continue;
+            if (i >= SpawnPos.Count)
+            {
+                Debug.LogWarning("Spawn pos for enemy spawning is not enough");
+                return;
+            }
+
+            Enemy enemy = PoolingManager.Spawn(prefab.gameObject, SpawnPos[i], default, transform).GetComponent<Enemy>();
+            if(enemy != null) AddEnemy(enemy);
+            await UniTask.Yield();
+        }
+        
+     
     }
     
 }

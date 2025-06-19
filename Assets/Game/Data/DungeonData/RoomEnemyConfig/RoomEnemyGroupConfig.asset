@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88356276afa5cb4f8d33eaf6911cc25, type: 3}
+  m_Name: RoomEnemyGroupConfig
+  m_EditorClassIdentifier: 
+  NoviceGroups:
+  - GroupName: 
+    Enemies:
+    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+  VeteranGroups:
+  - GroupName: 
+    Enemies:
+    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+  EliteGroups:
+  - GroupName: 
+    Enemies:
+    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+  NightMareGroups:
+  - GroupName: 
+    Enemies:
+    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+  BossGroups:
+  - GroupName: 
+    Enemies:
+    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}

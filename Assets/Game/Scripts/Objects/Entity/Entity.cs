@@ -6,7 +6,7 @@ namespace StateMachine
 {
     public class Entity : ComponentBehavior, IEntity
     {
-        
+        public string curentState;
         public StateMachine StateMachine;
         public StatsSystem StatsSystem;
 
@@ -25,15 +25,15 @@ namespace StateMachine
     
         public bool IsHurting;
         public Action OnDead;
-        [Header("Use Card")] 
+       
         
-        public bool MustReachTarget;
+        public bool MustReachTarget { get; set; }
         public CardStrategy CardStrategy;
         public Action OnFinishedUsingCard;
       
         
-        [Header("Attack")] 
-        public float AttackRange;
+        
+        public float AttackRange { get; set; }
         
         public virtual Entity EnemyTarget { get; set; }
 

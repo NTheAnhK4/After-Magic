@@ -1,6 +1,8 @@
 
 using System;
 using System.Collections.Generic;
+using BrokerChain;
+using Cysharp.Threading.Tasks;
 using StateMachine;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,7 +10,8 @@ using Random = UnityEngine.Random;
 public class PlayerPartyManager : Singleton<PlayerPartyManager>
 {
     //player must always be at index 0 in the list
-    [SerializeField] private List<GameObject> PlayerPartyPrefabs = new List<GameObject>();
+   
+    [SerializeField] private List<Entity> PlayerPartyPrefabs = new List<Entity>();
     [SerializeField] private List<Vector3> SpawnPositions = new List<Vector3>();
 
     private List<Entity> playerPartyEntities = new List<Entity>();
@@ -26,7 +29,31 @@ public class PlayerPartyManager : Singleton<PlayerPartyManager>
     }
 
 
-    public void SpawnPlayerParty()
+    public async UniTask SpawnPlayerParty()
+    {
+       if(playerPartyEntities != null && playerPartyEntities.Count > 0) await SpawnExitPlayerParty();
+       else await SpawnNewPlayerParty();
+    }
+
+    private async UniTask SpawnExitPlayerParty()
+    {
+        for (int i = 0; i < playerPartyEntities.Count; ++i)
+        {
+            Entity entity = playerPartyEntities[i];
+            //EntityStats entityStats 
+            if(entity == null) continue;
+            entity.transform.position = SpawnPositions[i];
+            entity.gameObject.SetActive(true);
+            
+            
+            await UniTask.Yield();
+            
+        }
+        
+      
+    }
+
+    private async UniTask SpawnNewPlayerParty()
     {
         playerPartyEntities.Clear();
         if (PlayerPartyPrefabs.Count == 0)
@@ -43,18 +70,22 @@ public class PlayerPartyManager : Singleton<PlayerPartyManager>
                 return;
             }
 
-            Entity entity =  PoolingManager.Spawn(PlayerPartyPrefabs[i], SpawnPositions[i], default, transform).GetComponent<Entity>();
+            Entity entity =  PoolingManager.Spawn(PlayerPartyPrefabs[i].gameObject, SpawnPositions[i], default, transform).GetComponent<Entity>();
+            entity.StatsSystem.Init();
+            await UniTask.Yield();
+           
             playerPartyEntities.Add(entity);
         }
     }
-
   
     public void DespawnAllParty(object param)
     {
         foreach (Entity entity in playerPartyEntities)
         {
-            if(entity != null) PoolingManager.Despawn(entity.gameObject);
+            if(entity != null) entity.gameObject.SetActive(false);
         }
+
+        playerPartyEntities.RemoveAll(t => t == null);
     }
 
     public Entity GetRandomPartyMember()

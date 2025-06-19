@@ -1,7 +1,6 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using Game.Defines;
 using Game.UI;
 using TMPro;
@@ -37,7 +36,12 @@ public class PileUI : UIView
     
     private void OnEnable()
     {
-        exitBtn.onClick.AddListener(() => UIScreen.HideUI<PileUI>());
+        exitBtn.onClick.AddListener(OnExitBtnClick );
+    }
+
+    private async void OnExitBtnClick()
+    {
+        await UIScreen.HideUI<PileUI>();
     }
 
     private void OnDisable()

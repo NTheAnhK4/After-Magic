@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+  
     [SerializeField] private OscillatingMovement oscillatingMovement;
     #region State
     
@@ -62,6 +63,9 @@ public class Enemy : Entity
     protected override void OnEnable()
     {
         base.OnEnable();
+       
+        StatsSystem.Init();
+       
         oscillatingMovement.Initialized();
         CanUseCard = false;
         
@@ -109,5 +113,6 @@ public class Enemy : Entity
     
     Func<bool> InPlanningState() => () => IsPlanningState && !IsHurting;
     Func<bool> CanEnterUseCardState() => () =>!IsPlanningState && CanUseCard && CardStrategy != null && !MustReachTarget;
-
+    
+   
 }

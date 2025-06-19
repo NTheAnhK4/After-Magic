@@ -78,10 +78,14 @@ namespace Game.UI
 
         public async UniTask HidePanel(float duration = .3f)
         {
+           
             await panelImage.DOFade(0, duration).SetUpdate(true).AsyncWaitForCompletion();
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+            Time.timeScale = 1;
         }
      
-        public async void ShowUI<T>() where T : UIView
+        public async UniTask ShowUI<T>() where T : UIView
         {
            
             T view = GetUIView<T>();
@@ -100,7 +104,7 @@ namespace Game.UI
             await ShowUIViewInternal(view);
         }
 
-        public async void ShowUI(GameObject uiPrefab)
+        public async UniTask ShowUI(GameObject uiPrefab)
         {
             if (uiPrefab == null)
             {
@@ -147,7 +151,7 @@ namespace Game.UI
         }
 
       
-        public async void HideUI<T>(bool skipReset = false, Action afterHide = null) where T : UIView
+        public async UniTask HideUI<T>(bool skipReset = false, Action afterHide = null) where T : UIView
         {
             T view = GetUIView<T>();
             if (view == null)
@@ -168,8 +172,7 @@ namespace Game.UI
            
             if (uiViewStack.Count == 0 && !skipReset)
             {
-                canvasGroup.interactable = true;
-                canvasGroup.blocksRaycasts = true;
+               
 
                 await UniTask.WhenAll(
                     HidePanel(),
@@ -183,7 +186,7 @@ namespace Game.UI
             else await  ViewAnimationController.PlayHideAnimation(view, view.HideAnimation, afterHide);
         }
 
-        public async void HideUIOnTop(bool skipReset = false, Action afterHide = null)
+        public async UniTask HideUIOnTop(bool skipReset = false, Action afterHide = null)
         {
             if (uiViewStack.Count <= 0)
             {
@@ -195,8 +198,7 @@ namespace Game.UI
         
             if (uiViewStack.Count == 0 && !skipReset)
             {
-                canvasGroup.interactable = true;
-                canvasGroup.blocksRaycasts = true;
+               
 
                 await UniTask.WhenAll(
                     HidePanel(),
@@ -205,14 +207,14 @@ namespace Game.UI
                
 
 
-                Time.timeScale = 1;
+                
             }
             else     await  ViewAnimationController.PlayHideAnimation(view, view.HideAnimation, afterHide);
         }
-        public void ShowAfterHide<T>(bool skipReset = false, Action afterHide = null) where T : UIView
+        public async UniTask ShowAfterHide<T>(bool skipReset = false, Action afterHide = null) where T : UIView
         {
-            HideUIOnTop(skipReset, afterHide);
-            ShowUI<T>();
+            await HideUIOnTop(skipReset, afterHide);
+            await ShowUI<T>();
         }
         
 

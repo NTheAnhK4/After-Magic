@@ -29,21 +29,23 @@ namespace BrokerChain
             if (statusUICtrl == null) statusUICtrl = transform.Find("UI/Status").GetComponent<StatusUICtrl>();
         }
 
-        private void OnEnable()
+       
+        public void Init()
         {
-            Stats = new Stats(new StatsMediator(), new EntityStats()
+            EntityStats entityStats = new EntityStats()
             {
                 MaxHP = entityStatsData.HP,
                 HP = entityStatsData.HP,
                 Defense = entityStatsData.Defense,
                 Damage = entityStatsData.Damage
-            });
+            };
+            Stats = new Stats(new StatsMediator(), entityStats);
+            if (healthUICtrl == null) healthUICtrl = transform.Find("UI/HP bar").GetComponent<HealthUICtrl>();
             healthUICtrl.Init(Stats.EntityStats);
             Stats.EntityStats.OnHPChange?.Invoke(Stats.EntityStats.HP, Stats.EntityStats.MaxHP);
         }
-
-        public void StartTurn() => Stats.Mediator.Update(ExpireTiming.StartOfThisTurn);
-        public void EndTurn() => Stats.Mediator.Update(ExpireTiming.EndOfThisTurn);
+        public void StartTurn() => Stats?.Mediator.Update(ExpireTiming.StartOfThisTurn);
+        public void EndTurn() => Stats?.Mediator.Update(ExpireTiming.EndOfThisTurn);
 
         public void AddModifier(StatusEffectData statusEffectData)
         {

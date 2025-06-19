@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks.Triggers;
 using DG.Tweening;
 using Game.UI;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class InGameManager : Singleton<InGameManager>
@@ -43,7 +44,7 @@ public class InGameManager : Singleton<InGameManager>
     private void OnEnable()
     {
         CurrentDepth = 1;
-        MaxDepth = 5;
+        MaxDepth = Random.Range(2, 5);
         onLoseAction = param => { IsGameOver = true; };
         onWinAction = param =>
         {
@@ -84,23 +85,27 @@ public class InGameManager : Singleton<InGameManager>
 
     public async void PlayGame()
     {
-        Time.timeScale = .5f;
-        PlayerPartyManager.Instance.SpawnPlayerParty();
-        EnemyManager.Instance.SpawnEnemy();
+        
+        await UniTask.WhenAll(
+            PlayerPartyManager.Instance.SpawnPlayerParty(),
+            EnemyManager.Instance.SpawnEnemy());
+       
         CardManager.Instance.ClearDesks();
         CardManager.Instance.Init();
        
         TotalMana = 3;
         CurMana = 3;
         IsGameOver = false;
-        await UniTask.Delay(300);
+        await UniTask.Delay(300, DelayType.UnscaledDeltaTime);
+        await UIScreen.Instance.HidePanel();
+      
         currentStateType = GameStateType.DistributeCard;
         ObserverManager<GameStateType>.Notify(currentStateType);
         
     }
-    public void RevivePlayer()
+    public async void RevivePlayer()
     {
-        PlayerPartyManager.Instance.SpawnPlayerParty();
+        await PlayerPartyManager.Instance.SpawnPlayerParty();
         IsGameOver = false;
     }
 }

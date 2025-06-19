@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.UI;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Data/Room Strategy/ Door Room", fileName = "Door Room")]
+[CreateAssetMenu(menuName = "Data/Dungeon/Room Strategy/ Door Room", fileName = "Door Room")]
 public class DoorRoomEvent : RoomEventStrategy
 {
-    public override void OnEnter()
+    public override async void OnEnter()
     {
        
         int currentDepth = InGameManager.Instance.CurrentDepth;
@@ -23,19 +23,19 @@ public class DoorRoomEvent : RoomEventStrategy
             achivementUI.SetBlueBtn("Stay", OnStay,1);
             achivementUI.SetGreenBtn("Go Deep", OnGoDeep,2);
         }
-        UIScreen.Instance.ShowAfterHide<AchivementUI>();
+        await UIScreen.Instance.ShowAfterHide<AchivementUI>();
       
        
     }
 
-    private void OnStay()
+    private async void OnStay()
     {
       
-        UIScreen.Instance.HideUI<AchivementUI>();
+        await UIScreen.Instance.HideUI<AchivementUI>();
 
         DungeonMapUI dungeonMapUI = UIScreen.Instance.GetUIView<DungeonMapUI>();
         dungeonMapUI.IsVirtualMap = false;
-        UIScreen.Instance.ShowUI<DungeonMapUI>();
+        await UIScreen.Instance.ShowUI<DungeonMapUI>();
         
        
     }
@@ -65,9 +65,9 @@ public class DoorRoomEvent : RoomEventStrategy
         dungeonMapUI.IsShown = false;
         dungeonMapUI.IsVirtualMap = false;
         
-        UIScreen.Instance.HideUI<AchivementUI>();
+        await UIScreen.Instance.HideUI<AchivementUI>();
         
-        UIScreen.Instance.ShowUI<DungeonMapUI>();
+        await UIScreen.Instance.ShowUI<DungeonMapUI>();
         InGameManager.Instance.IsGoDeep = true;
        
     }
