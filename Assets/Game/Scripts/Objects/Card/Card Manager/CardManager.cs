@@ -12,7 +12,7 @@ using UnityEngine;
 public class CardManager : Singleton<CardManager>
 {
     
-    //public List<PlayerCardData> CardsAvailable = new List<PlayerCardData>();
+  
     
     #region Card In A Dungeon
  

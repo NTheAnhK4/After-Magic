@@ -56,12 +56,7 @@ public class AchivementUI : UIView
         items = await InventoryManager.Instance.ShowItemInLoot(rewardHolder);
     }
 
-    public void SetLoseAchiveMent()
-    {
-        if(greenBtn != null) greenBtn.gameObject.SetActive(false);
-        if(blueBtn != null) blueBtn.gameObject.SetActive(false);
-        if(redBtn != null) redBtn.gameObject.SetActive(true);
-    }
+
 
     private void SetButtonInfor(Button btn, string textInfor, Action action = null, int siblingIndex = 0)
     {

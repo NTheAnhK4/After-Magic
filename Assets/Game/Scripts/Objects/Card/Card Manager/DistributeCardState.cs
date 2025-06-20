@@ -1,22 +1,26 @@
 
 using System;
 using System.Collections.Generic;
+
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Unity.Mathematics;
+
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class DistributeCardState : ICardState
 {
    
- 
+  
+
 
     private List<Vector3> cardPositions;
     private List<Vector3> cardRotations;
     
     public async UniTask OnEnter()
     {
+        
+        
         CardManager.Instance.CurrentUsingCard = null;
         CardManager.Instance.DisableOtherCardsRayCast();
         
@@ -29,6 +33,7 @@ public class DistributeCardState : ICardState
         if (CardManager.Instance.DrawPile.Count < cardCount)
         {
             await DisCardPileToDrawPile();
+            if (CardManager.Instance == null) return;
             ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, CardManager.Instance.DisCardPile.Count);
         }
         cardCount = Math.Min(cardCount, CardManager.Instance.DrawPile.Count);
@@ -39,6 +44,7 @@ public class DistributeCardState : ICardState
         {
           
             Card card = await SpawnCard(i);
+            if (CardManager.Instance == null) return;
             card.transform.SetAsFirstSibling();
             cards.Add(card);
             
@@ -51,6 +57,7 @@ public class DistributeCardState : ICardState
         
         ObserverManager<CardEventType>.Notify(CardEventType.DrawPileCountChange, CardManager.Instance.DrawPile.Count);
         await UniTask.Delay(200);
+        if (CardManager.Instance == null) return;
         //player turn
         InGameManager.Instance.SetTurn(GameStateType.PlayerTurn);
        
@@ -82,10 +89,10 @@ public class DistributeCardState : ICardState
      
         sequence.Append(card.transform.DOScale(1, .2f))
             .Join(card.transform.DOMove(cardPositions[cardNumber],.2f))
-            .Join(card.transform.DORotate(cardRotations[cardNumber], .15f, RotateMode.Fast));
+            .Join(card.transform.DORotate(cardRotations[cardNumber], .15f));
         
         await sequence.AsyncWaitForCompletion();
-        if(!card.gameObject.activeInHierarchy) Debug.Log("Card is deactive");
+        
         return card;
     }
 

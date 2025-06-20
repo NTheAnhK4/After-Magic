@@ -21,6 +21,7 @@ public class CollectingCardState : ICardState
       
        
         await UniTask.WhenAll(tasks);
+        if (CardManager.Instance == null) return;
         foreach (Card card in CardManager.Instance.CardInHands)
         {
             CardManager.Instance.DisCardPile.Add(card.CardDataCtrl.PlayerCardData);
