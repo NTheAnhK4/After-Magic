@@ -42,7 +42,8 @@ public class DoorRoomEvent : RoomEventStrategy
 
     private void OnExit()
     {
-        Debug.Log("Exit ");
+        InventoryManager.Instance.MoveLootToInventory();
+        SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);
     }
 
     private void OnLeave()

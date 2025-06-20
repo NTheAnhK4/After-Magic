@@ -1,56 +1,79 @@
 
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
+
 using DG.Tweening;
 using UnityEngine;
 
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SceneLoader : Singleton<SceneLoader>
+public class SceneLoader : ComponentBehavior
 {
-    [SerializeField] private Image panel;
+    [SerializeField] private CanvasGroup panel;
     [SerializeField] private Canvas canvas;
+    private static SceneLoader instance;
+  
+    public static SceneLoader Instance => instance;
+
     protected override void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else Destroy(gameObject);
+
         base.Awake();
-        DontDestroyOnLoad(gameObject);
-        SceneManager.sceneLoaded += OnSceneLoaded;
+       
+        
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
     }
 
     public override void LoadComponent()
     {
         base.LoadComponent();
-        if (panel == null) panel = transform.GetComponentInChildren<Image>();
+        
+        if (panel == null) panel = transform.GetComponentInChildren<CanvasGroup>();
         if (canvas == null) canvas = GetComponent<Canvas>();
     }
 
     private async void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        await UniTask.Delay(1, DelayType.UnscaledDeltaTime);
+        LoadComponent();
+        
         if (canvas != null)
         {
             var camera = Camera.main;
             canvas.worldCamera = camera;
         }
-        Color color = panel.color;
-        color.a = 0;
-        
-        await panel.DOColor(color, 1.5f).SetUpdate(true).AsyncWaitForCompletion();
-        panel.gameObject.SetActive(false);
+
+        await panel.DOFade(0, .5f).SetUpdate(true).AsyncWaitForCompletion();
+
+        panel.blocksRaycasts = false;
     }
     public async void LoadScene(string sceneName)
     {
+       
         var scene = SceneManager.LoadSceneAsync(sceneName);
         scene.allowSceneActivation = false;
+
+        panel.blocksRaycasts = true;
+        await panel.DOFade(1, .5f).SetUpdate(true).AsyncWaitForCompletion();
+       
         
-        panel.gameObject.SetActive(true);
-        Color color = panel.color;
-        color.a = 0;
-        panel.color = color;
 
       
-        await panel.DOFade(1, .3f).SetUpdate(true).AsyncWaitForCompletion();
+      
        
         while (scene.progress < .9f)
         {

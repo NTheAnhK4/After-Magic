@@ -25,7 +25,10 @@ public class LoseUI : UIView
     private async void OnDefeatBtnClick()
     {
         InventoryManager.Instance.SetDungeonLootPercentage(0);
-        UIScreen.GetUIView<AchivementUI>().SetLoseAchiveMent();
+
+        AchivementUI achivementUI = UIScreen.GetUIView<AchivementUI>();
+        achivementUI.SetRedBtn("Exit", () => SceneLoader.Instance.LoadScene(GameConstants.LobbyScene));
+       
         await UIScreen.ShowAfterHide<AchivementUI>();
     }
 

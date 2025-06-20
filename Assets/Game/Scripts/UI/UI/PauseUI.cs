@@ -36,7 +36,10 @@ public class PauseUI : UIView
     private async void OnGiveUpBtnClick()
     {
         InventoryManager.Instance.SetDungeonLootPercentage(20);
-        UIScreen.GetUIView<AchivementUI>().SetLoseAchiveMent();
+
+        AchivementUI achivementUI = UIScreen.GetUIView<AchivementUI>();
+        achivementUI.SetRedBtn("Exit", () => SceneLoader.Instance.LoadScene(GameConstants.LobbyScene));
+      
         await UIScreen.ShowAfterHide<AchivementUI>();
     }
     
