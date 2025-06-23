@@ -94,7 +94,7 @@ public class InGameScreenUI : UIScreen
     private async void Start()
     {
         
-       
+        MusicManager.Instance.PlayMusic(MusicType.Dungeon);
         OnRevivePlayer += RevivePlayer;
 
         DungeonMapUI dungeonMapUI = GetUIView<DungeonMapUI>();
@@ -142,7 +142,8 @@ public class InGameScreenUI : UIScreen
 
     private void UnregisterEvents()
     {
-        InGameManager.Instance.OnManaChange -= OnManaChange;
+        if (InGameManager.Instance != null) InGameManager.Instance.OnManaChange -= OnManaChange;
+       
         ObserverManager<GameStateType>.Detach(GameStateType.PlayerTurn, OnPlayerTurn);
         ObserverManager<GameStateType>.Detach(GameStateType.UsingCard, onUsingCardAction);
         ObserverManager<GameEventType>.Detach(GameEventType.Win, onWinAction);

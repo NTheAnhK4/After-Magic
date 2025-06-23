@@ -1,4 +1,5 @@
 
+using AudioSystem;
 using Cysharp.Threading.Tasks;
 using Game.UI;
 using UnityEngine;
@@ -7,20 +8,27 @@ using UnityEngine.UI;
 
 public class LoseUI : UIView
 {
-    [SerializeField] private Button defeatBtn;
-    [SerializeField] private Button continueBtn;
+    [SerializeField] private ButtonAnimBase defeatBtn;
+    [SerializeField] private ButtonAnimBase continueBtn;
     public override void LoadComponent()
     {
         base.LoadComponent();
-        if (defeatBtn == null) defeatBtn = transform.Find("Defeat").GetComponent<Button>();
-        if (continueBtn == null) continueBtn = transform.Find("Continue").GetComponent<Button>();
+        if (defeatBtn == null) defeatBtn = transform.Find("Defeat").GetComponent<ButtonAnimBase>();
+        if (continueBtn == null) continueBtn = transform.Find("Continue").GetComponent<ButtonAnimBase>();
     }
 
     private void OnEnable()
     {
-        defeatBtn.onClick.AddListener(OnDefeatBtnClick);
-        continueBtn.onClick.AddListener(() => ((InGameScreenUI)UIScreen).OnRevivePlayer?.Invoke());
+        defeatBtn.onClick += OnDefeatBtnClick;
+        continueBtn.onClick += OnContinueBtnClick;
     }
+    
+    private void OnContinueBtnClick(){
+    {
+        InGameScreenUI inGameScreenUI = UIScreen as InGameScreenUI;
+        inGameScreenUI.OrNull()?.OnRevivePlayer?.Invoke();
+       
+    }}
 
     private async void OnDefeatBtnClick()
     {
@@ -34,11 +42,13 @@ public class LoseUI : UIView
 
     private void OnDisable()
     {
-        defeatBtn.onClick.RemoveAllListeners();
+        defeatBtn.onClick -= OnDefeatBtnClick;
+        continueBtn.onClick -= OnContinueBtnClick;
     }
 
-   
-    
-
-   
+    public override void Show()
+    {
+        ObserverManager<SoundActionType>.Notify(SoundActionType.StopAll);
+        base.Show();
+    }
 }

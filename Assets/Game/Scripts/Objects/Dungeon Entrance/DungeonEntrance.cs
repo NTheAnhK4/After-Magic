@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DungeonEntrance : ComponentBehavior, IPointerDownHandler,IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private CanvasGroup canvasGroup;
+    
     public override void LoadComponent()
     {
         base.LoadComponent();
@@ -27,12 +29,18 @@ public class DungeonEntrance : ComponentBehavior, IPointerDownHandler,IPointerUp
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.localScale = Vector3.one *1.2f;
+        
+        transform.DOKill();
+        
+        transform.DOScale(1.2f, .45f).SetUpdate(true);
+        
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        transform.localScale = Vector3.one;
+        transform.DOKill();
+        transform.DOScale(1, .45f).SetUpdate(true);
+       
     }
     
     private Vector2 start;
@@ -46,16 +54,26 @@ public class DungeonEntrance : ComponentBehavior, IPointerDownHandler,IPointerUp
         startTime = Time.unscaledTime;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public async void OnPointerUp(PointerEventData eventData)
     {
         float distance = Vector2.Distance(eventData.position, start);
         float timeHeld = Time.unscaledTime - startTime;
 
         if (distance < dragThreshold && timeHeld < timeThreshold)
         {
+            Transform transform1;
+            (transform1 = transform).DOKill(); 
+            transform1.localScale = Vector3.one;
+
+            Sequence seq = DOTween.Sequence();
+            seq.Append(transform.DOScale(0.85f, 0.1f).SetEase(Ease.OutQuad));
+            seq.Append(transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack));
+            seq.SetUpdate(true);
+            await seq.AsyncWaitForCompletion();
             SceneLoader.Instance.LoadScene(GameConstants.DungeonScene);
            
         }
         
     }
+    
 }

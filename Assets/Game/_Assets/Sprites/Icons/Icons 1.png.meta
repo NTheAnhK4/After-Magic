@@ -186,7 +186,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon
+      name: Sound
       rect:
         serializedVersion: 2
         x: 394
@@ -411,7 +411,6 @@ TextureImporter:
       Diamond: 149354071
       Diamond2: 931441813
       Heart: 641245844
-      Icon: -701814648
       Icons 1_4: -446119561
       Icons 1_5: 1168355645
       Icons 1_6: -1647864307
@@ -420,6 +419,7 @@ TextureImporter:
       Map: 923189970
       MulIcons: -823720683
       Music: -1625973002
+      Sound: -701814648
       Star: -1093155279
       Star1: -352874072
   mipmapLimitGroupName: 

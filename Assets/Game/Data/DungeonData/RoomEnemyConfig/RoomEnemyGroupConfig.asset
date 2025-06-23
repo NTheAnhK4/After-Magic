@@ -21,15 +21,21 @@ MonoBehaviour:
   - GroupName: 
     Enemies:
     - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
   EliteGroups:
   - GroupName: 
     Enemies:
+    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
     - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
   NightMareGroups:
   - GroupName: 
     Enemies:
     - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
   BossGroups:
   - GroupName: 
     Enemies:
+    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
     - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}

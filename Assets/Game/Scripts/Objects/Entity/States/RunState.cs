@@ -1,4 +1,6 @@
 using System;
+using AudioSystem;
+using DG.Tweening;
 using StateMachine;
 using UnityEngine;
 
@@ -16,6 +18,7 @@ public class RunState : State<Entity>
     public override void OnEnter(StateData stateData = null)
     {
         base.OnEnter(stateData);
+      
         if (stateData is RunStateData runStateData)
         {
             data = runStateData;

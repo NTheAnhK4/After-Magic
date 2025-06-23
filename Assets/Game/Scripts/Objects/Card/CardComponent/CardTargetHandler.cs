@@ -17,15 +17,16 @@ public class CardTargetHandler : CardComponent
         var target = other.GetComponent<Selectable>();
         if (!IsValidTarget(target)) return;
         CurrentTarget = target;
-        target.SelectObject();
+        CurrentTarget.SelectObject();
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        
         var target = other.GetComponent<Selectable>();
         if (!IsValidTarget(target)) return;
         target.DeselectObject();
-        ResetTarget();
+        if(target == CurrentTarget) ResetTarget();
     }
 
     private bool IsValidTarget(Selectable target)

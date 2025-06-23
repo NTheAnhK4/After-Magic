@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AudioSystem;
 using Cysharp.Threading.Tasks;
 using Game.Defines;
 using UnityEngine;
@@ -10,8 +11,8 @@ namespace Game.UI
     [RequireComponent(typeof(CanvasGroup))]
     public class UIView : ComponentBehavior
     {
-
-        public UIScreen UIScreen;
+        public SoundData soundData;
+        [HideInInspector] public UIScreen UIScreen;
         public ViewAnimationType ShowAnimation;
         public ViewAnimationType HideAnimation;
         private CanvasGroup canvasGroup;
@@ -44,6 +45,7 @@ namespace Game.UI
 
         public virtual async void Show()
         {
+            if(soundData != null) SoundManager.Instance.CreateSound().WithSoundData(soundData).Play();
             await OnShow();
             CanvasGroup.interactable = true;
             gameObject.SetActive(true);

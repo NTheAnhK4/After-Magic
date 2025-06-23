@@ -59,6 +59,7 @@ public class CardDataCtrl : ComponentBehavior
 
     private void OnDisable()
     {
+        if (InGameManager.Instance == null) return;
         InGameManager.Instance.OnManaChange -= OnManaChange;
     }
 

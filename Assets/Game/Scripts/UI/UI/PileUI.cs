@@ -1,6 +1,6 @@
 
 using System.Collections.Generic;
-
+using AudioSystem;
 using Game.Defines;
 using Game.UI;
 using TMPro;
@@ -51,6 +51,7 @@ public class PileUI : UIView
 
     public override void Show()
     {
+        ObserverManager<SoundActionType>.Notify(SoundActionType.PauseAll);
         base.Show();
         if(cardPile != null) ShowCards();
     }
@@ -59,6 +60,7 @@ public class PileUI : UIView
     {
         HideCards();
         base.Hide();
+        ObserverManager<SoundActionType>.Notify(SoundActionType.UnPauseAll);
         
     }
 

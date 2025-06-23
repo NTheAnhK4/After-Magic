@@ -73,12 +73,13 @@ namespace Game.UI
 
         public async UniTask ShowPanel(float duration = .3f)
         {
+            if(MusicManager.Instance != null) MusicManager.Instance.PauseMusic();
             await panelImage.DOFade(1f, duration).SetUpdate(true).AsyncWaitForCompletion();
         }
 
         public async UniTask HidePanel(float duration = .3f)
         {
-           
+            if(MusicManager.Instance != null) MusicManager.Instance.UnPauseMusic();
             await panelImage.DOFade(0, duration).SetUpdate(true).AsyncWaitForCompletion();
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
@@ -211,9 +212,9 @@ namespace Game.UI
             }
             else     await  ViewAnimationController.PlayHideAnimation(view, view.HideAnimation, afterHide);
         }
-        public async UniTask ShowAfterHide<T>(bool skipReset = false, Action afterHide = null) where T : UIView
+        public async UniTask ShowAfterHide<T>( Action afterHide = null) where T : UIView
         {
-            await HideUIOnTop(skipReset, afterHide);
+            await HideUIOnTop(true, afterHide);
             await ShowUI<T>();
         }
         
