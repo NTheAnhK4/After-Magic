@@ -1,4 +1,5 @@
 
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,20 +7,29 @@ using UnityEngine.UI;
 public class LoadingScreenUI : ComponentBehavior
 {
     [SerializeField] private Slider slider;
-    [SerializeField] private ButtonEffectBase playBtn;
+    [SerializeField] private ButtonAnimBase playBtn;
     private bool isLoaded;
     public override void LoadComponent()
     {
         base.LoadComponent();
         if (slider == null) slider = GetComponentInChildren<Slider>();
-        if (playBtn == null) playBtn = GetComponentInChildren<ButtonEffectBase>();
-        playBtn.Init(OnPlayGame);
+        if (playBtn == null) playBtn = GetComponentInChildren<ButtonAnimBase>();
+       
         slider.value = 0;
         playBtn.gameObject.SetActive(false);
         isLoaded = false;
     }
 
-   
+    private void OnEnable()
+    {
+        playBtn.onClick += OnPlayGame;
+    }
+
+    private void OnDisable()
+    {
+        playBtn.onClick -= OnPlayGame;
+    }
+
 
     private void Update()
     {
@@ -41,7 +51,7 @@ public class LoadingScreenUI : ComponentBehavior
         playBtn.Interacable = false;
         playBtn.gameObject.SetActive(true);
 
-        await playBtn.transform.DOScale(1f, 1).SetUpdate(true).SetEase(Ease.OutBack).AsyncWaitForCompletion();
+        await playBtn.transform.DOScale(1f, .5f).SetUpdate(true).SetEase(Ease.OutBack).AsyncWaitForCompletion();
         playBtn.Interacable = true;
     }
 

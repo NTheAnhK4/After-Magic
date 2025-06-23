@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 
 
-public class ScaleBtn : ButtonEffectBase
+public class ScaleBtn : ButtonAnimBase
 {
    
   

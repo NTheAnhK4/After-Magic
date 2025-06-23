@@ -8,11 +8,11 @@ using UnityEngine.UI;
 
 public class LobbyScreenUI : UIScreen
 {
-    [SerializeField] private Button settingBtn;
+    [SerializeField] private ButtonAnimBase settingBtn;
     public override void LoadComponent()
     {
         base.LoadComponent();
-        if (settingBtn == null) settingBtn = transform.Find("Top/Setting").GetComponent<Button>();
+        if (settingBtn == null) settingBtn = transform.Find("Top/Setting").GetComponent<ButtonAnimBase>();
         AddUIView<SettingUI>();
     }
 
@@ -20,11 +20,17 @@ public class LobbyScreenUI : UIScreen
 
     private void OnEnable()
     {
-        settingBtn.onClick.AddListener(OnSettingBtnClick);
+        settingBtn.onClick += OnSettingBtnClick;
+    }
+
+    private void Start()
+    {
+        MusicManager.Instance.PlayMusic(MusicType.Lobby);
     }
 
     private void OnDisable()
     {
-        settingBtn.onClick.RemoveAllListeners();
+        settingBtn.onClick -= OnSettingBtnClick;
+        
     }
 }

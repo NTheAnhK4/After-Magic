@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using AudioSystem;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 
@@ -11,13 +12,16 @@ using UnityEngine;
 
 public class CardManager : Singleton<CardManager>
 {
-    
+    [Header("Sound Data")] 
+    public SoundData DistributeCardSound;
+
+    public SoundData CollectingCardSound;
   
     
     #region Card In A Dungeon
  
     public Card CardPrefab;
-    public List<PlayerCardData> MainDesk = new List<PlayerCardData>();
+    [HideInInspector] public List<PlayerCardData> MainDesk = new List<PlayerCardData>();
     [HideInInspector] public List<PlayerCardData> DrawPile = new List<PlayerCardData>();
     [HideInInspector] public List<PlayerCardData> DisCardPile = new List<PlayerCardData>();
     [HideInInspector] public List<Card> CardInHands = new List<Card>();
@@ -84,11 +88,11 @@ public class CardManager : Singleton<CardManager>
     {
         base.LoadComponent();
         if (Canvas == null) Canvas = transform.parent.parent.parent.GetComponent<Canvas>();
-        despawnPos = new Vector3(14, -7.25f,0);
+        despawnPos = new Vector3(17, -8.75f,0);
         despawnScale = new Vector3(.4f, .4f, 1);
         despawnRotation = new Vector3(0, 0, 255);
     
-        spawnPos = new Vector3(-14, -7.25f,0);
+        spawnPos = new Vector3(-16.75f, -8.75f,0);
         spawnScale = new Vector3(.8f, .8f, 1);
         spawnRotation = new Vector3(0, 0, 45);
     }

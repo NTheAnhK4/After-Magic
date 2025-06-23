@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using AudioSystem;
 using Cysharp.Threading.Tasks;
 
 public class CollectingCardState : ICardState
@@ -21,7 +22,13 @@ public class CollectingCardState : ICardState
       
        
         await UniTask.WhenAll(tasks);
+        
         if (CardManager.Instance == null) return;
+        
+        if (CardManager.Instance.CollectingCardSound != null)
+        {
+            SoundManager.Instance.CreateSound().WithSoundData(CardManager.Instance.CollectingCardSound).Play();
+        }
         foreach (Card card in CardManager.Instance.CardInHands)
         {
             CardManager.Instance.DisCardPile.Add(card.CardDataCtrl.PlayerCardData);
@@ -30,7 +37,9 @@ public class CollectingCardState : ICardState
         CardManager.Instance.CardInHands.Clear();
         //set discard pile count change
         ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, CardManager.Instance.DisCardPile.Count);
-   
+
+        await UniTask.Delay(500, DelayType.UnscaledDeltaTime);
+        
         InGameManager.Instance.SetTurn(GameStateType.EnemyTurn);
        
        
@@ -43,6 +52,7 @@ public class CollectingCardState : ICardState
     }
     public UniTask OnExit()
     {
+       
         return UniTask.CompletedTask;
     }
 

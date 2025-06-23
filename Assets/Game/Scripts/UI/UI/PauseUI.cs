@@ -1,5 +1,6 @@
 
 using System;
+using AudioSystem;
 using Cysharp.Threading.Tasks;
 using Game.UI;
 using UnityEngine;
@@ -7,30 +8,34 @@ using UnityEngine.UI;
 
 public class PauseUI : UIView
 {
-    [SerializeField] private Button settingBtn;
-    [SerializeField] private Button continueBtn;
-    [SerializeField] private Button giveUpBtn;
+    [SerializeField] private ButtonAnimBase settingBtn;
+    [SerializeField] private ButtonAnimBase continueBtn;
+    [SerializeField] private ButtonAnimBase giveUpBtn;
 
     public override void LoadComponent()
     {
         base.LoadComponent();
-        if (settingBtn == null) settingBtn = transform.Find("Setting").GetComponent<Button>();
-        if (continueBtn == null) continueBtn = transform.Find("Continue").GetComponent<Button>();
-        if (giveUpBtn == null) giveUpBtn = transform.Find("Give up").GetComponent<Button>();
+        if (settingBtn == null) settingBtn = transform.Find("Setting").GetComponent<ButtonAnimBase>();
+        if (continueBtn == null) continueBtn = transform.Find("Continue").GetComponent<ButtonAnimBase>();
+        if (giveUpBtn == null) giveUpBtn = transform.Find("Give up").GetComponent<ButtonAnimBase>();
     }
 
     private void OnEnable()
     {
-        continueBtn.onClick.AddListener(() => UIScreen.HideUI<PauseUI>().Forget());
-        giveUpBtn.onClick.AddListener(OnGiveUpBtnClick);
-        settingBtn.onClick.AddListener(() => UIScreen.ShowAfterHide<SettingUI>().Forget());
+        continueBtn.onClick += OnContinueBtnClick;
+        giveUpBtn.onClick += OnGiveUpBtnClick;
+        settingBtn.onClick += OnSettingBtnClick;
+       
     }
+
+    private async void OnContinueBtnClick() => await UIScreen.HideUI<PauseUI>();
+    private async void OnSettingBtnClick() => await UIScreen.ShowAfterHide<SettingUI>();
 
     private void OnDisable()
     {
-        continueBtn.onClick.RemoveAllListeners();
-        giveUpBtn.onClick.RemoveAllListeners();
-        settingBtn.onClick.RemoveAllListeners();
+        continueBtn.onClick -= OnContinueBtnClick;
+        giveUpBtn.onClick -= OnGiveUpBtnClick;
+        settingBtn.onClick -= OnSettingBtnClick;
     }
 
     private async void OnGiveUpBtnClick()
@@ -42,5 +47,16 @@ public class PauseUI : UIView
       
         await UIScreen.ShowAfterHide<AchivementUI>();
     }
-    
+
+    public override void Show()
+    {
+        ObserverManager<SoundActionType>.Notify(SoundActionType.PauseAll);
+        base.Show();
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+        ObserverManager<SoundActionType>.Notify(SoundActionType.UnPauseAll);
+    }
 }

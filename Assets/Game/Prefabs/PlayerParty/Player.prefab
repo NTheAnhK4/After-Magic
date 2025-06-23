@@ -676,6 +676,7 @@ GameObject:
   - component: {fileID: 1877516234617860406}
   - component: {fileID: 4891374114211548404}
   - component: {fileID: 8016100830340627711}
+  - component: {fileID: 9058804103820713500}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -734,11 +735,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57833a1ec4bc53c4598229e35925af9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curentState: 
   StatsSystem: {fileID: 8016100830340627711}
   IsHurting: 0
-  MustReachTarget: 0
   CardStrategy: {fileID: 0}
-  AttackRange: 0
   IsRunningToTarget: 0
   RunSpeed: 0
   StandPoint: {x: 0, y: 0, z: 0}
@@ -846,6 +846,18 @@ MonoBehaviour:
   entityStatsData: {fileID: 11400000, guid: 390b24e4a22325b4d92eb615b9e4a3a2, type: 2}
   healthUICtrl: {fileID: 805397756798020138}
   statusUICtrl: {fileID: 1149055578059632979}
+--- !u!114 &9058804103820713500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6749208883941458743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb79288c07d6a84e9d4957c83388978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7893999149585403242
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AudioSystem;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,6 +13,8 @@ using Sequence = DG.Tweening.Sequence;
 public class CardAnimation : CardComponent
 {
 
+  
+    
     [SerializeField] private List<Image> _images;
     private Vector3 prePosition;
     private Quaternion preQuaternion;

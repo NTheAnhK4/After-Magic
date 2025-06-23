@@ -64,6 +64,8 @@ public class SceneLoader : ComponentBehavior
     public async void LoadScene(string sceneName)
     {
        
+        if(MusicManager.Instance != null) MusicManager.Instance.StopMusic();
+        
         var scene = SceneManager.LoadSceneAsync(sceneName);
         scene.allowSceneActivation = false;
 

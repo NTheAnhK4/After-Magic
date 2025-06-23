@@ -1,5 +1,6 @@
 
 
+using AudioSystem;
 using Game.UI;
 using UnityEngine;
 
@@ -72,7 +73,7 @@ public class DungeonMapUI : UIView
 
     public override void Show()
     {
-        
+        if(IsVirtualMap) ObserverManager<SoundActionType>.Notify(SoundActionType.PauseAll);
         base.Show();
         exitBtn.gameObject.SetActive(IsVirtualMap);
         if(IsVirtualMap) exitBtn.onClick.AddListener(OnExitBtnClick );
@@ -92,6 +93,12 @@ public class DungeonMapUI : UIView
         else RoomsManager.ShowRoom(IsVirtualMap);
        
         IsShown = true;
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+        if(IsVirtualMap) ObserverManager<SoundActionType>.Notify(SoundActionType.UnPauseAll);
     }
 
     private async void OnExitBtnClick() => await UIScreen.HideUI<DungeonMapUI>();

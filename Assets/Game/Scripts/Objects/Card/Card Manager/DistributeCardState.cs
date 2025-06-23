@@ -1,7 +1,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using AudioSystem;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 
@@ -16,6 +16,7 @@ public class DistributeCardState : ICardState
 
     private List<Vector3> cardPositions;
     private List<Vector3> cardRotations;
+    private SoundBuilder soundBuilder;
     
     public async UniTask OnEnter()
     {
@@ -28,16 +29,29 @@ public class DistributeCardState : ICardState
         
        
         int cardCount = 5;
-
-
+        
+        
+        //Get card from discard pile
         if (CardManager.Instance.DrawPile.Count < cardCount)
         {
             await DisCardPileToDrawPile();
             if (CardManager.Instance == null) return;
+            
+            if(CardManager.Instance.CollectingCardSound != null) SoundManager.Instance.CreateSound().WithSoundData(CardManager.Instance.CollectingCardSound).Play();
             ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, CardManager.Instance.DisCardPile.Count);
+            await UniTask.Delay(500, DelayType.UnscaledDeltaTime);
         }
+        
         cardCount = Math.Min(cardCount, CardManager.Instance.DrawPile.Count);
 
+        //play distribute card sound
+        if (CardManager.Instance.DistributeCardSound != null)
+        {
+            soundBuilder = SoundManager.Instance.CreateSound().WithSoundData(CardManager.Instance.DistributeCardSound);
+            soundBuilder.Play();
+        }
+        
+        //distribute card
         List<Card> cards = new List<Card>();
         CardManager.Instance.ArrangeHand(cardCount, out cardPositions, out cardRotations);
         for (int i = 0; i < cardCount; ++i)
@@ -136,6 +150,8 @@ public class DistributeCardState : ICardState
 
     public UniTask OnExit()
     {
+        soundBuilder?.Stop();
+        soundBuilder = null;
         return UniTask.CompletedTask;
     }
 

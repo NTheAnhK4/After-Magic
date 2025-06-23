@@ -1,4 +1,5 @@
 using System;
+using AudioSystem;
 using BrokerChain;
 using DG.Tweening;
 using UnityEngine;
@@ -17,9 +18,8 @@ namespace StateMachine
         public RunState RunState;
         public HurtState HurtState;
         public DeadState DeadState;
-       
-        
-       
+
+      
        
 
     
