@@ -1,18 +1,37 @@
 
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public class Singleton<T> : ComponentBehavior where T : ComponentBehavior
 {
-    private static T instance;
+    protected static T instance;
+    public static bool HasInstance => instance != null;
+
+    public static T TryGetInstance() => HasInstance ? instance : null;
+    private static bool isQuitting = false;
   
-    public static T Instance => instance;
-
-    protected virtual void Awake()
+    public static T Instance
     {
-        if (instance == null) instance = (T)(MonoBehaviour)this;
-        else Destroy(gameObject);
+        get
+        {
+            if (isQuitting) return null;
+            if (instance == null) instance = FindAnyObjectByType<T>();
+              
+            return instance;
+        }
+    }
 
-        
+    protected override void Awake()
+    {
+        InitializeSingleton();
+
+        base.Awake();
         
     }
+
+    protected virtual void InitializeSingleton()
+    {
+        if (!Application.isPlaying) return;
+        instance = this as T;
+    }
+    protected virtual void OnApplicationQuit() => isQuitting = true;
 }

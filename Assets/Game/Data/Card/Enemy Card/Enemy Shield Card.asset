@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1f8f2f493a51574caca920ec2842de7, type: 3}
+  m_Name: Enemy Shield Card
+  m_EditorClassIdentifier: 
+  WarningPrefab: {fileID: 6043014878650200679, guid: d8a982fc9335a94418d909a90dbd6709, type: 3}
+  CardStrategy: {fileID: 11400000, guid: 09df34d719d7eb549a8fd73dcde2a540, type: 2}

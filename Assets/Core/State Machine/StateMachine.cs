@@ -10,6 +10,7 @@ namespace StateMachine
         class StateNode
         {
             public IState State { get; }
+         
             public HashSet<ITransition> Transitions { get; }
 
             public StateNode(IState state)
@@ -18,9 +19,9 @@ namespace StateMachine
                 Transitions = new HashSet<ITransition>();
             }
 
-            public void AddTransition(IState to, IPredicate condition)
+            public void AddTransition(IState to, IPredicate condition, Func<StateData> getstateData = null)
             {
-                Transitions.Add(new Transition(to, condition));
+                Transitions.Add(new Transition(to, condition, getstateData));
             }
             
         }
@@ -33,7 +34,7 @@ namespace StateMachine
         public void Update()
         {
             var transition = GetTransition();
-            if (transition != null) ChangeState(transition.To);
+            if (transition != null) ChangeState(transition.To, transition.Data);
            
             
             current.State?.Update();
@@ -44,13 +45,14 @@ namespace StateMachine
             current.State?.FixedUpdate();
         }
         //use for specific condition
-        public void SetState(IState state, StateData stateData = null)
+        public void SetState(IState state, Func<StateData> stateData = null)
         {
-            current = nodes[state.GetType()];
-            current.State?.OnEnter(stateData);
+            current = GetOrAddNode(state);
+            //current =  nodes[state.GetType()];
+            current.State?.OnEnter(stateData?.Invoke());
         }
 
-        void ChangeState(IState state)
+        public void ChangeState(IState state, Func<StateData> stateData = null)
         {
             if (state == current.State) return;
 
@@ -58,34 +60,44 @@ namespace StateMachine
             var nextState = nodes[state.GetType()].State;
             
             previousState?.OnExit();
-            nextState?.OnEnter();
+            
+            nextState?.OnEnter(stateData?.Invoke());
             current = nodes[state.GetType()];
         }
 
         ITransition GetTransition()
         {
-            foreach (var transition in anyTransitions)
+            if (anyTransitions != null)
             {
-                if (transition.Condition.Evaluate()) return transition;
+                foreach (var transition in anyTransitions)
+                {
+                    if (transition.Condition.Evaluate()) return transition;
+                }
             }
 
-          
-            foreach (var transition in current.Transitions)
+            if (current.Transitions != null)
             {
-                if (transition.Condition.Evaluate()) return transition;
+                foreach (var transition in current.Transitions)
+                {
+                    if (transition.Condition.Evaluate()) return transition;
+                }
             }
+            
+
+          
+           
 
             return null;
         }
 
-        public void AddTransition(IState from, IState to, IPredicate condition)
+        public void AddTransition(IState from, IState to, IPredicate condition, Func<StateData> getData = null)
         {
-            GetOrAddNode(from).AddTransition(GetOrAddNode(to).State, condition);
+            GetOrAddNode(from).AddTransition(GetOrAddNode(to).State, condition, getData);
         }
 
-        public void AddAnyTransition(IState to, IPredicate condition)
+        public void AddAnyTransition(IState to, IPredicate condition, Func<StateData> getData = null)
         {
-            anyTransitions.Add(new Transition(GetOrAddNode(to).State, condition));
+            anyTransitions.Add(new Transition(GetOrAddNode(to).State, condition, getData));
         }
         StateNode GetOrAddNode(IState state)
         {

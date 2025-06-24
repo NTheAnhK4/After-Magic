@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d37cb35788cfae4cb9aff3c6f3a8292, type: 3}
+  m_Name: Dungeon Map Data
+  m_EditorClassIdentifier: 
+  RoomPrefab: {fileID: 4924055510654386149, guid: c4d4b6e1f22360e498f2c3fa538445ee, type: 3}
+  VerticalPath: {fileID: 1430374006369841676, guid: 8a535d43c8b23d34bb84e719abe28d59, type: 3}
+  HorizontalPath: {fileID: 6537856213277393292, guid: 44b3dcf5a6f764d46ba7ffc2fc42b4d3, type: 3}
+  RoomInfor:
+  - Name: Battle
+    Sprite: {fileID: -226651767, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+    RoomEventStrategy: {fileID: 11400000, guid: ded4e92b927e31a4f9c05858bccc8ed7, type: 2}
+  - Name: Campfire
+    Sprite: {fileID: 375268481, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+    RoomEventStrategy: {fileID: 11400000, guid: 546d54b7e51fb4d43a5b096da3863c44, type: 2}
+  - Name: Door
+    Sprite: {fileID: 876994493, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+    RoomEventStrategy: {fileID: 11400000, guid: e3bbe6f24f7384f4592a1af0e1f78e26, type: 2}
+  - Name: Empty
+    Sprite: {fileID: 1616722192, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+    RoomEventStrategy: {fileID: 11400000, guid: f128b796dabfd864997a2427ccd848ce, type: 2}
+  - Name: Entry
+    Sprite: {fileID: 911997544, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+    RoomEventStrategy: {fileID: 11400000, guid: f128b796dabfd864997a2427ccd848ce, type: 2}
+  - Name: Mystery
+    Sprite: {fileID: 1011719919, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+    RoomEventStrategy: {fileID: 11400000, guid: 546d54b7e51fb4d43a5b096da3863c44, type: 2}
+  - Name: Shop
+    Sprite: {fileID: 1876129114, guid: 1771d08162b9a1440922f1c881b8dec6, type: 3}
+    RoomEventStrategy: {fileID: 11400000, guid: 61752a50e43c51e42907f7df7df4902a, type: 2}

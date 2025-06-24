@@ -1,0 +1,141 @@
+
+
+using System;
+using UnityEngine;
+using UnityEngine.UI;
+
+using System.Reflection;
+public class RoomUIBtn : ComponentBehavior
+{
+    
+    public RoomsManager RoomsManager;
+    public DungeonRoomType DungeonRoomType;
+    
+    #region Sprite
+    public Sprite RoomSpriteBeforeEnter;
+    public Sprite RoomSpriteAfterEnter;
+    #endregion
+   
+    public bool isEntered = false;
+
+    #region Strategy
+
+    public RoomEventStrategy StrategyBeforeEnter;
+    public RoomEventStrategy StrategyAfterEnter;
+
+    #endregion
+   
+
+    public Vector2Int RoomPosition;
+
+    private Button roomBtn;
+    private Image RoomImg;
+    private GameObject roomFrame;
+
+    private bool _reachable;
+    private bool isBtnClicked;
+   
+    public override void LoadComponent()
+    {
+        base.LoadComponent();
+        if (roomBtn == null) roomBtn = transform.Find("RoomBtn").GetComponent<Button>();
+        if (RoomImg == null) RoomImg = transform.Find("RoomBtn").GetComponent<Image>();
+        if (roomFrame == null)
+        {
+            roomFrame = transform.Find("Frame").gameObject;
+            roomFrame.gameObject.SetActive(false);
+        }
+    }
+
+    public void ResetRoom()
+    {
+        isEntered = false;
+        _reachable = false;
+        isBtnClicked = false;
+        roomBtn.onClick.RemoveAllListeners();
+        StrategyAfterEnter = null;
+        StrategyBeforeEnter = null;
+    }
+    public void SetRoomReachable(bool reachable)
+    {
+        roomBtn.interactable = reachable;
+        _reachable = reachable;
+        if (reachable)
+        {
+            roomBtn.onClick.RemoveAllListeners();
+            roomBtn.onClick.AddListener(EnterRoom);
+        }
+       
+    }
+
+    public void SetVirtualRoom(bool isVirtualRoom)
+    {
+        roomBtn.interactable = _reachable;
+        if (isVirtualRoom) return;
+
+        if (_reachable)
+        {
+            roomBtn.onClick.RemoveAllListeners();
+            roomBtn.onClick.AddListener(EnterRoom);
+        }
+        
+    }
+
+    public void SetRoomSprite() =>  RoomImg.sprite = isEntered ? RoomSpriteAfterEnter : RoomSpriteBeforeEnter;
+
+
+    private void OnEnable()
+    {
+        isBtnClicked = false;
+    }
+
+    private void OnDisable()
+    {
+        roomBtn.onClick.RemoveAllListeners();
+    }
+  
+
+    private void EnterRoom()
+    {
+       
+       SelectRoom();
+       if (isBtnClicked) return;
+       if (!isEntered && InGameManager.Instance != null) InGameManager.Instance.RoomsExplored++;
+       isBtnClicked = true;
+       RoomEventStrategy strategy = isEntered ? StrategyAfterEnter : StrategyBeforeEnter;
+       
+       if (strategy == null)
+       {
+           Debug.LogWarning("Strategy is null");
+           return;
+       }
+
+      
+       isEntered = true;
+       strategy.OnEnter();
+      
+      
+      
+    }
+
+    public void SetInteracableNeighboringRoom()
+    {
+     
+        RoomsManager.SetRoomInteracable(RoomPosition.x - 1, RoomPosition.y);
+        RoomsManager.SetRoomInteracable(RoomPosition.x + 1, RoomPosition.y);
+        RoomsManager.SetRoomInteracable(RoomPosition.x, RoomPosition.y + 1);
+        RoomsManager.SetRoomInteracable(RoomPosition.x, RoomPosition.y - 1);
+    }
+
+    public void SelectRoom()
+    {
+        if(InGameManager.Instance.CurrentRoom != null) InGameManager.Instance.CurrentRoom.DeselectRoom();
+        InGameManager.Instance.DungeonRoomType = DungeonRoomType;
+
+        InGameManager.Instance.CurrentRoom = this;
+
+        roomFrame.SetActive(true);
+    }
+
+    public void DeselectRoom() => roomFrame.SetActive(false);
+}

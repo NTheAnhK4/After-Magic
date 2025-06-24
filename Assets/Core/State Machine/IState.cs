@@ -14,19 +14,31 @@ namespace StateMachine
         void Update();
         void FixedUpdate();
         void OnExit();
+        void AnimationFinishTrigger();
+        void AnimationTrigger();
+
     }
 
     public class State<T> : IState where T : Entity
     {
         protected T entity;
+        private string animBoolName;
 
-        public State(T entity)
+        public State(T entity, string animBoolName)
         {
             this.entity = entity;
+            this.animBoolName = animBoolName;
         }
+
+       
+
         public virtual void OnEnter(StateData stateData = null)
         {
-            
+            if(animBoolName != string.Empty) entity.Anim.SetBool(animBoolName, true);
+         
+            entity.IsAnimationTriggerFinished = false;
+            entity.curentState = this.GetType().Name;
+            // Debug.Log(entity.name + " " + this.GetType().Name);
         }
 
         public virtual void Update()
@@ -41,7 +53,13 @@ namespace StateMachine
 
         public virtual void OnExit()
         {
-            
+            if(animBoolName != string.Empty) entity.Anim.SetBool(animBoolName, false);
+        }
+
+        public virtual void AnimationFinishTrigger() => entity.IsAnimationTriggerFinished = true;
+
+        public virtual void AnimationTrigger()
+        {
         }
     }
     
