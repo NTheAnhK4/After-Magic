@@ -44,10 +44,10 @@ public class PlayerPartyManager : Singleton<PlayerPartyManager>
             if(entity == null) continue;
             entity.transform.position = SpawnPositions[i];
             entity.gameObject.SetActive(true);
-            
-            
-            await UniTask.Yield();
-            
+
+
+            await UniTask.Delay(200, DelayType.UnscaledDeltaTime);
+
         }
         
       
@@ -72,7 +72,7 @@ public class PlayerPartyManager : Singleton<PlayerPartyManager>
 
             Entity entity =  PoolingManager.Spawn(PlayerPartyPrefabs[i].gameObject, SpawnPositions[i], default, transform).GetComponent<Entity>();
             entity.StatsSystem.Init();
-            await UniTask.Yield();
+            await UniTask.Delay(200, DelayType.UnscaledDeltaTime);
            
             playerPartyEntities.Add(entity);
         }

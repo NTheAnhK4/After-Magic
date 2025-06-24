@@ -64,13 +64,11 @@ namespace BrokerChain
         {
             int defense = Stats.Defense;
            
-            if (defense > 0)
-            {
-                damage = Math.Max(0, damage - defense);
-                defense = Math.Max(0, defense - damage);
-            }
+            if (defense > 0) damage = Math.Max(0, damage - defense);
 
             if (damage > 0) entity.IsHurting = true;
+            
+            entity.damagePopupUI.OrNull()?.Show(damage);
             //Change base hp
             int curHP = Math.Max(Stats.EntityStats.HP - damage,0);
             Stats.EntityStats.HP = curHP;

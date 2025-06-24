@@ -54,26 +54,27 @@ public class DungeonEntrance : ComponentBehavior, IPointerDownHandler,IPointerUp
         startTime = Time.unscaledTime;
     }
 
-    public async void OnPointerUp(PointerEventData eventData)
+    public void OnPointerUp(PointerEventData eventData)
     {
         float distance = Vector2.Distance(eventData.position, start);
         float timeHeld = Time.unscaledTime - startTime;
 
-        if (distance < dragThreshold && timeHeld < timeThreshold)
-        {
-            Transform transform1;
-            (transform1 = transform).DOKill(); 
-            transform1.localScale = Vector3.one;
+        if (distance < dragThreshold && timeHeld < timeThreshold) EnterMap();
+    }
 
-            Sequence seq = DOTween.Sequence();
-            seq.Append(transform.DOScale(0.85f, 0.1f).SetEase(Ease.OutQuad));
-            seq.Append(transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack));
-            seq.SetUpdate(true);
-            await seq.AsyncWaitForCompletion();
-            SceneLoader.Instance.LoadScene(GameConstants.DungeonScene);
-           
-        }
-        
+    private async void EnterMap()
+    {
+        DungeonEntranceManager.Instance.LockAllDungeonEntrance();
+        Transform transform1;
+        (transform1 = transform).DOKill(); 
+        transform1.localScale = Vector3.one;
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(transform.DOScale(0.85f, 0.1f).SetEase(Ease.OutQuad));
+        seq.Append(transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack));
+        seq.SetUpdate(true);
+        await seq.AsyncWaitForCompletion();
+        SceneLoader.Instance.LoadScene(GameConstants.DungeonScene);
     }
     
 }

@@ -1,5 +1,6 @@
 
 
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,6 +33,7 @@ public class RoomUIBtn : ComponentBehavior
     private GameObject roomFrame;
 
     private bool _reachable;
+    private bool isBtnClicked;
    
     public override void LoadComponent()
     {
@@ -49,6 +51,7 @@ public class RoomUIBtn : ComponentBehavior
     {
         isEntered = false;
         _reachable = false;
+        isBtnClicked = false;
         roomBtn.onClick.RemoveAllListeners();
         StrategyAfterEnter = null;
         StrategyBeforeEnter = null;
@@ -81,7 +84,10 @@ public class RoomUIBtn : ComponentBehavior
     public void SetRoomSprite() =>  RoomImg.sprite = isEntered ? RoomSpriteAfterEnter : RoomSpriteBeforeEnter;
 
 
-   
+    private void OnEnable()
+    {
+        isBtnClicked = false;
+    }
 
     private void OnDisable()
     {
@@ -91,10 +97,11 @@ public class RoomUIBtn : ComponentBehavior
 
     private void EnterRoom()
     {
-        
-        roomBtn.interactable = false;
-       SelectRoom();
        
+       SelectRoom();
+       if (isBtnClicked) return;
+       if (!isEntered && InGameManager.Instance != null) InGameManager.Instance.RoomsExplored++;
+       isBtnClicked = true;
        RoomEventStrategy strategy = isEntered ? StrategyAfterEnter : StrategyBeforeEnter;
        
        if (strategy == null)

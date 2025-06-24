@@ -44,7 +44,7 @@ public class WinUI : UIView
     {
         skipRewardBtn.onClick -= SkipReward;
         takeAllBtn.onClick -= TakeAllReward;
-        RewardManager.Instance.CurrentRewardEmpty -= CurrentRewardEmpty;
+        if(RewardManager.Instance != null) RewardManager.Instance.CurrentRewardEmpty -= CurrentRewardEmpty;
     }
 
     private void TakeAllReward()

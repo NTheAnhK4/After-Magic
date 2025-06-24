@@ -10,7 +10,7 @@ public class EnemyPlanningStateData : StateData
 public class EnemyPlanningState : State<Enemy>
 {
     private EnemyPlanningStateData data;
-    private GameObject warningPrefab;
+    
     public EnemyPlanningState(Enemy entity, string animBoolName) : base(entity, animBoolName)
     {
     }
@@ -18,6 +18,9 @@ public class EnemyPlanningState : State<Enemy>
     public override void OnEnter(StateData stateData = null)
     {
         base.OnEnter(stateData);
+      
+        if (entity.IsNextActionPlanned) return;
+        
         if (stateData is EnemyPlanningStateData planningData)
         {
             data = planningData;
@@ -27,20 +30,13 @@ public class EnemyPlanningState : State<Enemy>
         
         EnemyCardData enemyCardData = GetCardStrategy();
 
-        warningPrefab = PoolingManager.Spawn(enemyCardData.WarningPrefab, entity.PredictedActionTrf);
-
+        entity.ShowWarning(enemyCardData.WarningPrefab);
+       
         entity.CardStrategy = enemyCardData.CardStrategy;
         entity.MustReachTarget = enemyCardData.CardStrategy.MustReachTarget;
     }
 
-    public override void OnExit()
-    {
-        base.OnExit();
-        if (warningPrefab != null) PoolingManager.Despawn(warningPrefab);
-       
-    }
-
-
+   
     private EnemyCardData GetCardStrategy()
     {
         int id = Random.Range(0, entity.CardStrategyAvailables.Count);
