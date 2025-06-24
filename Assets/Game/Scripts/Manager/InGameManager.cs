@@ -10,13 +10,24 @@ using Random = UnityEngine.Random;
 
 public class InGameManager : Singleton<InGameManager>
 {
+    [Header("Achivement")]
+    public int CurrentDepth;
+    public int MaxDepth;
+
+    public int MonstersDefeated;
+    public int EliteMonstersDefeated;
+    public int BossesDefeated;
+    public int RoomsExplored;
+    public float TimePlayed => Time.time - startTime;
+
+    private float startTime;
+    
     public bool IsGoDeep = false;
     public DungeonRoomType DungeonRoomType;
 
     public RoomUIBtn CurrentRoom;
 
-    public int CurrentDepth;
-    public int MaxDepth;
+   
     
     public int TotalMana { get; private set; }
     private int curMana;
@@ -43,7 +54,7 @@ public class InGameManager : Singleton<InGameManager>
     
     private void OnEnable()
     {
-        CurrentDepth = 1;
+       
         MaxDepth = Random.Range(2, 5);
         onLoseAction = param => { IsGameOver = true; };
         onWinAction = param =>
@@ -81,9 +92,22 @@ public class InGameManager : Singleton<InGameManager>
     public bool CanUseMana(int value) => curMana >= value;
     public void TakeMana(int value) => CurMana -= value;
 
-   
+    public void PlayGame()
+    {
+        startTime = Time.time;
+        CurrentDepth = 1;
+        MonstersDefeated = 0;
+        EliteMonstersDefeated = 0;
+        RoomsExplored = 0;
+    }
 
-    public async void PlayGame()
+    private void Start()
+    {
+        PlayGame();
+       
+    }
+
+    public async void EnterBattle()
     {
         
         await UniTask.WhenAll(

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    public EnemyGroup TestEnemyGroup;
+    
     [SerializeField] private RoomEnemyGroupConfig Data;
 
     [SerializeField] private List<Vector3> SpawnPos = new List<Vector3>();
@@ -42,7 +42,14 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void RemoveEnemy(Enemy enemy)
     {
-        Enemies.Remove(enemy);
+        if (Enemies.Remove(enemy))
+        {
+            if (InGameManager.Instance != null)
+            {
+                //switch case her 
+                InGameManager.Instance.MonstersDefeated++;
+            }
+        }
         if (Enemies.Count == 0 && !InGameManager.Instance.IsGameOver) ObserverManager<GameEventType>.Notify(GameEventType.Win);
     }
 
@@ -76,7 +83,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
         EnemyGroup enemyGroup = Data.GetRandomGroupByFloor(InGameManager.Instance.CurrentDepth, InGameManager.Instance.MaxDepth, InGameManager.Instance.CurrentRoom.DungeonRoomType is DungeonRoomType.Door);
 
-        TestEnemyGroup = enemyGroup;
+     
         if (enemyGroup == null || enemyGroup.Enemies == null)
         {
             Debug.LogWarning("Can not caculate enemy group");
@@ -96,7 +103,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
             Enemy enemy = PoolingManager.Spawn(prefab.gameObject, SpawnPos[i], default, transform).GetComponent<Enemy>();
             if(enemy != null) AddEnemy(enemy);
-            await UniTask.Yield();
+            await UniTask.Delay(200, DelayType.UnscaledDeltaTime);
         }
         
      

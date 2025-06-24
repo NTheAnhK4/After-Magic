@@ -23,7 +23,7 @@ public class Enemy : Entity
     public bool CanUseCard { get; set; }
     public EnemyActionType PredictedAction { get; set; }
     public Transform PredictedActionTrf { get; set; }
-   
+    [SerializeField] private GameObject warningGO;
     #endregion
 
     #region Action
@@ -37,6 +37,18 @@ public class Enemy : Entity
         get => PlayerPartyManager.Instance.GetRandomPartyMember(); 
         
     }
+
+   
+    
+
+    public override void LoadComponent()
+    {
+        base.LoadComponent();
+        if (PredictedActionTrf == null) PredictedActionTrf = transform.Find("UI").Find("NextAction");
+        if (oscillatingMovement == null) oscillatingMovement = transform.Find("UI").GetComponentInChildren<OscillatingMovement>();
+    }
+
+    #region Unity Callback Functions
 
     protected override void Awake()
     {
@@ -52,18 +64,14 @@ public class Enemy : Entity
        
     }
     
-
-    public override void LoadComponent()
-    {
-        base.LoadComponent();
-        if (PredictedActionTrf == null) PredictedActionTrf = transform.Find("UI").Find("NextAction");
-        if (oscillatingMovement == null) oscillatingMovement = transform.Find("UI").GetComponentInChildren<OscillatingMovement>();
-    }
-    
     protected override void OnEnable()
     {
         base.OnEnable();
-       
+        if (warningGO != null)
+        {
+            PoolingManager.Despawn(warningGO);
+            warningGO = null;
+        }
         StatsSystem.Init();
        
         oscillatingMovement.Initialized();
@@ -97,22 +105,55 @@ public class Enemy : Entity
         ObserverManager<GameStateType>.Detach(GameStateType.EnemyTurn, onEnemyTurnAction);
         
     }
+
+    #endregion
+  
     
 
     public async UniTask DoAction()
     {
+        await HideWarning();
         StartTurn(null);
       
         CanUseCard = true;
         await UniTask.WaitUntil(() => CanUseCard== false);
         EndTurn(null);
+        warningGO = null;
     }
-  
+
+    #region Func Functions
+
     Func<bool> RunToTargetCondition() => () =>CanUseCard && CardStrategy != null  && MustReachTarget && EnemyTarget != null
-                                               && Vector2.Distance(EnemyTarget.transform.position, transform.position) > AttackRange;
+                                              && Vector2.Distance(EnemyTarget.transform.position, transform.position) > AttackRange;
     
     Func<bool> InPlanningState() => () => IsPlanningState && !IsHurting;
     Func<bool> CanEnterUseCardState() => () =>!IsPlanningState && CanUseCard && CardStrategy != null && !MustReachTarget;
-    
-   
+
+
+    #endregion
+
+    #region Planning Functions
+
+    public void ShowWarning(GameObject warningPrefab)
+    {
+        if (IsNextActionPlanned) return;
+        if (warningPrefab == null)
+        {
+            Debug.LogWarning("Warning prefab is null");
+            return;
+        }
+
+        warningGO = PoolingManager.Spawn(warningPrefab, PredictedActionTrf);
+    }
+
+    private async UniTask HideWarning()
+    {
+        if (warningGO == null) return;
+        PoolingManager.Despawn(warningGO);
+        await UniTask.Delay(100);
+    }
+
+    public bool IsNextActionPlanned => warningGO != null;
+
+    #endregion
 }

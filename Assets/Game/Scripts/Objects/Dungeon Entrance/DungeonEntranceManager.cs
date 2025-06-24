@@ -16,11 +16,16 @@ public class DungeonEntranceManager : Singleton<DungeonEntranceManager>
 
     private void Start()
     {
+       LockAllDungeonEntrance();
+        DungeonEntrances[0].UnLockDungeonEntrance();
+    }
+
+    public void LockAllDungeonEntrance()
+    {
         foreach (DungeonEntrance de in DungeonEntrances)
         {
             if(de == null) continue;
             de.LockDungeonEntrance();
         }
-        DungeonEntrances[0].UnLockDungeonEntrance();
     }
 }

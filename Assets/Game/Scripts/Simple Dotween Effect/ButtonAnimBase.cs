@@ -17,21 +17,24 @@ public abstract class ButtonAnimBase : ComponentBehavior
     }
     public override void LoadComponent()
     {
-        base.LoadComponent();
+        base.LoadComponent();   
         if (btn == null) btn = GetComponent<Button>();
     }
 
     
     private async void OnButtonClick()
     {
+        btn.interactable = false;
         beforeClick?.Invoke();
         await RunEffect();
         onClick?.Invoke();
+        btn.interactable = true;
     }
 
     protected abstract UniTask RunEffect();
     private void OnEnable()
     {
+        btn.interactable = true;
         btn.onClick.AddListener(OnButtonClick);
     }
 

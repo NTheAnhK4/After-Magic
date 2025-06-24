@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using BrokerChain.Status;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,5 +32,15 @@ public class StatusUICtrl : ComponentBehavior
         if (!iconDict.ContainsKey(statusEffectData)) return;
         PoolingManager.Despawn(iconDict[statusEffectData].gameObject);
         iconDict.Remove(statusEffectData);
+    }
+
+    private void OnEnable()
+    {
+        foreach (var value in iconDict.Values)
+        {
+            if(value == null) continue;
+            
+            PoolingManager.Despawn(value.gameObject);
+        }
     }
 }

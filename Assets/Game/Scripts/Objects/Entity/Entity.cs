@@ -10,7 +10,7 @@ namespace StateMachine
         public string curentState;
         public StateMachine StateMachine;
         public StatsSystem StatsSystem;
-
+        public DamagePopupUI damagePopupUI;
        
         [Header("State")] 
         public IdleState IdleState;
@@ -110,6 +110,8 @@ namespace StateMachine
             if (Anim == null) Anim = GetComponent<Animator>();
             if (model == null) model = transform.Find("Model");
             if (StatsSystem == null) StatsSystem = GetComponent<StatsSystem>();
+            if (damagePopupUI == null) damagePopupUI = transform.Find("UI").GetComponentInChildren<DamagePopupUI>();
+            damagePopupUI.OrNull()?.gameObject.SetActive(false);
         }
         public void SetFacing(bool isFacingRight = true)
         {

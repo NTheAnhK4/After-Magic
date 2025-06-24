@@ -10,6 +10,6 @@ public class BattleRoomEvent : RoomEventStrategy
        
         await UIScreen.Instance.HideUI<DungeonMapUI>(true);
         
-        InGameManager.Instance.PlayGame();
+        InGameManager.Instance.EnterBattle();
     }
 }
