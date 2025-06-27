@@ -129,7 +129,7 @@ public class InGameManager : Singleton<InGameManager>
     }
     public async void RevivePlayer()
     {
-        await PlayerPartyManager.Instance.SpawnPlayerParty();
+        await PlayerPartyManager.Instance.SpawnNewPlayerParty();
         IsGameOver = false;
     }
 }

@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public class PlayerPartyManager : Singleton<PlayerPartyManager>
 {
     //player must always be at index 0 in the list
-   
+
     [SerializeField] private List<Entity> PlayerPartyPrefabs = new List<Entity>();
     [SerializeField] private List<Vector3> SpawnPositions = new List<Vector3>();
 
@@ -19,23 +19,24 @@ public class PlayerPartyManager : Singleton<PlayerPartyManager>
     private void OnEnable()
     {
         ObserverManager<GameEventType>.Attach(GameEventType.Win, DespawnAllParty);
-        ObserverManager<GameEventType>.Attach(GameEventType.Lose,  DespawnAllParty);
+        ObserverManager<GameEventType>.Attach(GameEventType.Lose, DespawnAllParty);
     }
 
     private void OnDisable()
     {
         ObserverManager<GameEventType>.Detach(GameEventType.Win, DespawnAllParty);
-        ObserverManager<GameEventType>.Detach(GameEventType.Lose,  DespawnAllParty);
+        ObserverManager<GameEventType>.Detach(GameEventType.Lose, DespawnAllParty);
     }
 
 
     public async UniTask SpawnPlayerParty()
     {
-       if(playerPartyEntities != null && playerPartyEntities.Count > 0) await SpawnExitPlayerParty();
-       else await SpawnNewPlayerParty();
+        if (playerPartyEntities != null && playerPartyEntities.Count > 0) await SpawnExitPlayerParty();
+        else await SpawnNewPlayerParty();
     }
 
-    private async UniTask SpawnExitPlayerParty()
+  
+private async UniTask SpawnExitPlayerParty()
     {
         for (int i = 0; i < playerPartyEntities.Count; ++i)
         {
@@ -53,7 +54,7 @@ public class PlayerPartyManager : Singleton<PlayerPartyManager>
       
     }
 
-    private async UniTask SpawnNewPlayerParty()
+    public async UniTask SpawnNewPlayerParty()
     {
         playerPartyEntities.Clear();
         if (PlayerPartyPrefabs.Count == 0)
