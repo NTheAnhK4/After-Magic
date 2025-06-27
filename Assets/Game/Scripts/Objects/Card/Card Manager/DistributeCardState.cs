@@ -136,6 +136,7 @@ public class DistributeCardState : ICardState
 
     private async UniTask EachCardToDrawPile(Card card)
     {
+        if (card == null) return;
         card.gameObject.SetActive(true);
      
         Sequence sequence = DOTween.Sequence();
@@ -143,7 +144,7 @@ public class DistributeCardState : ICardState
             Append(card.transform.DORotate(new Vector3(0, 0, 45), .5f))
             .Join(card.transform.DOMove(CardManager.Instance.spawnPos, .65f));
         await sequence.AsyncWaitForCompletion();
-        card.gameObject.SetActive(false);
+        card.OrNull()?.gameObject.SetActive(false);
     }
 
    

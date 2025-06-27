@@ -17,7 +17,7 @@ MonoBehaviour:
     MixerGroup: {fileID: 0}
     Loop: 0
     PlayOnAwake: 0
-    FrequentSound: 0
+    FrequentSound: 1
     Volume: 0.5
   randomPitch: 1
   PlaySoundWhenEnter: 0
@@ -358,19 +358,19 @@ AnimatorStateMachine:
     m_Position: {x: 230, y: -60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7764700317542578185}
-    m_Position: {x: 260, y: 160, z: 0}
+    m_Position: {x: 230, y: -140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 800343607818603764}
     m_Position: {x: 280, y: 300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2957025661466937012}
-    m_Position: {x: 220, y: 60, z: 0}
+    m_Position: {x: 220, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -851785646555849267}
-    m_Position: {x: 250, y: 100, z: 0}
+    m_Position: {x: 240, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4771397289728925817}
-    m_Position: {x: 270, y: 230, z: 0}
+    m_Position: {x: 240, y: 170, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions:

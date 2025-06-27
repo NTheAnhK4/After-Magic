@@ -15,27 +15,29 @@ MonoBehaviour:
   NoviceGroups:
   - GroupName: 
     Enemies:
-    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
-    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+    - {fileID: 3291705535339774286, guid: ed3b69d44d126394082696d7a6c4118d, type: 3}
+    - {fileID: 6477401455558133751, guid: 8837d39a2fec1cc4e9e8fecc8aa7e16b, type: 3}
+    - {fileID: 2254127608106929911, guid: 1b49e6838f3600d48a4e3a7f86a76490, type: 3}
   VeteranGroups:
   - GroupName: 
     Enemies:
-    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
-    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+    - {fileID: 3291705535339774286, guid: ed3b69d44d126394082696d7a6c4118d, type: 3}
+    - {fileID: 6477401455558133751, guid: 8837d39a2fec1cc4e9e8fecc8aa7e16b, type: 3}
+    - {fileID: 2254127608106929911, guid: 1b49e6838f3600d48a4e3a7f86a76490, type: 3}
   EliteGroups:
   - GroupName: 
     Enemies:
-    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
-    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+    - {fileID: 6646223605021373117, guid: 4a9a03fa99285c1439d43aa6741d4084, type: 3}
+    - {fileID: 6646223605021373117, guid: 4a9a03fa99285c1439d43aa6741d4084, type: 3}
   NightMareGroups:
   - GroupName: 
     Enemies:
-    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
-    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+    - {fileID: 6646223605021373117, guid: 4a9a03fa99285c1439d43aa6741d4084, type: 3}
+    - {fileID: 6646223605021373117, guid: 4a9a03fa99285c1439d43aa6741d4084, type: 3}
   BossGroups:
   - GroupName: 
     Enemies:
     - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
-    - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
+    - {fileID: 5719473759077076832, guid: 4ded4f227d4c22c4baed951d96b6d104, type: 3}
     - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}
     - {fileID: 2751619457017472068, guid: 84ebe5de63445574ca167c3c2b811f1b, type: 3}

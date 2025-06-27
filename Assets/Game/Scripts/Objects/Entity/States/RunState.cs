@@ -23,6 +23,7 @@ public class RunState : State<Entity>
         {
             data = runStateData;
             entity.SetFacing(data.TargetPosition.x - entity.transform.position.x > 0);
+            
             entity.IsRunningToTarget = data.IsRunningToTarget;
             if (data.IsRunningToTarget) entity.StandPoint = entity.transform.position;
         }

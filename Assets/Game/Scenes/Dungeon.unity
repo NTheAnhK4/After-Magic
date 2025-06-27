@@ -5577,7 +5577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerPartyPrefabs:
-  - {fileID: 1592363818115742730, guid: 0370a89de997631439957c55b7ecf2d3, type: 3}
+  - {fileID: 5444656427375556274, guid: 0370a89de997631439957c55b7ecf2d3, type: 3}
   SpawnPositions:
   - {x: -5.5, y: 0, z: 0}
   - {x: -10.5, y: 0, z: 0}
