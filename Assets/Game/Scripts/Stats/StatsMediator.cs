@@ -2,17 +2,22 @@ using System;
 using System.Collections.Generic;
 using BrokerChain.Status;
 
+
 namespace BrokerChain
 {
     public class StatsMediator
     {
         private readonly LinkedList<StatModifier> modifiers = new();
-
+       
         public event EventHandler<Query> Queries;
         public void PerformQuery(object sender, Query query) => Queries?.Invoke(sender, query);
 
-        public void AddModifier(StatModifier modifier, Action onRemoved = null)
+        public void AddModifier(StatusEffectData statusEffectData, Action onRemoved = null)
         {
+           
+            StatModifier modifier = statusEffectData.GetEffect();
+         
+            
             modifier.OnRemoved = onRemoved;
             modifiers.AddLast(modifier);
             Queries += modifier.Handle;

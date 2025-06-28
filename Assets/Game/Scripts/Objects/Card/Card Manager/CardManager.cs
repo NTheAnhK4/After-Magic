@@ -21,7 +21,7 @@ public class CardManager : Singleton<CardManager>
     #region Card In A Dungeon
  
     public Card CardPrefab;
-    [HideInInspector] public List<PlayerCardData> MainDesk = new List<PlayerCardData>();
+    public List<PlayerCardData> MainDesk = new List<PlayerCardData>();
     [HideInInspector] public List<PlayerCardData> DrawPile = new List<PlayerCardData>();
     [HideInInspector] public List<PlayerCardData> DisCardPile = new List<PlayerCardData>();
     [HideInInspector] public List<Card> CardInHands = new List<Card>();

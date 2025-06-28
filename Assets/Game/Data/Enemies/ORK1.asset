@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 161d90282583cbf46a8f276a73cb8c9c, type: 3}
   m_Name: ORK1
   m_EditorClassIdentifier: 
-  HP: 60
+  HP: 10
   Defense: 2
   Damage: 10

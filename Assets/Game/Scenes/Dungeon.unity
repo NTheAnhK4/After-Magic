@@ -1103,13 +1103,13 @@ MonoBehaviour:
   CardPrefab: {fileID: 6367183643179973043, guid: 191050c84a421354b9ae361faf6ff1c3, type: 3}
   MainDesk:
   - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
+  - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
+  - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
+  - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
   - {fileID: 11400000, guid: d141404dacaa5964781c522453bad4b0, type: 2}
   - {fileID: 11400000, guid: d141404dacaa5964781c522453bad4b0, type: 2}
   - {fileID: 11400000, guid: d141404dacaa5964781c522453bad4b0, type: 2}
-  - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
-  - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
-  - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
-  - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
+  - {fileID: 11400000, guid: d141404dacaa5964781c522453bad4b0, type: 2}
   DrawPile: []
   DisCardPile: []
   CardInHands: []
@@ -1590,9 +1590,7 @@ MonoBehaviour:
   ShowAnimation: 1
   HideAnimation: 1
   Container: {fileID: 140589989}
-  PlayerCardDatas:
-  - {fileID: 11400000, guid: d141404dacaa5964781c522453bad4b0, type: 2}
-  - {fileID: 11400000, guid: 44d703eaaa1abf54fa071708aa875694, type: 2}
+  PlayerCardListData: {fileID: 11400000, guid: 44ec46c6173c3a94ebf6b05133c2d111, type: 2}
   cardOptionPrefab: {fileID: 3575659466175511288, guid: 57e4a3a4b2012234a9f589f33f702c74, type: 3}
   cardOptionHolder: {fileID: 542690087}
 --- !u!225 &140589991

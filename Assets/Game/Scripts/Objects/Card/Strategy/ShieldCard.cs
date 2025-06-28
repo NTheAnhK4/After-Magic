@@ -1,13 +1,15 @@
 
+using BrokerChain.Status;
 using StateMachine;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Card/Card Strategy/Shield Card", fileName = "Shield Card")]
 public class ShieldCard : CardStrategy
 {
-  
-
-    public override void Execute()
+    public StatusEffectData StatusEffectData;
+    public override void Apply(Entity owner, Entity enemy)
     {
+        base.Apply(owner, enemy);
+        if (owner != null && StatusEffectData != null) owner.StatsSystem.AddModifier(StatusEffectData.Clone());
         
     }
 
@@ -18,7 +20,7 @@ public class ShieldCard : CardStrategy
     public override bool HasFinisedUsingCard()
     {
         
-        return base.HasFinisedUsingCard() && _owner.IsAnimationTriggerFinished;
+        return  _owner.IsAnimationTriggerFinished;
     }
 
   

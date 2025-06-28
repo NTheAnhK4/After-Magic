@@ -2,12 +2,33 @@ using System;
 using BrokerChain.Status;
 using StateMachine;
 using UnityEngine;
-using UnityEngine.Serialization;
+
 
 namespace BrokerChain
 {
     public class StatsSystem : ComponentBehavior
     {
+        [Header("Status")] public int OriginalDamage;
+        
+        public int CurrentHp;
+        public int Damage;
+        public int Defense;
+        public int ExtraDamage;
+
+        private void Update()
+        {
+            UpdateValue();
+        }
+
+        private void UpdateValue()
+        {
+            OriginalDamage = Stats.EntityStats.Damage;
+            CurrentHp = Stats.EntityStats.HP;
+            Damage = Stats.Damage;
+            Defense = Stats.Defense;
+            ExtraDamage = Stats.ExtraTakenDamage;
+        }
+
         [SerializeField] private Entity entity;
         [SerializeField] private EntityStatsData entityStatsData;
         
@@ -56,24 +77,34 @@ namespace BrokerChain
                 statusUICtrl.AddEffect(statusEffectData);
                 onRemoved = () => statusUICtrl.RemoveEffect(statusEffectData);
             }
-            Stats.Mediator.AddModifier(statusEffectData.GetEffect(), onRemoved);
-            
+            Stats.Mediator.AddModifier(statusEffectData, onRemoved);
+           
         }
 
-        public void TakeDamage(int damage)
+        public int TakeDamage(int damage)
         {
             int defense = Stats.Defense;
-           
+
+            damage += Stats.ExtraTakenDamage;
+            
+            
             if (defense > 0) damage = Math.Max(0, damage - defense);
 
             if (damage > 0) entity.IsHurting = true;
             
-            entity.damagePopupUI.OrNull()?.Show(damage);
+            entity.damagePopupUI.OrNull()?.Show(damage, Color.red);
             //Change base hp
             int curHP = Math.Max(Stats.EntityStats.HP - damage,0);
             Stats.EntityStats.HP = curHP;
             if (curHP <= 0) entity.IsDead = true;
+            return damage;
+        }
 
+        public void Health(int value)
+        {
+            if (value == 0) return;
+            entity.damagePopupUI.OrNull()?.Show(value, Color.green);
+            Stats.EntityStats.HP = Math.Min(Stats.EntityStats.HP + value, Stats.EntityStats.MaxHP);
         }
     }
 }

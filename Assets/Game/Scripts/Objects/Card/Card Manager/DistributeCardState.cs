@@ -17,7 +17,7 @@ public class DistributeCardState : ICardState
     private List<Vector3> cardPositions;
     private List<Vector3> cardRotations;
     private SoundBuilder soundBuilder;
-    
+   
     public async UniTask OnEnter()
     {
         
@@ -130,6 +130,7 @@ public class DistributeCardState : ICardState
         
 
         await UniTask.WhenAll(uniTasks);
+        if (CardManager.Instance == null) return;
         CardManager.Instance.DrawPile.AddRange(CardManager.Instance.DisCardPile);
         CardManager.Instance.DisCardPile.Clear();
     }
@@ -144,7 +145,8 @@ public class DistributeCardState : ICardState
             Append(card.transform.DORotate(new Vector3(0, 0, 45), .5f))
             .Join(card.transform.DOMove(CardManager.Instance.spawnPos, .65f));
         await sequence.AsyncWaitForCompletion();
-        card.OrNull()?.gameObject.SetActive(false);
+        if(card != null) PoolingManager.Despawn(card.gameObject);
+       
     }
 
    
