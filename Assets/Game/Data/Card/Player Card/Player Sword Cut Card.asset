@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Player Sword Cut Card
   m_EditorClassIdentifier: 
   CardName: Sword Cut
+  CardNameColor: {r: 1, g: 1, b: 1, a: 1}
   CardStrategy: {fileID: 11400000, guid: 83880d7f549146d4e97f16d190f0eb39, type: 2}
   ManaCost: 1
   CardImage: {fileID: 21300000, guid: 40197cf5b132df14cbcdf20bc79a7515, type: 3}
   CardType: {fileID: 21300000, guid: 0258451707feb0d4c8831691b58f67d2, type: 3}
   CardDescription: Deal 3 damage
+  IsUnlocked: 1

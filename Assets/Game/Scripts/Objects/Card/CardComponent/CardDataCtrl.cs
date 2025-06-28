@@ -53,6 +53,7 @@ public class CardDataCtrl : ComponentBehavior
         cardDesciption.text = PlayerCardData.CardDescription;
         cardType.sprite = PlayerCardData.CardType;
         cardName.text = PlayerCardData.CardName;
+        cardName.color = PlayerCardData.CardNameColor;
         _isRewardCard = isRewardCard;
         
     }

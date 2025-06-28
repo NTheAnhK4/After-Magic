@@ -546,7 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03186c5459e13c0498a514ac041501bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StatusIcon: {fileID: 8011299398643356059, guid: 34757a2e8684b5f4090471a7aadb7ae0, type: 3}
+  StatusIcon: {fileID: 917332008052398094, guid: 42a20d4409357ad4fbb5542f271599ff, type: 3}
 --- !u!1 &5422304493719818269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1091,7 @@ MonoBehaviour:
   CardStrategyAvailables:
   - {fileID: 11400000, guid: 93d0cf159d064344290807958832436d, type: 2}
   - {fileID: 11400000, guid: cee079adbb6786040942f1334ad1ab7f, type: 2}
+  - {fileID: 11400000, guid: cc62a7c5bd5e5574e8228d3a1766aeb8, type: 2}
   warningGO: {fileID: 0}
 --- !u!114 &2251438568648491391
 MonoBehaviour:

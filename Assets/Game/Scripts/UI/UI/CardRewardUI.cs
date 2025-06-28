@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Game.UI;
 using UnityEngine;
-using Random = UnityEngine.Random;
+
 
 
 public class CardRewardUI : UIView
 {
-    public List<PlayerCardData> PlayerCardDatas = new List<PlayerCardData>();
+    public PlayerCardListData PlayerCardListData;
+   
     public GameObject cardOptionPrefab;
     
     public Action OnFinishChooseCard;
@@ -37,7 +38,7 @@ public class CardRewardUI : UIView
         currentCardOptions.Clear();
         for (int i = 0; i < 3; ++i)
         {
-            int cardID = Random.Range(0, PlayerCardDatas.Count);
+            
             CardOption cardOption = PoolingManager.Spawn(cardOptionPrefab, cardOptionHolder).GetComponent<CardOption>();
             if (cardOption == null)
             {
@@ -46,7 +47,12 @@ public class CardRewardUI : UIView
             }
             cardOption.SetInteracble(false);
             cardOption.transform.SetSiblingIndex(i);
-            cardOption.SetCardData(PlayerCardDatas[cardID]);
+            if (PlayerCardListData == null)
+            {
+                Debug.LogWarning("Player Card List Data is null");
+                return;
+            }
+            cardOption.SetCardData(PlayerCardListData.GetRandomCard());
             
             cardOption.CardRewardUI = this;
             currentCardOptions.Add(cardOption);

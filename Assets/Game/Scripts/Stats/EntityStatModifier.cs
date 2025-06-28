@@ -1,6 +1,7 @@
 using System;
 using BrokerChain.Status;
-using UnityEngine;
+
+
 
 namespace BrokerChain
 {
@@ -21,5 +22,6 @@ namespace BrokerChain
             this.type = type;
             this.operation = operation;
         }
+        
     }
 }

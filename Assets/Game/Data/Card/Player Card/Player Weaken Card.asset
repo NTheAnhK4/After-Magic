@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c051005c61141d8469372c329c9a290c, type: 3}
+  m_Name: Player Weaken Card
+  m_EditorClassIdentifier: 
+  CardName: Weaken Card
+  CardNameColor: {r: 1, g: 1, b: 1, a: 1}
+  CardStrategy: {fileID: 11400000, guid: f2ed0b82a86a39949b9f0bded6ba3b73, type: 2}
+  ManaCost: 2
+  CardImage: {fileID: 21300000, guid: f22086ef1186df44dabfcdf10def4c1c, type: 3}
+  CardType: {fileID: 21300000, guid: 0258451707feb0d4c8831691b58f67d2, type: 3}
+  CardDescription: Deal damage and weaken the target's attacks
+  IsUnlocked: 1

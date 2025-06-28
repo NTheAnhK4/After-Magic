@@ -50,14 +50,10 @@ namespace BrokerChain
     {
         Damage,
         Defense,
-       
+        ExtraTakenDamage
     }
 
-    public enum ExpireTiming
-    {
-        EndOfThisTurn,
-        StartOfThisTurn
-    }
+    
 
     public enum OperatorType
     {

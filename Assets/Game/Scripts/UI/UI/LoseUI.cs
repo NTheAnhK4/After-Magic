@@ -1,10 +1,10 @@
 
 using AudioSystem;
-using Cysharp.Threading.Tasks;
+
 using Game.UI;
 using UnityEngine;
 
-using UnityEngine.UI;
+
 
 public class LoseUI : UIView
 {

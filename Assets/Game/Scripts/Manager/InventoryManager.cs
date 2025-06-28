@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using UnityEditor;
+
 using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
@@ -20,6 +20,17 @@ public class InventoryManager : Singleton<InventoryManager>
         DontDestroyOnLoad(gameObject);
     }
 
+    public int GetItemAmountFromEquippedItems(ItemType itemType)
+    {
+        if (EquippedItems.TryGetValue(itemType, out InventoryItem inventoryItem)) return inventoryItem.Amount;
+        return 0;
+    }
+
+    public int GetItemAmountFromDungeonLoot(ItemType itemType)
+    {
+        if (DungeonLoot.TryGetValue(itemType, out InventoryItem inventoryItem)) return inventoryItem.Amount;
+        return 0;
+    }
     public void AddToLoot(ItemType itemType ,GameObject itemPrefab, int amount)
     {
         if (!DungeonLoot.ContainsKey(itemType))
@@ -66,7 +77,7 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         List<ItemBase> itemBases = new List<ItemBase>();
         
-        foreach (var (key, value) in DungeonLoot)
+        foreach (var (_, value) in DungeonLoot)
         {
             ItemBase itemBase = PoolingManager.Spawn(value.ItemPrefab, itemHolder).GetComponent<ItemBase>();
             itemBase.SetInteracable(false);

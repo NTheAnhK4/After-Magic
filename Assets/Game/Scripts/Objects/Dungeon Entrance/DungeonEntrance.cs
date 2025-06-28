@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -69,11 +70,14 @@ public class DungeonEntrance : ComponentBehavior, IPointerDownHandler,IPointerUp
         (transform1 = transform).DOKill(); 
         transform1.localScale = Vector3.one;
 
-        Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOScale(0.85f, 0.1f).SetEase(Ease.OutQuad));
-        seq.Append(transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack));
+        var seq = DOTween.Sequence();
+        seq.Append(transform.DOScale(0.9f, 0.08f).SetEase(Ease.InQuad));    
+        seq.Append(transform.DOScale(1.15f, 0.15f).SetEase(Ease.OutQuad)); 
+        seq.Append(transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack));     
         seq.SetUpdate(true);
+
         await seq.AsyncWaitForCompletion();
+        await UniTask.Delay(100, DelayType.UnscaledDeltaTime);
         SceneLoader.Instance.LoadScene(GameConstants.DungeonScene);
     }
     

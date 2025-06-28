@@ -1,20 +1,16 @@
 
 
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 [CreateAssetMenu(menuName = "Data/Card/Card Strategy/Sword Cut Card", fileName = "Sword Cut Card")]
 public class SwordCutCard : CardStrategy
 {
     public int BaseDamage;
     public int DamageRate;
-    public int Level = 1;
+   
   
-    public override void Execute()
-    {
-        
-    }
-
+   
     public override void Remove()
     {
         
@@ -22,7 +18,7 @@ public class SwordCutCard : CardStrategy
 
     public override bool HasFinisedUsingCard()
     {
-        return base.HasFinisedUsingCard() && _owner.IsAnimationTriggerFinished;
+        return _owner.IsAnimationTriggerFinished;
     }
 
     public override void AnimationTrigger()
@@ -33,6 +29,6 @@ public class SwordCutCard : CardStrategy
 
     private int GetDamage()
     {
-        return _owner.StatsSystem.Stats.Damage + BaseDamage + DamageRate * Level;
+        return _owner.StatsSystem.Stats.Damage + BaseDamage + DamageRate * CardLevel;
     }
 }
