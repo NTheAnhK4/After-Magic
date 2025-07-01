@@ -1,9 +1,9 @@
 
-using System.Persistence;
+
 using AudioSystem;
 
 using Game.UI;
-
+using SaveGame;
 using UnityEngine;
 
 
@@ -39,9 +39,9 @@ public class LoseUI : UIView
         AchivementUI achivementUI = UIScreen.GetUIView<AchivementUI>();
         achivementUI.SetRedBtn("Exit", () =>
         {
-            if (SaveLoadSystem.Instance.gameData != null)
+            if (SaveLoadSystem.Instance.GameData != null)
             {
-                SaveLoadSystem.Instance.gameData.ExitDungeon();
+                SaveLoadSystem.Instance.GameData.ExitDungeon();
                 SaveLoadSystem.Instance.SaveGame();
             }
             SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);

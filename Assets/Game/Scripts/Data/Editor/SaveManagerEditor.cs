@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace System.Persistence.Editor
+namespace SaveGame
 {
     [CustomEditor(typeof(SaveLoadSystem))]
     public class SaveManagerEditor : UnityEditor.Editor
@@ -10,7 +10,7 @@ namespace System.Persistence.Editor
         {
           
             SaveLoadSystem saveLoadSystem = (SaveLoadSystem)target;
-            string gameName = saveLoadSystem.gameData.Name;
+            string gameName = saveLoadSystem.GameData.Name;
             DrawDefaultInspector();
             if(GUILayout.Button("Save Game")) saveLoadSystem.SaveGame();
             if(GUILayout.Button("Load Game")) saveLoadSystem.LoadGame(gameName);

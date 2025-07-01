@@ -1,28 +1,32 @@
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
-namespace System.Persistence
+namespace SaveGame
 {
     [Serializable]
     public class GameData
     {
         public string Name;
         public string CurrentLevelName;
+
         public DungeonSaveData DungeonSaveData;
         public InventorySaveData InventorySaveData;
         public EntitiesStatsSaveData EntitiesStatsSaveData;
 
+        
         public void ExitDungeon()
         {
             CurrentLevelName = GameConstants.LobbyScene;
             DungeonSaveData = new DungeonSaveData();
             EntitiesStatsSaveData = new EntitiesStatsSaveData();
         }
-
     }
+    
+    
 
     public interface ISaveable
     {
@@ -37,11 +41,13 @@ namespace System.Persistence
     }
     public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
     {
-        [SerializeField] public GameData gameData;
+        public GameData GameData;
         private IDataService dataService;
         protected override void Awake()
         {
             base.Awake();
+            GameData = new GameData();
+            GameData.Name = "Game";
             dataService = new FileDataService(new JsonSerializer());
         }
 
@@ -80,32 +86,73 @@ namespace System.Persistence
         }
         public void NewGame()
         {
-            gameData = new GameData()
+            GameData = new GameData()
             {
-                Name = "new Game" ,
+                Name = "New Game" ,
                 CurrentLevelName = GameConstants.LobbyScene
             };
-            SceneLoader.Instance.LoadScene(gameData.CurrentLevelName);
+            if (SceneLoader.Instance != null)
+            {
+                SceneLoader.Instance.LoadScene(GameData.CurrentLevelName);
+            }
+            else
+            {
+                Debug.LogError("SceneLoader.Instance is null — cannot load scene.");
+            }
+
         }
 
         public void SaveGame()
         {
-            dataService.Save(gameData);
+            if (dataService == null)
+            {
+                Debug.LogError("DataService is null — cannot save game.");
+                return;
+            }
+
+            dataService.Save(GameData);
         }
 
         public bool CanLoadFile(string gameName) => dataService.CanLoad(gameName);
 
         public void LoadGame(string gameName)
         {
-            gameData = dataService.Load(gameName);
-            if (String.IsNullOrWhiteSpace(gameData.CurrentLevelName))
+            if (dataService == null)
             {
-                gameData.CurrentLevelName = GameConstants.LobbyScene;
+                Debug.LogError("DataService is null — cannot save game.");
+                return;
             }
-            //SceneLoader.Instance.LoadScene(gameData.CurrentLevelName);
+
+            try
+            {
+                GameData = dataService.Load(gameName);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to load game data: {ex.Message}");
+                GameData = new GameData()
+                {
+                    Name = gameName,
+                    CurrentLevelName = GameConstants.LobbyScene
+                };
+            }
+            if (String.IsNullOrWhiteSpace(GameData.CurrentLevelName))
+            {
+                GameData.CurrentLevelName = GameConstants.LobbyScene;
+            }
+            
         }
 
         public void DeleteGame(string gameName) => dataService.Delete(gameName);
-        public void ReloadGame() => LoadGame(gameData.Name);
+        public void ReloadGame()
+        {
+            if (string.IsNullOrWhiteSpace(GameData?.Name))
+            {
+                Debug.LogWarning("GameData name is null or empty — cannot reload.");
+                return;
+            }
+
+            LoadGame(GameData.Name);
+        }
     }
 }

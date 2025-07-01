@@ -65,7 +65,11 @@ public class SceneLoader : ComponentBehavior
     }
     public async void LoadScene(string sceneName)
     {
-       
+        if (panel == null)
+        {
+            Debug.LogError("SceneLoader: panel is null!");
+            return;
+        }
         if(MusicManager.Instance != null) MusicManager.Instance.StopMusic();
         
         var scene = SceneManager.LoadSceneAsync(sceneName);

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Persistence;
-using Cysharp.Threading.Tasks;
+
 using DG.Tweening;
+using SaveGame;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -77,7 +75,7 @@ public class DungeonEntrance : ComponentBehavior, IPointerDownHandler,IPointerUp
         seq.Append(transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack));     
         seq.SetUpdate(true).SetLink(gameObject).OnComplete(() =>
         {
-            if (SaveLoadSystem.Instance.gameData != null) SaveLoadSystem.Instance.gameData.CurrentLevelName = GameConstants.DungeonScene;
+            if (SaveLoadSystem.Instance.GameData != null) SaveLoadSystem.Instance.GameData.CurrentLevelName = GameConstants.DungeonScene;
             SceneLoader.Instance.LoadScene(GameConstants.DungeonScene);
         });
         

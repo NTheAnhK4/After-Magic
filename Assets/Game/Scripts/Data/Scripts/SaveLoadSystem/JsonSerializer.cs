@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace System.Persistence
+namespace SaveGame
 {
     public class JsonSerializer : ISerializer
     {

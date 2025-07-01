@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Persistence;
+
 using Game.UI;
+using SaveGame;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Dungeon/Room Strategy/ Door Room", fileName = "Door Room")]
 public class DoorRoomEvent : RoomEventStrategy
@@ -44,9 +43,9 @@ public class DoorRoomEvent : RoomEventStrategy
     private void OnExit()
     {
         InventoryManager.Instance.MoveLootToInventory();
-        if (SaveLoadSystem.Instance.gameData != null)
+        if (SaveLoadSystem.Instance.GameData != null)
         {
-            SaveLoadSystem.Instance.gameData.ExitDungeon();
+            SaveLoadSystem.Instance.GameData.ExitDungeon();
             SaveLoadSystem.Instance.SaveGame();
         }
         SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);
@@ -56,9 +55,9 @@ public class DoorRoomEvent : RoomEventStrategy
     {
         InventoryManager.Instance.SetDungeonLootPercentage(20);
         InventoryManager.Instance.MoveLootToInventory();
-        if (SaveLoadSystem.Instance.gameData != null)
+        if (SaveLoadSystem.Instance.GameData != null)
         {
-            SaveLoadSystem.Instance.gameData.ExitDungeon();
+            SaveLoadSystem.Instance.GameData.ExitDungeon();
             SaveLoadSystem.Instance.SaveGame();
         }
         SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);

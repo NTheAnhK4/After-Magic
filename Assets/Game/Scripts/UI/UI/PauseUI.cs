@@ -1,11 +1,11 @@
 
-using System;
-using System.Persistence;
+
 using AudioSystem;
-using Cysharp.Threading.Tasks;
+
 using Game.UI;
+using SaveGame;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class PauseUI : UIView
 {
@@ -47,9 +47,9 @@ public class PauseUI : UIView
         achivementUI.SetRedBtn("Exit", () =>
         {
             InventoryManager.Instance.MoveLootToInventory();
-            if (SaveLoadSystem.Instance.gameData != null)
+            if (SaveLoadSystem.Instance.GameData != null)
             {
-                SaveLoadSystem.Instance.gameData.ExitDungeon();
+                SaveLoadSystem.Instance.GameData.ExitDungeon();
                 SaveLoadSystem.Instance.SaveGame();
             }
             SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);

@@ -1,6 +1,6 @@
 
-using System.Persistence;
 using DG.Tweening;
+using SaveGame;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +22,9 @@ public class LoadingScreenUI : ComponentBehavior
         isLoaded = false;
     }
 
+  
    
+
 
     private void OnEnable()
     {
@@ -65,7 +67,7 @@ public class LoadingScreenUI : ComponentBehavior
 
     private void OnPlayGame()
     {
-        if(IsDataLoaded) SceneLoader.Instance.LoadScene(SaveLoadSystem.Instance.gameData.CurrentLevelName);
+        if(IsDataLoaded) SceneLoader.Instance.LoadScene(SaveLoadSystem.Instance.GameData.CurrentLevelName);
         
         else SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);
     }

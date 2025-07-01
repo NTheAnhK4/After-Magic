@@ -1,9 +1,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Persistence;
+
 using BrokerChain;
 using Cysharp.Threading.Tasks;
+using SaveGame;
 using StateMachine;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -34,8 +35,8 @@ public class PlayerPartyManager : Singleton<PlayerPartyManager>
 
     public void InitData()
     {
-        if (SaveLoadSystem.Instance.gameData == null) return;
-        EntitiesStatsSaveData entitiesStatsSaveData = SaveLoadSystem.Instance.gameData.EntitiesStatsSaveData ?? new EntitiesStatsSaveData();
+        if (SaveLoadSystem.Instance.GameData == null) return;
+        EntitiesStatsSaveData entitiesStatsSaveData = SaveLoadSystem.Instance.GameData.EntitiesStatsSaveData ?? new EntitiesStatsSaveData();
         if (entitiesStatsSaveData.EntityStatsSaveDatas == null || entitiesStatsSaveData.EntityStatsSaveDatas.Count == 0)
         {
             entitiesStatsSaveData.EntityStatsSaveDatas = new List<EntityStatsSaveData>();
@@ -173,8 +174,10 @@ public class PlayerPartyManager : Singleton<PlayerPartyManager>
 public class EntitiesStatsSaveData : ISaveable
 {
     public SerializableGuid Id { get; set; }
-    public List<EntityStatsSaveData> EntityStatsSaveDatas;
-    public List<int> PartyId;
+    public List<EntityStatsSaveData> EntityStatsSaveDatas = new List<EntityStatsSaveData>();
+    public List<int> PartyId = new List<int>();
+
+    
 }
 
 [Serializable]

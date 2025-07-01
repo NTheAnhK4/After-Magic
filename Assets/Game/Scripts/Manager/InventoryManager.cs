@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Persistence;
-using Cysharp.Threading.Tasks;
 
+using Cysharp.Threading.Tasks;
+using SaveGame;
 using UnityEngine;
 
 
@@ -112,13 +112,11 @@ public class InventoryManager : PersistentSingleton<InventoryManager>, IBind<Inv
 public class InventorySaveData : ISaveable
 {
     public SerializableGuid Id { get; set; }
-    public List<ItemSaveData> DungeonLootItem;
-    public List<ItemSaveData> EquippedItems;
-    public InventorySaveData()
-    {
-        DungeonLootItem = new List<ItemSaveData>();
-        EquippedItems = new List<ItemSaveData>();
-    }
+    public List<ItemSaveData> DungeonLootItem = new List<ItemSaveData>();
+    public List<ItemSaveData> EquippedItems = new List<ItemSaveData>();
+
+   
+    
 }
 
 [Serializable]

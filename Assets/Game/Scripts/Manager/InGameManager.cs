@@ -1,11 +1,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Persistence;
+
 using Cysharp.Threading.Tasks;
 
 using DG.Tweening;
 using Game.UI;
+using SaveGame;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -164,8 +165,8 @@ public class InGameManager : Singleton<InGameManager>, IBind<DungeonSaveData>
     {
         if (SaveLoadSystem.Instance != null)
         {
-            SaveLoadSystem.Instance.gameData ??= new GameData();
-            GameData gameData = SaveLoadSystem.Instance.gameData;
+            SaveLoadSystem.Instance.GameData ??= new GameData();
+            GameData gameData = SaveLoadSystem.Instance.GameData;
             if (gameData.DungeonSaveData == null || 
                 gameData.DungeonSaveData.RoomDatas == null || 
                 gameData.DungeonSaveData.RoomDatas.Count == 0)
@@ -280,9 +281,10 @@ public class DungeonSaveData : ISaveable
     public int BossesDefeated;
     public int RoomsExplored;
     public float TimePlayed;
-    public List<RoomRowData> RoomDatas;
-    public List<int> CardDeskId;
-    
+    public List<RoomRowData> RoomDatas = new List<RoomRowData>();
+    public List<int> CardDeskId = new List<int>();
+
+   
 }
 
 

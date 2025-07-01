@@ -1,4 +1,4 @@
-namespace System.Persistence
+namespace SaveGame
 {
     public interface ISerializer
     {
