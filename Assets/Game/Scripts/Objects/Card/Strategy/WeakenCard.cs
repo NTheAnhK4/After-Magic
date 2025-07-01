@@ -33,8 +33,8 @@ public class WeakenCard : CardStrategy
             decreaseDamageEffect.TurnApply = DecreaseTurnApply;
             decreaseDamageEffect.Value = -1 * GetDamageDecrease();
             decreaseDamageEffect.Icon = DecreaseIcon;
-            decreaseDamageEffect.Name = "Weakened - Damage Down";
-
+            decreaseDamageEffect.StatusEffectType = StatusEffectType.DecreaseDamage;
+            
             _enemy.StatsSystem.AddModifier(decreaseDamageEffect);
 
            

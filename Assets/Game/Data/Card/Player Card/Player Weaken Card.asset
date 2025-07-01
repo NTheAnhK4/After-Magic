@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c051005c61141d8469372c329c9a290c, type: 3}
   m_Name: Player Weaken Card
   m_EditorClassIdentifier: 
+  ID: 6
   CardName: Weaken Card
   CardNameColor: {r: 1, g: 1, b: 1, a: 1}
   CardStrategy: {fileID: 11400000, guid: f2ed0b82a86a39949b9f0bded6ba3b73, type: 2}

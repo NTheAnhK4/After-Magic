@@ -34,7 +34,7 @@ public class DrainStrengthCard : CardStrategy
             
             
             increaseDamageEffect.Icon = IncreaseIcon;
-            increaseDamageEffect.Name = "Increase damage effect";
+            increaseDamageEffect.StatusEffectType = StatusEffectType.IncreaseDamage;
             _owner.StatsSystem.AddModifier(increaseDamageEffect);
         }
 
@@ -45,7 +45,7 @@ public class DrainStrengthCard : CardStrategy
             decreaseDamageEffect.TurnApply = DecreaseTurnApply;
             decreaseDamageEffect.Value = -1 * GetDamageDecrease();
             decreaseDamageEffect.Icon = DecreaseIcon;
-            decreaseDamageEffect.Name = "Decrease damage effect";
+            decreaseDamageEffect.StatusEffectType = StatusEffectType.DecreaseDamage;
             _enemy.StatsSystem.AddModifier(decreaseDamageEffect);
         }
     }

@@ -18,9 +18,9 @@ public class RoomUIInteraction : RoomUIComponent, IDragHandler
 
     public void Init()
     {
-        float roomHorizontalLength = DungeonMapUI.rooms[0].Length * roomDistance;
+        float roomHorizontalLength = DungeonMapUI.rooms[0].Count * roomDistance;
         posXLimit = new Vector2(-1 * roomHorizontalLength / 2, roomHorizontalLength / 2);
-        float roomVerticalLength = DungeonMapUI.rooms.Length * roomDistance;
+        float roomVerticalLength = DungeonMapUI.rooms.Count * roomDistance;
         posYLimit = new Vector2(-1 * roomVerticalLength / 2, roomVerticalLength / 2);
     }
 

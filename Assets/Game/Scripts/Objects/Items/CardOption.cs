@@ -66,7 +66,7 @@ public class CardOption : ComponentBehavior, IPointerDownHandler, IPointerEnterH
 
         seq.SetUpdate(true);
         CardRewardUI.DisableOtherCard(this);
-        CardManager.Instance.MainDesk.Add(cardDataCtrl.PlayerCardData);
+        CardManager.Instance.AddCardToMainDesk(cardDataCtrl.PlayerCardData);
        
         PoolingManager.Despawn(gameObject);
     }

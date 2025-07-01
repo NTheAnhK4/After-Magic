@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c051005c61141d8469372c329c9a290c, type: 3}
   m_Name: Player Poinsoned Sword Card
   m_EditorClassIdentifier: 
+  ID: 3
   CardName: Poinsoned Sword
   CardNameColor: {r: 1, g: 1, b: 1, a: 1}
   CardStrategy: {fileID: 11400000, guid: 646d4608a231c684e8e78139d09e738d, type: 2}

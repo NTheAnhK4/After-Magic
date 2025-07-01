@@ -16,21 +16,23 @@ public class StatusUICtrl : ComponentBehavior
         public int Amount = 0;
     }
     public StatusIconCtrl StatusIcon;
-    private Dictionary<string, IconInfor> iconInfors = new();
+    private Dictionary<StatusEffectType, IconInfor> iconInfors = new();
    
     public void AddEffect(StatusEffectData statusEffectData)
     {
         if (statusEffectData == null || statusEffectData.Icon == null) return;
 
-        string statusName = statusEffectData.name;
+        StatusEffectType statusEffectType = statusEffectData.StatusEffectType;
        
-        if (iconInfors.TryGetValue(statusName, out IconInfor iconInfor))
+        if (iconInfors.TryGetValue(statusEffectType, out IconInfor iconInfor))
         {
+          
             iconInfor.Amount++;
             iconInfor.IconPrefab.Init(null, iconInfor.Amount.ToString());
         }
         else
         {
+           
             GameObject iconGO = PoolingManager.Spawn(StatusIcon.gameObject,transform);
             if (iconGO == null) return;
             StatusIconCtrl statusIconCtrl = iconGO.GetComponent<StatusIconCtrl>();
@@ -42,7 +44,7 @@ public class StatusUICtrl : ComponentBehavior
                 Data = statusEffectData,
                 Amount = 1
             };
-            iconInfors.Add(statusName, newIconInfor);
+            iconInfors.Add(statusEffectType, newIconInfor);
         }
         
      
@@ -50,14 +52,14 @@ public class StatusUICtrl : ComponentBehavior
 
     public void RemoveEffect(StatusEffectData statusEffectData)
     {
-        string statusName = statusEffectData.name;
-        if (iconInfors.TryGetValue(statusName, out IconInfor iconInfor))
+        StatusEffectType statusEffectType = statusEffectData.StatusEffectType;
+        if (iconInfors.TryGetValue(statusEffectType, out IconInfor iconInfor))
         {
             iconInfor.Amount--;
             if (iconInfor.Amount <= 0)
             {
                 PoolingManager.Despawn(iconInfor.IconPrefab.gameObject);
-                iconInfors.Remove(statusName);
+                iconInfors.Remove(statusEffectType);
             }
             else
             {

@@ -2,6 +2,8 @@
 
 using UnityEngine;
 
+
+
 public class RoomsManager : RoomUIComponent
 {
   
@@ -17,31 +19,20 @@ public class RoomsManager : RoomUIComponent
       
     }
 
-    public void AddRoom(int posX, int posY, RoomUIBtn roomUIBtn, DungeonRoomType dungeonRoomType)
+    public void AddRoom(int posX, int posY, RoomUIBtn roomUIBtn, DungeonRoomType dungeonRoomType, RoomVisitState roomVisitState)
     {
         roomUIBtn.RoomsManager = this;
         roomUIBtn.ResetRoom();
         dungeonFloorRooms[posX][posY] = roomUIBtn;
         SetRoomUIInfor(roomUIBtn, dungeonRoomType);
+        if(dungeonRoomType == DungeonRoomType.Entry) roomUIBtn.SelectRoom();
+        roomUIBtn.SetRoomVisitState(roomVisitState);
+        roomUIBtn.SetRoomSprite();
+        
     }
 
     public void FinishAddRoom()
     {
-       
-        for (int i = 0; i < dungeonFloorRooms.Length; ++i)
-        {
-            for (int j = 0; j < dungeonFloorRooms[i].Length; ++j)
-            {
-                if(dungeonFloorRooms[i][j] == null) continue;
-                if (dungeonFloorRooms[i][j].DungeonRoomType == DungeonRoomType.Entry)
-                {
-                    dungeonFloorRooms[i][j].SelectRoom();
-                    dungeonFloorRooms[i][j].SetRoomReachable(true);
-                    dungeonFloorRooms[i][j].SetInteracableNeighboringRoom();
-                    return;
-                }
-            }
-        }
     }
 
   
@@ -64,13 +55,25 @@ public class RoomsManager : RoomUIComponent
         if (j < 0 || j >= dungeonFloorRooms[i].Length) return;
 
         if (dungeonFloorRooms[i][j] == null) return;
-  
-        dungeonFloorRooms[i][j].SetRoomReachable(true);
+        if (dungeonFloorRooms[i][j].RoomVisitState == RoomVisitState.Inaccessible)
+        {
+            dungeonFloorRooms[i][j].SetRoomVisitState(RoomVisitState.ReachableNotEntered);
+            if (DungeonMapUI != null) DungeonMapUI.rooms[i][j].AccessState = RoomVisitState.ReachableNotEntered;
+
+        }
+        
+    }
+
+    public void SetRoomEntered(int i, int j)
+    {
+        if(dungeonFloorRooms[i][j] == null || DungeonMapUI == null) return;
+        DungeonMapUI.rooms[i][j].AccessState = RoomVisitState.Entered;
+        
     }
     private void SetRoomUIInfor( RoomUIBtn roomUIBtn, DungeonRoomType dungeonRoomType)
     {
 
-        roomUIBtn.SetRoomReachable(false);
+        
         
         roomUIBtn.DungeonRoomType = dungeonRoomType;
         int beforeEnterSpriteID = 0;

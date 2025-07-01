@@ -38,4 +38,27 @@ public class PlayerCardListData : ScriptableObject
         int cardId = Random.Range(0, UnlockedCards.Count);
         return UnlockedCards[cardId];
     }
+
+    public PlayerCardData GetPlayerCardDataByID(int id)
+    {
+        return CardDesks.FirstOrDefault(t => t.ID == id);
+    }
+    [ContextMenu("Auto Assign IDs")]
+    public void AutoAssignIds()
+    {
+        for (int i = 0; i < CardDesks.Count; ++i)
+        {
+            if (CardDesks[i] != null)
+            {
+                CardDesks[i].ID = i;
+                #if UNITY_EDITOR
+                UnityEditor.EditorUtility.SetDirty(CardDesks[i]);
+                #endif
+                }
+            }
+            #if UNITY_EDITOR
+                    UnityEditor.AssetDatabase.SaveAssets();
+            #endif
+    }
+
 }

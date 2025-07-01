@@ -28,7 +28,7 @@ public class Player : Entity
     {
         base.OnEnable();
         SetFacing(true);
-        RunSpeed = 10f;
+        
         
         AttackRange = 2.5f;
       

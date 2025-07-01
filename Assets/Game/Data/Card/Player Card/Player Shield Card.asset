@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c051005c61141d8469372c329c9a290c, type: 3}
   m_Name: Player Shield Card
   m_EditorClassIdentifier: 
+  ID: 4
   CardName: Shield
   CardNameColor: {r: 1, g: 1, b: 1, a: 1}
   CardStrategy: {fileID: 11400000, guid: 09df34d719d7eb549a8fd73dcde2a540, type: 2}

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c051005c61141d8469372c329c9a290c, type: 3}
   m_Name: Player Sword Cut Card
   m_EditorClassIdentifier: 
+  ID: 5
   CardName: Sword Cut
   CardNameColor: {r: 1, g: 1, b: 1, a: 1}
   CardStrategy: {fileID: 11400000, guid: 83880d7f549146d4e97f16d190f0eb39, type: 2}

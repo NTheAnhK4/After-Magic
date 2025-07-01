@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c051005c61141d8469372c329c9a290c, type: 3}
   m_Name: Player Healing Card
   m_EditorClassIdentifier: 
+  ID: 1
   CardName: Healing Card
   CardNameColor: {r: 0, g: 0, b: 0, a: 1}
   CardStrategy: {fileID: 11400000, guid: 6ca0bea765af68d4b8999e8f20d1cc0a, type: 2}

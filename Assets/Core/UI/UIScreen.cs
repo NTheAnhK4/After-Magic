@@ -81,6 +81,7 @@ namespace Game.UI
         {
             if(MusicManager.Instance != null) MusicManager.Instance.UnPauseMusic();
             await panelImage.DOFade(0, duration).SetUpdate(true).AsyncWaitForCompletion();
+            if (canvasGroup == null) return;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             Time.timeScale = 1;

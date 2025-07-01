@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4b4cda42184a2987517a883773bad9, type: 3}
   m_Name: DamageEffect
   m_EditorClassIdentifier: 
-  Name: 
+  StatusEffectType: 2
   Icon: {fileID: 0}
   TurnApply: 0
-  TurnApplyAddType: 0
   Value: 0
-  ValueAddType: 0
   Type: 0
   ExpireTiming: 0
   OperatorType: 0

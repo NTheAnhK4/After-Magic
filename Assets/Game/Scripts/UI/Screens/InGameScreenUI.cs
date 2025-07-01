@@ -103,10 +103,15 @@ public class InGameScreenUI : UIScreen
 
     }
 
+    public void InitData()
+    {
+        int coinAmount = InventoryManager.Instance.GetAmountFromLoot(ItemType.Coin) + InventoryManager.Instance.GetAmountFromEquippedItems(ItemType.Coin);
+        coinTxt.text = coinAmount.ToString();
+    }
   
     private void OnEnable()
     {
-        if (coinTxt != null) coinTxt.text = GameManager.Instance.CoinAmount.ToString();
+       
         onUsingCardAction = param => turnBtn.interactable = false;
         onWinAction = param =>  ShowUI<WinUI>().Forget();
         onLoseAction = param => ShowUI<LoseUI>().Forget();

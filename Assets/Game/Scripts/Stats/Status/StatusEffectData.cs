@@ -10,11 +10,19 @@ namespace BrokerChain.Status
         StartOfThisTurn
     }
 
+    public enum StatusEffectType
+    {
+        Poisoned,
+        DecreaseDamage,
+        IncreaseDamage,
+        Shield
+    }
+
   
     [CreateAssetMenu(menuName = "Data/Status Effect Data", fileName = "Status Effect Data")]
     public class StatusEffectData : ScriptableObject
     {
-        public string Name;
+        public StatusEffectType StatusEffectType;
         public Sprite Icon;
         public int TurnApply;
        
@@ -40,7 +48,8 @@ namespace BrokerChain.Status
         public StatusEffectData Clone()
         {
             StatusEffectData clone = CreateInstance<StatusEffectData>();
-            clone.Name = this.Name;
+            clone.StatusEffectType = this.StatusEffectType;
+            
             clone.Icon = this.Icon;
             clone.TurnApply = this.TurnApply;
             clone.Value = this.Value;
