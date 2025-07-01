@@ -107,7 +107,7 @@ public  class ItemBase : ComponentBehavior
     protected virtual void Despawn()
     {
         RewardManager.Instance.TakeEachReward();
-        if(CanTakeRewardToLoot()) InventoryManager.Instance.AddToLoot(itemType,gameObject, amount);
+        if(CanTakeRewardToLoot()) InventoryManager.Instance.AddToLoot(itemType, amount);
         RewardManager.Instance.RemoveCurrentReward(this);
         PoolingManager.Despawn(gameObject);
     }

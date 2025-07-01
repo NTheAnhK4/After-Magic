@@ -39,10 +39,6 @@ public enum DungeonRoomType
     Shop = 6
 }
 
-public enum ItemType
-{
-    Coin,
-}
 
 namespace BrokerChain
 {

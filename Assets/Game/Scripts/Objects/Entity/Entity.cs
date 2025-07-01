@@ -82,6 +82,7 @@ namespace StateMachine
             IsRunningToTarget = false;
             IsHurting = false;
             IsDead = false;
+            RunSpeed = 20;
         }
 
         protected virtual void Update() => StateMachine.Update();

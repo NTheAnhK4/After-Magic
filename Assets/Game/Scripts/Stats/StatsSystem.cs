@@ -51,15 +51,16 @@ namespace BrokerChain
         }
 
        
-        public void Init()
+        public void Init(EntityStats entityStats = null)
         {
-            EntityStats entityStats = new EntityStats()
+            if(entityStats == null) entityStats = new EntityStats()
             {
                 MaxHP = entityStatsData.HP,
                 HP = entityStatsData.HP,
                 Defense = entityStatsData.Defense,
                 Damage = entityStatsData.Damage
             };
+            
             Stats = new Stats(new StatsMediator(), entityStats);
             if (healthUICtrl == null) healthUICtrl = transform.Find("UI/HP bar").GetComponent<HealthUICtrl>();
             healthUICtrl.Init(Stats.EntityStats);
@@ -70,7 +71,7 @@ namespace BrokerChain
 
         public void AddModifier(StatusEffectData statusEffectData)
         {
-            
+          
             Action onRemoved = null;
             if (statusUICtrl != null)
             {
@@ -87,8 +88,8 @@ namespace BrokerChain
 
             damage += Stats.ExtraTakenDamage;
             
+            damage = Math.Max(0, damage - (defense > 0 ? defense : 0));
             
-            if (defense > 0) damage = Math.Max(0, damage - defense);
 
             if (damage > 0) entity.IsHurting = true;
             

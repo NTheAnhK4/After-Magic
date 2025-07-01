@@ -38,7 +38,9 @@ public class PoisonedSwordCard : CardStrategy
             {
                 StatusEffectData.TurnApply = GetTurnApply();
                 StatusEffectData.Value = GetAddedDamage();
-                _enemy.StatsSystem.AddModifier(StatusEffectData.Clone());
+                StatusEffectData poinsonedEffect = StatusEffectData.Clone();
+                
+                _enemy.StatsSystem.AddModifier(poinsonedEffect);
             }
         }
     }

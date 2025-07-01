@@ -1,7 +1,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class RoomUISpawner : RoomUIComponent
 {
@@ -19,12 +19,12 @@ public class RoomUISpawner : RoomUIComponent
         if (RoomHolder == null) RoomHolder = transform.Find("Rooms");
     }
 
-    public void SpawnRooms(int[][] rooms)
+    public void SpawnRooms(List<List<RoomData>> rooms)
     {
         
-        for (int i = 0; i < rooms.Length; ++i)
+        for (int i = 0; i < rooms.Count; ++i)
         {
-            for (int j = 0; j < rooms[i].Length; ++j)
+            for (int j = 0; j < rooms[i].Count; ++j)
             {
                 SpawnRoom(i,j,rooms);
             }
@@ -36,10 +36,10 @@ public class RoomUISpawner : RoomUIComponent
   
  
 
-    private Vector3 GetPosition(int posX, int posY, int[][] rooms) => new Vector3( posX - rooms.Length / 2,rooms[0].Length / 2 - posY , 0) * (2 * roomDistance);
-    private void SpawnRoom(int posY, int posX, int[][] rooms)
+    private Vector3 GetPosition(int posX, int posY, List<List<RoomData>> rooms) => new Vector3( posX - rooms.Count / 2,rooms[0].Count / 2 - posY , 0) * (2 * roomDistance);
+    private void SpawnRoom(int posY, int posX, List<List<RoomData>> rooms)
     {
-        if (rooms[posY][posX] == -1) return;
+        if (rooms[posY][posX].RoomType == -1) return;
 
         Vector3 roomPosition = GetPosition(posX, posY, rooms);
       
@@ -53,7 +53,7 @@ public class RoomUISpawner : RoomUIComponent
         
         RoomUIBtn roomUIBtn = roomGO.GetComponent<RoomUIBtn>();
         
-        DungeonMapUI.RoomsManager.AddRoom(posY, posX, roomUIBtn, (DungeonRoomType)rooms[posY][posX]);
+        DungeonMapUI.RoomsManager.AddRoom(posY, posX, roomUIBtn, (DungeonRoomType)rooms[posY][posX].RoomType, rooms[posY][posX].AccessState);
         
         roomUIBtn.RoomPosition = new Vector2Int(posY, posX);
         
@@ -63,16 +63,16 @@ public class RoomUISpawner : RoomUIComponent
     }
 
    
-    private void SpawnPath(int posY, int posX, int[][] rooms)
+    private void SpawnPath(int posY, int posX, List<List<RoomData>> rooms)
     {
-        if (posY > 0 && rooms[posY - 1][posX] != -1)
+        if (posY > 0 && rooms[posY - 1][posX].RoomType != -1)
         {
             Vector3 spawnPos = GetPosition(posX, posY, rooms) + new Vector3(0, roomDistance, 0);
             GameObject prefab = DungeonMapUI.DungeonMapData.VerticalPath;
             SpawnPath(posY, posX, prefab, spawnPos);
         }
 
-        if (posX > 0 && rooms[posY][posX - 1] != -1)
+        if (posX > 0 && rooms[posY][posX - 1].RoomType != -1)
         {
             Vector3 spawnPos = GetPosition(posX, posY,rooms) - new Vector3(roomDistance, 0, 0);
             GameObject prefab = DungeonMapUI.DungeonMapData.HorizontalPath;

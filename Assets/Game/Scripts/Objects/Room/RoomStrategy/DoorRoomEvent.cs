@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Persistence;
 using Game.UI;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Dungeon/Room Strategy/ Door Room", fileName = "Door Room")]
@@ -43,6 +44,11 @@ public class DoorRoomEvent : RoomEventStrategy
     private void OnExit()
     {
         InventoryManager.Instance.MoveLootToInventory();
+        if (SaveLoadSystem.Instance.gameData != null)
+        {
+            SaveLoadSystem.Instance.gameData.ExitDungeon();
+            SaveLoadSystem.Instance.SaveGame();
+        }
         SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);
     }
 
@@ -50,6 +56,11 @@ public class DoorRoomEvent : RoomEventStrategy
     {
         InventoryManager.Instance.SetDungeonLootPercentage(20);
         InventoryManager.Instance.MoveLootToInventory();
+        if (SaveLoadSystem.Instance.gameData != null)
+        {
+            SaveLoadSystem.Instance.gameData.ExitDungeon();
+            SaveLoadSystem.Instance.SaveGame();
+        }
         SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);
         
     }
@@ -65,11 +76,12 @@ public class DoorRoomEvent : RoomEventStrategy
         dungeonMapUI.RoomUISpawner.ResetRoom();
         dungeonMapUI.IsShown = false;
         dungeonMapUI.IsVirtualMap = false;
+        dungeonMapUI.IsLoadData = false;
         
-        await UIScreen.Instance.HideUI<AchivementUI>();
+        await UIScreen.Instance.HideUI<AchivementUI>(true);
         
         await UIScreen.Instance.ShowUI<DungeonMapUI>();
-        InGameManager.Instance.IsGoDeep = true;
+        
        
     }
 }

@@ -1,14 +1,16 @@
 
-using System;
+using System.Persistence;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LoadingScreenUI : ComponentBehavior
 {
-    [SerializeField] private Slider slider;
+    public Slider slider;
     [SerializeField] private ButtonAnimBase playBtn;
+    
     private bool isLoaded;
+    public bool IsDataLoaded;
     public override void LoadComponent()
     {
         base.LoadComponent();
@@ -20,30 +22,34 @@ public class LoadingScreenUI : ComponentBehavior
         isLoaded = false;
     }
 
+   
+
     private void OnEnable()
     {
         playBtn.onClick += OnPlayGame;
+        slider.onValueChanged.AddListener(OnSliderValueChange);
     }
 
     private void OnDisable()
     {
         playBtn.onClick -= OnPlayGame;
+        slider.onValueChanged.RemoveListener(OnSliderValueChange);
     }
 
-
-    private void Update()
+    private void OnSliderValueChange(float value)
     {
-        if (isLoaded) return;
-        slider.value = Mathf.Min(slider.value + Time.deltaTime, 1);
+        if(isLoaded) return;
         if (slider.value >= .99)
         {
             isLoaded = true;
-            slider.gameObject.SetActive(false);
-            
             ShowPlayBtn();
-           
+            slider.gameObject.SetActive(false);
         }
     }
+
+
+
+   
 
     private async void ShowPlayBtn()
     {
@@ -59,6 +65,8 @@ public class LoadingScreenUI : ComponentBehavior
 
     private void OnPlayGame()
     {
-        SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);
+        if(IsDataLoaded) SceneLoader.Instance.LoadScene(SaveLoadSystem.Instance.gameData.CurrentLevelName);
+        
+        else SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);
     }
 }

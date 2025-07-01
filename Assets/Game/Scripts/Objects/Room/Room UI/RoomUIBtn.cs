@@ -10,13 +10,14 @@ public class RoomUIBtn : ComponentBehavior
     
     public RoomsManager RoomsManager;
     public DungeonRoomType DungeonRoomType;
+    public RoomVisitState RoomVisitState;
     
     #region Sprite
     public Sprite RoomSpriteBeforeEnter;
     public Sprite RoomSpriteAfterEnter;
     #endregion
    
-    public bool isEntered = false;
+   
 
     #region Strategy
 
@@ -32,7 +33,7 @@ public class RoomUIBtn : ComponentBehavior
     private Image RoomImg;
     private GameObject roomFrame;
 
-    private bool _reachable;
+   
     private bool isBtnClicked;
    
     public override void LoadComponent()
@@ -49,18 +50,17 @@ public class RoomUIBtn : ComponentBehavior
 
     public void ResetRoom()
     {
-        isEntered = false;
-        _reachable = false;
         isBtnClicked = false;
         roomBtn.onClick.RemoveAllListeners();
         StrategyAfterEnter = null;
         StrategyBeforeEnter = null;
     }
-    public void SetRoomReachable(bool reachable)
+    public void SetRoomVisitState(RoomVisitState newState)
     {
-        roomBtn.interactable = reachable;
-        _reachable = reachable;
-        if (reachable)
+        RoomVisitState = newState;
+        roomBtn.interactable = RoomVisitState != RoomVisitState.Inaccessible;
+        
+        if (RoomVisitState != RoomVisitState.Inaccessible)
         {
             roomBtn.onClick.RemoveAllListeners();
             roomBtn.onClick.AddListener(EnterRoom);
@@ -70,10 +70,10 @@ public class RoomUIBtn : ComponentBehavior
 
     public void SetVirtualRoom(bool isVirtualRoom)
     {
-        roomBtn.interactable = _reachable;
+        roomBtn.interactable = RoomVisitState != RoomVisitState.Inaccessible;
         if (isVirtualRoom) return;
 
-        if (_reachable)
+        if (RoomVisitState != RoomVisitState.Inaccessible)
         {
             roomBtn.onClick.RemoveAllListeners();
             roomBtn.onClick.AddListener(EnterRoom);
@@ -81,7 +81,7 @@ public class RoomUIBtn : ComponentBehavior
         
     }
 
-    public void SetRoomSprite() =>  RoomImg.sprite = isEntered ? RoomSpriteAfterEnter : RoomSpriteBeforeEnter;
+    public void SetRoomSprite() =>  RoomImg.sprite = RoomVisitState == RoomVisitState.Entered ? RoomSpriteAfterEnter : RoomSpriteBeforeEnter;
 
 
     private void OnEnable()
@@ -100,9 +100,9 @@ public class RoomUIBtn : ComponentBehavior
        
        SelectRoom();
        if (isBtnClicked) return;
-       if (!isEntered && InGameManager.Instance != null) InGameManager.Instance.RoomsExplored++;
+       if (RoomVisitState != RoomVisitState.Entered && InGameManager.Instance != null) InGameManager.Instance.RoomsExplored++;
        isBtnClicked = true;
-       RoomEventStrategy strategy = isEntered ? StrategyAfterEnter : StrategyBeforeEnter;
+       RoomEventStrategy strategy = RoomVisitState == RoomVisitState.Entered ? StrategyAfterEnter : StrategyBeforeEnter;
        
        if (strategy == null)
        {
@@ -110,8 +110,8 @@ public class RoomUIBtn : ComponentBehavior
            return;
        }
 
-      
-       isEntered = true;
+
+       RoomVisitState = RoomVisitState.Entered;
        strategy.OnEnter();
       
       
@@ -120,7 +120,7 @@ public class RoomUIBtn : ComponentBehavior
 
     public void SetInteracableNeighboringRoom()
     {
-     
+        RoomsManager.SetRoomEntered(RoomPosition.x, RoomPosition.y);
         RoomsManager.SetRoomInteracable(RoomPosition.x - 1, RoomPosition.y);
         RoomsManager.SetRoomInteracable(RoomPosition.x + 1, RoomPosition.y);
         RoomsManager.SetRoomInteracable(RoomPosition.x, RoomPosition.y + 1);

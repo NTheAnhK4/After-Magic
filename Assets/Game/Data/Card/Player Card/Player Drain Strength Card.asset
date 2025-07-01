@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c051005c61141d8469372c329c9a290c, type: 3}
   m_Name: Player Drain Strength Card
   m_EditorClassIdentifier: 
+  ID: 0
   CardName: Drain Strength
   CardNameColor: {r: 1, g: 1, b: 1, a: 1}
   CardStrategy: {fileID: 11400000, guid: 9667eda7b8d110d489bd6705e6802670, type: 2}

@@ -1,7 +1,9 @@
 
+using System.Persistence;
 using AudioSystem;
 
 using Game.UI;
+
 using UnityEngine;
 
 
@@ -35,7 +37,15 @@ public class LoseUI : UIView
         InventoryManager.Instance.SetDungeonLootPercentage(0);
 
         AchivementUI achivementUI = UIScreen.GetUIView<AchivementUI>();
-        achivementUI.SetRedBtn("Exit", () => SceneLoader.Instance.LoadScene(GameConstants.LobbyScene));
+        achivementUI.SetRedBtn("Exit", () =>
+        {
+            if (SaveLoadSystem.Instance.gameData != null)
+            {
+                SaveLoadSystem.Instance.gameData.ExitDungeon();
+                SaveLoadSystem.Instance.SaveGame();
+            }
+            SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);
+        });
        
         await UIScreen.ShowAfterHide<AchivementUI>();
     }

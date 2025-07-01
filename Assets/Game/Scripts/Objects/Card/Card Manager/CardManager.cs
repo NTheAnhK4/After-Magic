@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Persistence;
 using AudioSystem;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -19,7 +20,8 @@ public class CardManager : Singleton<CardManager>
   
     
     #region Card In A Dungeon
- 
+
+    public PlayerCardListData PlayerCardListData;
     public Card CardPrefab;
     public List<PlayerCardData> MainDesk = new List<PlayerCardData>();
     [HideInInspector] public List<PlayerCardData> DrawPile = new List<PlayerCardData>();
@@ -129,7 +131,60 @@ public class CardManager : Singleton<CardManager>
         ObserverManager<CardEventType>.Notify(CardEventType.DepleteCardsCountChange, DepleteCards.Count);
     }
 
-   
+    public void InitData()
+    {
+        if (PlayerCardListData != null && InGameManager.Instance != null)
+        {
+            List<int> cardDeskId = InGameManager.Instance.dungeonSaveData.CardDeskId;
+            if (cardDeskId == null || cardDeskId.Count == 0)
+            {
+                cardDeskId = new List<int>();
+                InGameManager.Instance.dungeonSaveData.CardDeskId = cardDeskId;
+                AutoGenerateMainDesk(cardDeskId);
+            }
+            else LoadCardDeskData(cardDeskId);
+            
+        }
+        else AutoGenerateMainDesk();
+    }
+
+    private void LoadCardDeskData(List<int> cardDeskId)
+    {
+        MainDesk = new List<PlayerCardData>();
+        foreach (int Id in cardDeskId)
+        {
+            MainDesk.Add(PlayerCardListData.GetPlayerCardDataByID(Id));
+        }
+    }
+
+    private void AutoGenerateMainDesk(List<int> cardDeskId = null)
+    {
+        MainDesk = new List<PlayerCardData>();
+        for (int i = 0; i < 8; ++i)
+        {
+            if (i < 4)
+            {
+                MainDesk.Add(PlayerCardListData.GetPlayerCardDataByID(4));
+                if(cardDeskId != null) cardDeskId.Add(4);
+            }
+            else
+            {
+                MainDesk.Add(PlayerCardListData.GetPlayerCardDataByID(5));
+                if(cardDeskId != null) cardDeskId.Add(5);
+            }
+        }
+
+        
+
+    }
+
+    public void AddCardToMainDesk(PlayerCardData data)
+    {
+        if (data == null) return;
+        MainDesk.Add(data);
+        InGameManager.Instance.dungeonSaveData.CardDeskId.Add(data.ID);
+        SaveLoadSystem.Instance.SaveGame();
+    }
 
     
     public void ClearDesks(object param = null)
