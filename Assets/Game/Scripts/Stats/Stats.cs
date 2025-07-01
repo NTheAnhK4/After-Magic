@@ -1,5 +1,5 @@
 using System;
-using UnityEngine;
+
 
 namespace BrokerChain
 {
@@ -11,6 +11,8 @@ namespace BrokerChain
                 
         public int Defense;     
         public int Damage;
+
+        public int ExtraTakenDamage = 0;
         private int hp;
 
         public int HP
@@ -54,6 +56,16 @@ namespace BrokerChain
             get
             {
                 var q = new Query(StatsType.Defense, EntityStats.Defense);
+                mediator.PerformQuery(this, q);
+                return q.Value;
+            }
+        }
+
+        public int ExtraTakenDamage
+        {
+            get
+            {
+                var q = new Query(StatsType.ExtraTakenDamage, EntityStats.ExtraTakenDamage);
                 mediator.PerformQuery(this, q);
                 return q.Value;
             }

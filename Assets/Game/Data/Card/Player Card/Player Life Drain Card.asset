@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c051005c61141d8469372c329c9a290c, type: 3}
+  m_Name: Player Life Drain Card
+  m_EditorClassIdentifier: 
+  ID: 2
+  CardName: Life Drain Card
+  CardNameColor: {r: 1, g: 1, b: 1, a: 1}
+  CardStrategy: {fileID: 11400000, guid: 0b8cc2d92d1b31541979ef1c10b49f59, type: 2}
+  ManaCost: 2
+  CardImage: {fileID: 21300000, guid: d0d2604fbf6919043b9557bf750d8f2f, type: 3}
+  CardType: {fileID: 21300000, guid: 0258451707feb0d4c8831691b58f67d2, type: 3}
+  CardDescription: Deal damage and heal for the unblocked amount.
+  IsUnlocked: 1

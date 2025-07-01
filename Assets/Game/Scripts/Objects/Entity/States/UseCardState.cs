@@ -19,7 +19,7 @@ public class UseCardState : State<Entity>
             Card = entity.CardStrategy;
             entity.Anim.SetBool(Card.AnimName, true);
             Card.Apply(entity, entity.EnemyTarget);
-            if(entity.CardStrategy.StatusEffectData != null) entity.StatsSystem.AddModifier(entity.CardStrategy.StatusEffectData);
+           
         }
         
        
@@ -30,11 +30,7 @@ public class UseCardState : State<Entity>
         base.Update();
         Card = entity.CardStrategy;
         if (Card == null) return;
-        if (!Card.HasFinisedUsingCard())
-        {
-            Card.Execute();
-            return;
-        }
+        if (!entity.CardStrategy.HasFinisedUsingCard()) return;
         
         if(entity.MustReachTarget) entity.StateMachine.ChangeState(entity.RunState, () => new RunStateData(){IsRunningToTarget = false, TargetPosition = entity.StandPoint});
         else

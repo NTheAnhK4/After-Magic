@@ -7,6 +7,7 @@ namespace StateMachine
 {
     public class Entity : ComponentBehavior, IEntity
     {
+        public bool IsSpriteFacingRight;
         public string curentState;
         public StateMachine StateMachine;
         public StatsSystem StatsSystem;
@@ -23,12 +24,12 @@ namespace StateMachine
        
 
     
-        public bool IsHurting;
+        public bool IsHurting { get; set; }
         public Action OnDead;
        
         
         public bool MustReachTarget { get; set; }
-        public CardStrategy CardStrategy;
+        public CardStrategy CardStrategy { get; set; }
         public Action OnFinishedUsingCard;
       
         
@@ -37,18 +38,17 @@ namespace StateMachine
         
         public virtual Entity EnemyTarget { get; set; }
 
-        [Header("Move")] 
-        public bool IsRunningToTarget;
-        public float RunSpeed;
-        public Vector3 StandPoint;
        
-        public bool IsOriginalFacingRight;
+        public bool IsRunningToTarget { get; set; }
+        public float RunSpeed { get; set; }
+        public Vector3 StandPoint { get; set; }
+       
+        public bool IsOriginalFacingRight { get; set; }
+        public bool IsDead { get; set; }
+     
+        public Animator Anim { get; set; }
 
-        [HideInInspector] public bool IsDead;
-        [Header("Componnet")] 
-        public Animator Anim;
-
-        public bool IsAnimationTriggerFinished;
+        public bool IsAnimationTriggerFinished { get; set; }
         
         private Transform model;
 
@@ -82,6 +82,7 @@ namespace StateMachine
             IsRunningToTarget = false;
             IsHurting = false;
             IsDead = false;
+            RunSpeed = 20;
         }
 
         protected virtual void Update() => StateMachine.Update();
@@ -95,9 +96,7 @@ namespace StateMachine
         protected void At(IState from, IState to, IPredicate condition, Func<StateData> getData = null) => StateMachine.AddTransition(from, to, condition, getData);
         protected void Any(IState to, IPredicate condition, Func<StateData> getData = null) => StateMachine.AddAnyTransition(to, condition, getData);
 
-        protected void AnimationTrigger() => StateMachine.State.AnimationTrigger();
-        protected void AnimationFinishTrigger() => StateMachine.State.AnimationFinishTrigger();
-
+        
         #endregion
        
         
@@ -107,7 +106,7 @@ namespace StateMachine
         public override void LoadComponent()
         {
             base.LoadComponent();
-            if (Anim == null) Anim = GetComponent<Animator>();
+            if (Anim == null) Anim = GetComponentInChildren<Animator>();
             if (model == null) model = transform.Find("Model");
             if (StatsSystem == null) StatsSystem = GetComponent<StatsSystem>();
             if (damagePopupUI == null) damagePopupUI = transform.Find("UI").GetComponentInChildren<DamagePopupUI>();
@@ -115,8 +114,10 @@ namespace StateMachine
         }
         public void SetFacing(bool isFacingRight = true)
         {
-            Vector3 curLocalScale = model.localScale; 
-            model.localScale = new Vector3((isFacingRight ? 1 : -1) * Mathf.Abs(curLocalScale.x), curLocalScale.y, curLocalScale.z);
+            Vector3 curLocalScale = model.localScale;
+            if (IsSpriteFacingRight) model.localScale = curLocalScale.With(x: (isFacingRight ? 1 : -1) * Mathf.Abs(curLocalScale.x));
+            else model.localScale = curLocalScale.With(x: (isFacingRight ? -1 : 1) * Mathf.Abs(curLocalScale.x));
+            
         }
        
        

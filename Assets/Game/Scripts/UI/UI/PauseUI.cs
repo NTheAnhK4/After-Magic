@@ -1,10 +1,11 @@
 
-using System;
+
 using AudioSystem;
-using Cysharp.Threading.Tasks;
+
 using Game.UI;
+using SaveGame;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class PauseUI : UIView
 {
@@ -41,10 +42,19 @@ public class PauseUI : UIView
     private async void OnGiveUpBtnClick()
     {
         InventoryManager.Instance.SetDungeonLootPercentage(20);
-
+        
         AchivementUI achivementUI = UIScreen.GetUIView<AchivementUI>();
-        achivementUI.SetRedBtn("Exit", () => SceneLoader.Instance.LoadScene(GameConstants.LobbyScene));
-      
+        achivementUI.SetRedBtn("Exit", () =>
+        {
+            InventoryManager.Instance.MoveLootToInventory();
+            if (SaveLoadSystem.Instance.GameData != null)
+            {
+                SaveLoadSystem.Instance.GameData.ExitDungeon();
+                SaveLoadSystem.Instance.SaveGame();
+            }
+            SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);
+        });
+        
         await UIScreen.ShowAfterHide<AchivementUI>();
     }
 

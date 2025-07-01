@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4b4cda42184a2987517a883773bad9, type: 3}
   m_Name: ShieldEffect
   m_EditorClassIdentifier: 
-  Name: Shield Effect
+  StatusEffectType: 3
   Icon: {fileID: 21300000, guid: 40ad198f7db9ff343bd23f68640d2c16, type: 3}
   TurnApply: 1
   Value: 3

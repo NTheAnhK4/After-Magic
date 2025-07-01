@@ -1,46 +1,82 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
 using BrokerChain.Status;
-using Unity.VisualScripting;
+
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class StatusUICtrl : ComponentBehavior
 {
-    public Image StatusIcon;
-    private Dictionary<StatusEffectData, Image> iconDict = new();
+    
 
+    class IconInfor
+    {
+        public StatusIconCtrl IconPrefab;
+        public StatusEffectData Data;
+        public int Amount = 0;
+    }
+    public StatusIconCtrl StatusIcon;
+    private Dictionary<StatusEffectType, IconInfor> iconInfors = new();
+   
     public void AddEffect(StatusEffectData statusEffectData)
     {
+        if (statusEffectData == null || statusEffectData.Icon == null) return;
+
+        StatusEffectType statusEffectType = statusEffectData.StatusEffectType;
        
-        if (statusEffectData == null 
-            || iconDict.ContainsKey(statusEffectData)
-            || statusEffectData.Icon == null) return;
-        if (StatusIcon == null)
+        if (iconInfors.TryGetValue(statusEffectType, out IconInfor iconInfor))
         {
-            Debug.LogWarning("Status icon prefab is null");
-            return;
+          
+            iconInfor.Amount++;
+            iconInfor.IconPrefab.Init(null, iconInfor.Amount.ToString());
         }
-        Image icon = PoolingManager.Spawn(StatusIcon.gameObject, transform).GetComponent<Image>();
-        icon.sprite = statusEffectData.Icon;
-        iconDict.Add(statusEffectData, icon);
+        else
+        {
+           
+            GameObject iconGO = PoolingManager.Spawn(StatusIcon.gameObject,transform);
+            if (iconGO == null) return;
+            StatusIconCtrl statusIconCtrl = iconGO.GetComponent<StatusIconCtrl>();
+            if (statusIconCtrl == null) return;
+            statusIconCtrl.Init(statusEffectData.Icon,"1");
+            IconInfor newIconInfor = new IconInfor()
+            {
+                IconPrefab = statusIconCtrl,
+                Data = statusEffectData,
+                Amount = 1
+            };
+            iconInfors.Add(statusEffectType, newIconInfor);
+        }
+        
+     
     }
 
     public void RemoveEffect(StatusEffectData statusEffectData)
     {
-        if (!iconDict.ContainsKey(statusEffectData)) return;
-        PoolingManager.Despawn(iconDict[statusEffectData].gameObject);
-        iconDict.Remove(statusEffectData);
+        StatusEffectType statusEffectType = statusEffectData.StatusEffectType;
+        if (iconInfors.TryGetValue(statusEffectType, out IconInfor iconInfor))
+        {
+            iconInfor.Amount--;
+            if (iconInfor.Amount <= 0)
+            {
+                PoolingManager.Despawn(iconInfor.IconPrefab.gameObject);
+                iconInfors.Remove(statusEffectType);
+            }
+            else
+            {
+                iconInfor.IconPrefab.Init(null, iconInfor.Amount.ToString());
+            }
+           
+        }
+       
     }
 
     private void OnEnable()
     {
-        foreach (var value in iconDict.Values)
+        foreach (var value in iconInfors.Values)
         {
             if(value == null) continue;
-            
-            PoolingManager.Despawn(value.gameObject);
+            PoolingManager.Despawn(value.IconPrefab.gameObject);
         }
+        iconInfors.Clear();
     }
 }

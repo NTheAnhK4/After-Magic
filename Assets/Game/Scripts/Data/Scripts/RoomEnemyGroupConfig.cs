@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,12 +12,13 @@ public class RoomEnemyGroupConfig : ScriptableObject
     public List<EnemyGroup> VeteranGroups;
     public List<EnemyGroup> EliteGroups;
     public List<EnemyGroup> NightMareGroups;
-    public List<EnemyGroup> BossGroups;
+   
 
     public List<EnemyGroup> GetGroupListByFloor(int floor, int deepest, bool isBossRoom)
     {
-        if (isBossRoom) return BossGroups;
-        float ratio = (float)floor / deepest;
+      
+        float ratio = (float)(floor - 1) / deepest;
+        if (isBossRoom) ratio += .25f;
         if (ratio <= 0.25f) return NoviceGroups;
         if (ratio <= 0.5f) return VeteranGroups;
         if (ratio <= 0.75f) return EliteGroups;

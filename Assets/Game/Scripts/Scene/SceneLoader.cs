@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+
 
 public class SceneLoader : ComponentBehavior
 {
@@ -50,12 +50,14 @@ public class SceneLoader : ComponentBehavior
     {
         await UniTask.Delay(1, DelayType.UnscaledDeltaTime);
         LoadComponent();
-        
+        IGameInitializer gameInitializer = FindAnyObjectByType<IGameInitializer>();
         if (canvas != null)
         {
             var camera = Camera.main;
             canvas.worldCamera = camera;
         }
+
+        if (gameInitializer != null) await gameInitializer.Init();
 
         await panel.DOFade(0, .5f).SetUpdate(true).AsyncWaitForCompletion();
 
@@ -63,7 +65,11 @@ public class SceneLoader : ComponentBehavior
     }
     public async void LoadScene(string sceneName)
     {
-       
+        if (panel == null)
+        {
+            Debug.LogError("SceneLoader: panel is null!");
+            return;
+        }
         if(MusicManager.Instance != null) MusicManager.Instance.StopMusic();
         
         var scene = SceneManager.LoadSceneAsync(sceneName);
@@ -90,7 +96,7 @@ public class SceneLoader : ComponentBehavior
             DelayType.UnscaledDeltaTime
         );
 
-        DOTween.KillAll();
+        DOTween.Kill(panel);
         scene.allowSceneActivation = true;
 
     }

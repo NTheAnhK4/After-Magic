@@ -4,13 +4,30 @@ using UnityEngine;
 
 namespace BrokerChain.Status
 {
+    public enum ExpireTiming
+    {
+        EndOfThisTurn,
+        StartOfThisTurn
+    }
+
+    public enum StatusEffectType
+    {
+        Poisoned,
+        DecreaseDamage,
+        IncreaseDamage,
+        Shield
+    }
+
+  
     [CreateAssetMenu(menuName = "Data/Status Effect Data", fileName = "Status Effect Data")]
     public class StatusEffectData : ScriptableObject
     {
-        public string Name;
+        public StatusEffectType StatusEffectType;
         public Sprite Icon;
         public int TurnApply;
+       
         public int Value;
+       
         
         public StatsType Type;
         
@@ -28,5 +45,19 @@ namespace BrokerChain.Status
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
+        public StatusEffectData Clone()
+        {
+            StatusEffectData clone = CreateInstance<StatusEffectData>();
+            clone.StatusEffectType = this.StatusEffectType;
+            
+            clone.Icon = this.Icon;
+            clone.TurnApply = this.TurnApply;
+            clone.Value = this.Value;
+            clone.Type = this.Type;
+            clone.ExpireTiming = this.ExpireTiming;
+            clone.OperatorType = this.OperatorType;
+            return clone;
+        }
+
     }
 }

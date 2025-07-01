@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using DG.Tweening;
+using SaveGame;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -62,19 +62,24 @@ public class DungeonEntrance : ComponentBehavior, IPointerDownHandler,IPointerUp
         if (distance < dragThreshold && timeHeld < timeThreshold) EnterMap();
     }
 
-    private async void EnterMap()
+    private void EnterMap()
     {
         DungeonEntranceManager.Instance.LockAllDungeonEntrance();
         Transform transform1;
         (transform1 = transform).DOKill(); 
         transform1.localScale = Vector3.one;
 
-        Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOScale(0.85f, 0.1f).SetEase(Ease.OutQuad));
-        seq.Append(transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack));
-        seq.SetUpdate(true);
-        await seq.AsyncWaitForCompletion();
-        SceneLoader.Instance.LoadScene(GameConstants.DungeonScene);
+        var seq = DOTween.Sequence();
+        seq.Append(transform.DOScale(0.9f, 0.08f).SetEase(Ease.InQuad));    
+        seq.Append(transform.DOScale(1.15f, 0.15f).SetEase(Ease.OutQuad)); 
+        seq.Append(transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack));     
+        seq.SetUpdate(true).SetLink(gameObject).OnComplete(() =>
+        {
+            if (SaveLoadSystem.Instance.GameData != null) SaveLoadSystem.Instance.GameData.CurrentLevelName = GameConstants.DungeonScene;
+            SceneLoader.Instance.LoadScene(GameConstants.DungeonScene);
+        });
+        
+        
     }
     
 }

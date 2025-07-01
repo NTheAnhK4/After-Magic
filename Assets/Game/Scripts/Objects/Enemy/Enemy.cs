@@ -79,7 +79,7 @@ public class Enemy : Entity
         
        
        
-        RunSpeed = 10f;
+       
         
         AttackRange = 2.5f;
        
