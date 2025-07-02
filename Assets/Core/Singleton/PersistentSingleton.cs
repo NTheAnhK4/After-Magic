@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PersistentSingleton<T> : ComponentBehavior where T : ComponentBehavior
+public class PersistentSingleton<T> : ComponentBehaviour where T : ComponentBehaviour
 {
     public bool AutoUnparentOnAwake = true;
     protected static T instance;

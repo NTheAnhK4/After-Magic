@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class Selectable : ComponentBehavior
+public class Selectable : ComponentBehaviour
 {
     private SpriteRenderer aim;
     private Color originalColor;

@@ -13,7 +13,7 @@ using Random = UnityEngine.Random;
 using Sequence = DG.Tweening.Sequence;
 
 
-public  class ItemBase : ComponentBehavior
+public  class ItemBase : ComponentBehaviour
 {
     [SerializeField] protected ItemType itemType;
     

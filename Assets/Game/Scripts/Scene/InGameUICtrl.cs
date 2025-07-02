@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Game.UI;
 using UnityEngine;
 
-public class InGameUICtrl : ComponentBehavior
+public class InGameUICtrl : ComponentBehaviour
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private CardManager cardManager;

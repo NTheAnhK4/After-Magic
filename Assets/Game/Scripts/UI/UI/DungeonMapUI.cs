@@ -27,7 +27,7 @@ public class RoomData
 [RequireComponent(typeof(RoomUIInteraction), typeof(RoomUISpawner))]
 public class DungeonMapUI : UIView
 {
-
+    
     public DungeonFloorConfig DungeonFloorConfig;
     public DungeonMapData DungeonMapData;
 
@@ -46,6 +46,7 @@ public class DungeonMapUI : UIView
     public bool IsLoadData = false;
 
     [SerializeField] private Button exitBtn;
+    [SerializeField] private Button pauseBtn;
 
     protected override void Awake()
     {
@@ -61,7 +62,7 @@ public class DungeonMapUI : UIView
         if (RoomUIInteraction == null) RoomUIInteraction = GetComponent<RoomUIInteraction>();
 
         if (exitBtn == null) exitBtn = transform.Find("Exit").GetComponent<Button>();
-
+        if (pauseBtn == null) pauseBtn = transform.Find("Pause").GetComponent<Button>();
 
 
         RoomUISpawner.LoadComponent();
@@ -174,6 +175,7 @@ void TrySetAccess(int x, int y, DungeonFloor dungeonFloor)
         if(IsVirtualMap) ObserverManager<SoundActionType>.Notify(SoundActionType.PauseAll);
         base.Show();
         exitBtn.gameObject.SetActive(IsVirtualMap);
+        pauseBtn.gameObject.SetActive(!IsVirtualMap);
         if(IsVirtualMap) exitBtn.onClick.AddListener(OnExitBtnClick );
         if (!IsShown)
         {

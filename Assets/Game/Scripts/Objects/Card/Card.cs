@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 
 
-public  class Card : ComponentBehavior
+public  class Card : ComponentBehaviour
 {
 
 

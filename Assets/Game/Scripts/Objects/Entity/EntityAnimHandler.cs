@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using StateMachine;
 using UnityEngine;
 
-public class EntityAnimHandler : ComponentBehavior
+public class EntityAnimHandler : ComponentBehaviour
 {
     [SerializeField] private Entity entity;
     public override void LoadComponent()

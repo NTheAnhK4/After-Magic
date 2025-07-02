@@ -11,7 +11,7 @@ namespace AudioSystem
         UnPauseAll,
         StopAll
     }
-    public class SoundEmitter : ComponentBehavior
+    public class SoundEmitter : ComponentBehaviour
     {
         public SoundData Data { get; private set; }
         private AudioSource audioSource;

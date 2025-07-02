@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class CardDataCtrl : ComponentBehavior
+public class CardDataCtrl : ComponentBehaviour
 {
     public PlayerCardData PlayerCardData;
     [SerializeField] private TextMeshProUGUI cardName;
