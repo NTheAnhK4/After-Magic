@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StatusIconCtrl : ComponentBehavior
+public class StatusIconCtrl : ComponentBehaviour
 {
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI text;

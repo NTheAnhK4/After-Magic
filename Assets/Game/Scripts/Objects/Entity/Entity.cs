@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 namespace StateMachine
 {
-    public class Entity : ComponentBehavior, IEntity
+    public class Entity : ComponentBehaviour, IEntity
     {
         public bool IsSpriteFacingRight;
         public string curentState;

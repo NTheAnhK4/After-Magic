@@ -5,7 +5,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-public class DamagePopupUI : ComponentBehavior
+public class DamagePopupUI : ComponentBehaviour
 {
     [SerializeField] private TextMeshProUGUI damageTxt;
     private Color originalColor;

@@ -7,10 +7,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class SceneLoader : ComponentBehavior
+public class SceneLoader : ComponentBehaviour
 {
     [SerializeField] private CanvasGroup panel;
-    [SerializeField] private Canvas canvas;
     private static SceneLoader instance;
   
     public static SceneLoader Instance => instance;
@@ -43,7 +42,7 @@ public class SceneLoader : ComponentBehavior
         base.LoadComponent();
         
         if (panel == null) panel = transform.GetComponentInChildren<CanvasGroup>();
-        if (canvas == null) canvas = GetComponent<Canvas>();
+        
     }
 
     private async void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -51,11 +50,6 @@ public class SceneLoader : ComponentBehavior
         await UniTask.Delay(1, DelayType.UnscaledDeltaTime);
         LoadComponent();
         IGameInitializer gameInitializer = FindAnyObjectByType<IGameInitializer>();
-        if (canvas != null)
-        {
-            var camera = Camera.main;
-            canvas.worldCamera = camera;
-        }
 
         if (gameInitializer != null) await gameInitializer.Init();
 

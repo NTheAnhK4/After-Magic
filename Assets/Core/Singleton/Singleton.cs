@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class Singleton<T> : ComponentBehavior where T : ComponentBehavior
+public class Singleton<T> : ComponentBehaviour where T : ComponentBehaviour
 {
     protected static T instance;
     public static bool HasInstance => instance != null;

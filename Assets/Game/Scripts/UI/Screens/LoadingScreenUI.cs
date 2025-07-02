@@ -4,7 +4,7 @@ using SaveGame;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingScreenUI : ComponentBehavior
+public class LoadingScreenUI : ComponentBehaviour
 {
     public Slider slider;
     [SerializeField] private ButtonAnimBase playBtn;

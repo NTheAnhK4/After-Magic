@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public abstract class ButtonAnimBase : ComponentBehavior
+public abstract class ButtonAnimBase : ComponentBehaviour
 {
     [SerializeField] private Button btn;
     public Action onClick = delegate{};

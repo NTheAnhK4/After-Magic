@@ -16,7 +16,7 @@ public class InGameScreenUI : UIScreen
     [SerializeField] private Button turnBtn;
 
     [SerializeField] private TextMeshProUGUI turnTxt;
-    [SerializeField] private Button pauseBtn;
+   
     [SerializeField] private Button drawPileBtn;
     [SerializeField] private Button discardPileBtn;
     [SerializeField] private Button depleteCardsBtn;
@@ -49,7 +49,7 @@ public class InGameScreenUI : UIScreen
         FindUI(ref turnBtn, "Turn Button");
         FindUI(ref turnTxt, "Turn Button/Text (TMP)");
         FindUI(ref manaTxt, "Mana/Text (TMP)");
-        FindUI(ref pauseBtn, "Top/Top Right/Pause");
+      
         FindUI(ref availableCardsBtn, "Top/Top Right/Card Desk");
     
         Transform cardDesk = transform.Find("Card Desk");
@@ -165,20 +165,18 @@ public class InGameScreenUI : UIScreen
     {
         mapBtn.onClick.AddListener(ShowMap);
         turnBtn.onClick.AddListener(OnTurnBtnClick);
-        pauseBtn.onClick.AddListener(OnPauseBtnClick);
+      
         turnBtn.interactable = false;
         drawPileBtn.onClick.AddListener(() => ShowCardPile(CardManager.Instance.DrawPile, "Draw Pile"));
         discardPileBtn.onClick.AddListener(() => ShowCardPile(CardManager.Instance.DisCardPile, "Discard Pile"));
         depleteCardsBtn.onClick.AddListener(() => ShowCardPile(CardManager.Instance.DepleteCards, "Deplete Cards"));
         availableCardsBtn.onClick.AddListener(() => ShowCardPile(CardManager.Instance.MainDesk, "Main Desk"));
     }
-
-    private async void OnPauseBtnClick() => await ShowUI<PauseUI>();
     private void UnregisterUIEvents()
     {
         mapBtn.onClick.RemoveAllListeners();
         turnBtn.onClick.RemoveAllListeners();
-        pauseBtn.onClick.RemoveAllListeners();
+        
         drawPileBtn.onClick.RemoveAllListeners();
         discardPileBtn.onClick.RemoveAllListeners();
         depleteCardsBtn.onClick.RemoveAllListeners();

@@ -5,7 +5,7 @@ using BrokerChain.Status;
 using UnityEngine;
 
 
-public class StatusUICtrl : ComponentBehavior
+public class StatusUICtrl : ComponentBehaviour
 {
     
 

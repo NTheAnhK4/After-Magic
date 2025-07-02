@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Game.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class UIView : ComponentBehavior
+    public class UIView : ComponentBehaviour
     {
         public SoundData soundData;
         [HideInInspector] public UIScreen UIScreen;

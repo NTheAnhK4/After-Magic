@@ -459,7 +459,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DungeonBackgroundDecoration_20
+      name: Door0
       rect:
         serializedVersion: 2
         x: 277
@@ -480,7 +480,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DungeonBackgroundDecoration_21
+      name: Door1
       rect:
         serializedVersion: 2
         x: 471
@@ -522,7 +522,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DungeonBackgroundDecoration_23
+      name: Door2
       rect:
         serializedVersion: 2
         x: 922
@@ -1603,6 +1603,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Door0: -1426899412
+      Door1: 1043925709
+      Door2: -917086169
       DungeonBackgroundDecoration_0: -404518798
       DungeonBackgroundDecoration_1: -1932033068
       DungeonBackgroundDecoration_10: 1815605535
@@ -1616,10 +1619,7 @@ TextureImporter:
       DungeonBackgroundDecoration_18: 1438461064
       DungeonBackgroundDecoration_19: 1811384615
       DungeonBackgroundDecoration_2: 1742057006
-      DungeonBackgroundDecoration_20: -1426899412
-      DungeonBackgroundDecoration_21: 1043925709
       DungeonBackgroundDecoration_22: -522692660
-      DungeonBackgroundDecoration_23: -917086169
       DungeonBackgroundDecoration_24: -138611846
       DungeonBackgroundDecoration_25: 1524043403
       DungeonBackgroundDecoration_26: -1731855347

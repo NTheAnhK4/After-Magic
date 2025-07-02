@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ComponentBehavior : MonoBehaviour
+public class ComponentBehaviour : MonoBehaviour
 {
     public virtual void LoadComponent()
     {

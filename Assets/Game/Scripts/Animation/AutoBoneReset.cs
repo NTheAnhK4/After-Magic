@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 
-public class AutoBoneReset : ComponentBehavior
+public class AutoBoneReset : ComponentBehaviour
 {
     [SerializeField] private SpriteSkin spriteSkin;
     [SerializeField] private Transform[] bones;
