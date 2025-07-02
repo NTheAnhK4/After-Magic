@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using System.Reflection;
-public class RoomUIBtn : ComponentBehavior
+public class RoomUIBtn : ComponentBehaviour
 {
     
     public RoomsManager RoomsManager;

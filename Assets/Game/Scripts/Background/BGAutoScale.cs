@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BGAutoScale : ComponentBehavior
+public class BGAutoScale : ComponentBehaviour
 {
     [SerializeField] private SpriteRenderer background;
     public override void LoadComponent()

@@ -1,6 +1,6 @@
 
 
-public class CardComponent : ComponentBehavior
+public class CardComponent : ComponentBehaviour
 {
     protected Card card;
     public override void LoadComponent()

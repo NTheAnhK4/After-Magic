@@ -4,7 +4,7 @@ using SaveGame;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DungeonEntrance : ComponentBehavior, IPointerDownHandler,IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+public class DungeonEntrance : ComponentBehaviour, IPointerDownHandler,IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private CanvasGroup canvasGroup;
     

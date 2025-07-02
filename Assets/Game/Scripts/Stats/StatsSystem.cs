@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace BrokerChain
 {
-    public class StatsSystem : ComponentBehavior
+    public class StatsSystem : ComponentBehaviour
     {
         [Header("Status")] public int OriginalDamage;
         

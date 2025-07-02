@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthUICtrl : ComponentBehavior
+public class HealthUICtrl : ComponentBehaviour
 {
    
     [SerializeField] private Image hpImg;

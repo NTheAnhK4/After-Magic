@@ -3,7 +3,7 @@ using AudioSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonSoundEffect : ComponentBehavior
+public class ButtonSoundEffect : ComponentBehaviour
 {
     [SerializeField] private SoundData soundData;
     [SerializeField] private ButtonAnimBase btnTarget;

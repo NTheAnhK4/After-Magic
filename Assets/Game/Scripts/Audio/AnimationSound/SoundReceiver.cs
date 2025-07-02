@@ -2,7 +2,7 @@
 using AudioSystem;
 using UnityEngine;
 
-public class SoundReceiver : ComponentBehavior
+public class SoundReceiver : ComponentBehaviour
 {
     private SoundData data;
     private bool randomPitch;

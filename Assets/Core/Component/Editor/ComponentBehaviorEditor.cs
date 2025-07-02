@@ -1,14 +1,14 @@
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-[CustomEditor(typeof(ComponentBehavior), true)]
+[CustomEditor(typeof(ComponentBehaviour), true)]
 public class ComponentBehaviorEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        ComponentBehavior cb = (ComponentBehavior)target;
+        ComponentBehaviour cb = (ComponentBehaviour)target;
 
         if (GUILayout.Button("LoadComponent"))
         {

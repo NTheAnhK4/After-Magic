@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardOption : ComponentBehavior, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class CardOption : ComponentBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     
     [HideInInspector] public CardRewardUI CardRewardUI;

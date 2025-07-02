@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class RoomUIComponent : ComponentBehavior
+public class RoomUIComponent : ComponentBehaviour
 {
     private DungeonMapUI dungeonMapUI;
 
