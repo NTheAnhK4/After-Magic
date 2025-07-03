@@ -77,11 +77,7 @@ public class Enemy : Entity
         oscillatingMovement.Initialized();
         CanUseCard = false;
         
-       
-       
-       
         
-        AttackRange = 2.5f;
        
        
         

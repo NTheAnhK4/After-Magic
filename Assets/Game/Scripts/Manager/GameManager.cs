@@ -1,17 +1,30 @@
          
-using System;
-using DG.Tweening;
-using UnityEngine.SceneManagement;
 
-public class GameManager : Singleton<GameManager>
+using UnityEngine;
+
+
+public class GameManager : PersistentSingleton<GameManager>
 {
-    public int CoinAmount = 100;
-   
-    protected override void Awake()
+    public WorldListData WorldListData;
+    public int CurrentWorldID;
+
+    public WorldData GetWorldData()
     {
-        base.Awake();
-        DontDestroyOnLoad(gameObject);
+        
+        if (WorldListData == null)
+        {
+            Debug.LogWarning("World List Data in gameManager is null");
+            return null;
+        }
+        
+        if (CurrentWorldID >= WorldListData.WorldDatas.Count || CurrentWorldID < 0)
+        {
+            Debug.LogWarning("World Id is run out of index" );
+            return null;
+        }
+
+        return WorldListData.WorldDatas[CurrentWorldID];
     }
 
-   
+
 }

@@ -1,6 +1,9 @@
 
 using UnityEngine;
+
+
 [CreateAssetMenu(menuName = "Data/Card/Player Card Data", fileName = "Player Card Data")]
+
 public class PlayerCardData : ScriptableObject
 {
     public int ID;
@@ -9,7 +12,8 @@ public class PlayerCardData : ScriptableObject
     public CardStrategy CardStrategy;
     public int ManaCost;
     public Sprite CardImage;
-    public Sprite CardType;
+    public Sprite CardTypeSprite;
     public string CardDescription;
     public bool IsUnlocked;
+    public CardType CardType;
 }

@@ -18,6 +18,7 @@ MonoBehaviour:
   CardStrategy: {fileID: 11400000, guid: 6ca0bea765af68d4b8999e8f20d1cc0a, type: 2}
   ManaCost: 0
   CardImage: {fileID: 21300000, guid: a0651835ba4628c42b304db127c38f7c, type: 3}
-  CardType: {fileID: 21300000, guid: 550b309312439674c8ebc9d86ec6c580, type: 3}
+  CardTypeSprite: {fileID: 21300000, guid: 550b309312439674c8ebc9d86ec6c580, type: 3}
   CardDescription: Heal yourself instantly
   IsUnlocked: 1
+  CardType: 1

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 100
   Defense: 5
-  Damage: 2
+  Damage: 8

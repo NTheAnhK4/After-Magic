@@ -14,6 +14,7 @@ public class LobbyScreenUI : UIScreen
         if (settingBtn == null) settingBtn = transform.Find("Top/Setting").GetComponent<ButtonAnimBase>();
         if (coinTxt == null) coinTxt = transform.Find("Top/Top Left/Coin Infor").GetComponentInChildren<TextMeshProUGUI>();
         AddUIView<SettingUI>();
+        AddUIView<WorldDescriptionUI>();
     }
 
     private async void OnSettingBtnClick() => await ShowUI<SettingUI>();

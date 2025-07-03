@@ -46,6 +46,7 @@ public class DoorRoomEvent : RoomEventStrategy
         if (SaveLoadSystem.Instance.GameData != null)
         {
             SaveLoadSystem.Instance.GameData.ExitDungeon();
+            SaveLoadSystem.Instance.GameData.WorldUnlockedID++;
             SaveLoadSystem.Instance.SaveGame();
         }
         SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);
@@ -67,6 +68,7 @@ public class DoorRoomEvent : RoomEventStrategy
     private async void OnGoDeep()
     {
         InGameManager.Instance.CurrentDepth++;
+        ObserverManager<GameEventType>.Notify(GameEventType.GoDeep, InGameManager.Instance.CurrentDepth);
 
         await UIScreen.Instance.ShowPanel();
         

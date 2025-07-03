@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28263e8b9eeb4cd46b9ef0cd93f66e4c, type: 3}
+  m_Name: WorldsData
+  m_EditorClassIdentifier: 
+  WorldDatas:
+  - WorldName: Regular Dungeon
+    WorldSprite: {fileID: 633157393, guid: 315bc51cf85b9f84ab09d4ff62b862ae, type: 3}
+    Description: A simple dungeon that's perfect for beginners.
+    WorldEffect: {fileID: 0}
+    RoomEnemyGroupConfig: {fileID: 11400000, guid: decb6ef37ad434448ac166ab28889d64, type: 2}
+  - WorldName: Poinsoned Dungeon
+    WorldSprite: {fileID: 1289034120, guid: 315bc51cf85b9f84ab09d4ff62b862ae, type: 3}
+    Description: "The air is toxic \u2014 each time you play a card, you take damage."
+    WorldEffect: {fileID: 11400000, guid: 495a1a92996b79a4d8bceb8e17de7556, type: 2}
+    RoomEnemyGroupConfig: {fileID: 11400000, guid: decb6ef37ad434448ac166ab28889d64, type: 2}

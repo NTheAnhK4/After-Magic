@@ -18,6 +18,7 @@ MonoBehaviour:
   CardStrategy: {fileID: 11400000, guid: f2ed0b82a86a39949b9f0bded6ba3b73, type: 2}
   ManaCost: 2
   CardImage: {fileID: 21300000, guid: f22086ef1186df44dabfcdf10def4c1c, type: 3}
-  CardType: {fileID: 21300000, guid: 0258451707feb0d4c8831691b58f67d2, type: 3}
+  CardTypeSprite: {fileID: 21300000, guid: 0258451707feb0d4c8831691b58f67d2, type: 3}
   CardDescription: Deal damage and weaken the target's attacks
   IsUnlocked: 1
+  CardType: 0
