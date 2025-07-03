@@ -18,6 +18,7 @@ MonoBehaviour:
   CardStrategy: {fileID: 11400000, guid: 9667eda7b8d110d489bd6705e6802670, type: 2}
   ManaCost: 1
   CardImage: {fileID: 21300000, guid: eb011d0cc6f0cda46a56e43e91af3c44, type: 3}
-  CardType: {fileID: 21300000, guid: 0258451707feb0d4c8831691b58f67d2, type: 3}
+  CardTypeSprite: {fileID: 21300000, guid: 550b309312439674c8ebc9d86ec6c580, type: 3}
   CardDescription: Boost your attack while weakening the enemy's  strength
   IsUnlocked: 1
+  CardType: 1

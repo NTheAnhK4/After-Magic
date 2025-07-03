@@ -68,6 +68,7 @@ public class DoorRoomEvent : RoomEventStrategy
     private async void OnGoDeep()
     {
         InGameManager.Instance.CurrentDepth++;
+        ObserverManager<GameEventType>.Notify(GameEventType.GoDeep, InGameManager.Instance.CurrentDepth);
 
         await UIScreen.Instance.ShowPanel();
         

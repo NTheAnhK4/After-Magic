@@ -18,6 +18,7 @@ MonoBehaviour:
   CardStrategy: {fileID: 11400000, guid: 0b8cc2d92d1b31541979ef1c10b49f59, type: 2}
   ManaCost: 2
   CardImage: {fileID: 21300000, guid: d0d2604fbf6919043b9557bf750d8f2f, type: 3}
-  CardType: {fileID: 21300000, guid: 0258451707feb0d4c8831691b58f67d2, type: 3}
+  CardTypeSprite: {fileID: 21300000, guid: 0258451707feb0d4c8831691b58f67d2, type: 3}
   CardDescription: Deal damage and heal for the unblocked amount.
   IsUnlocked: 1
+  CardType: 0

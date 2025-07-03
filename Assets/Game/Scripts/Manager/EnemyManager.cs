@@ -21,6 +21,9 @@ public class EnemyManager : Singleton<EnemyManager>
     #endregion
     private void OnEnable()
     {
+        WorldData worldData = GameManager.Instance.GetWorldData();
+        if (worldData != null && worldData.RoomEnemyGroupConfig != null) Data = worldData.RoomEnemyGroupConfig;
+        
         onEnemyTurnAction = param => DoEnemyAction();
         onPlayerTurnAction = param => EnemyPlanning();
         ObserverManager<GameStateType>.Attach(GameStateType.EnemyTurn, onEnemyTurnAction);

@@ -30,18 +30,23 @@ public class CardAction : CardComponent
             return;
         }
         target.DeselectObject();
+        
         if (!data.CardStrategy.AppliesToAlly)
         {
+            //For enemy
             Player player = PlayerPartyManager.Instance.GetPlayer();
             player.EnemyTarget = target.GetComponent<Entity>();
             player.CardStrategy = data.CardStrategy;
             player.MustReachTarget = data.CardStrategy.MustReachTarget;
+            ObserverManager<GameEventType>.Notify(GameEventType.PlayCard, card.CardDataCtrl.PlayerCardData.CardType);
         }
         else
         {
+            //For Ally
             Entity entity = target.GetComponent<Entity>();
             if (entity == null) return;
             entity.CardStrategy = data.CardStrategy;
+            ObserverManager<GameEventType>.Notify(GameEventType.PlayCard, card.CardDataCtrl.PlayerCardData.CardType);
         }
         await CardManager .Instance.CollectingCard(card, false);
     }

@@ -18,6 +18,7 @@ MonoBehaviour:
   CardStrategy: {fileID: 11400000, guid: 646d4608a231c684e8e78139d09e738d, type: 2}
   ManaCost: 1
   CardImage: {fileID: 21300000, guid: 74f09ef492aa9c24e89f5b6ae4377ecd, type: 3}
-  CardType: {fileID: 21300000, guid: 0258451707feb0d4c8831691b58f67d2, type: 3}
-  CardDescription: Attack 3 damge and give poinson to enemy
+  CardTypeSprite: {fileID: 21300000, guid: 0258451707feb0d4c8831691b58f67d2, type: 3}
+  CardDescription: Attack and give poinson to enemy
   IsUnlocked: 1
+  CardType: 0
