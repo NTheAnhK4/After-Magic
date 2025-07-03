@@ -1,18 +1,25 @@
 using System;
-using AudioSystem;
+using System.Collections.Generic;
+
 using BrokerChain;
-using DG.Tweening;
+
 using UnityEngine;
+using Random = UnityEngine.Random;
+
+
 namespace StateMachine
 {
     public class Entity : ComponentBehaviour, IEntity
     {
+        
         public bool IsSpriteFacingRight;
         public string curentState;
         public StateMachine StateMachine;
         public StatsSystem StatsSystem;
         public DamagePopupUI damagePopupUI;
-       
+        [SerializeField] private List<string> idleAnimBools;
+        [SerializeField] private List<string> runAnimBools;
+      
         [Header("State")] 
         public IdleState IdleState;
         public UseCardState UseCardState;
@@ -31,10 +38,10 @@ namespace StateMachine
         public bool MustReachTarget { get; set; }
         public CardStrategy CardStrategy { get; set; }
         public Action OnFinishedUsingCard;
-      
-        
-        
-        public float AttackRange { get; set; }
+
+
+
+        public float AttackRange = 2.5f;
         
         public virtual Entity EnemyTarget { get; set; }
 
@@ -58,8 +65,11 @@ namespace StateMachine
         protected override void Awake()
         {
             base.Awake();
-            IdleState = new IdleState(this, "Idle");
-            RunState = new RunState(this, "Run");
+            if (idleAnimBools == null || idleAnimBools.Count == 0) IdleState = new IdleState(this, "Idle");
+            else IdleState = new IdleState(this, () => idleAnimBools[Random.Range(0, idleAnimBools.Count)]);
+
+            if (runAnimBools == null || runAnimBools.Count == 0) RunState = new RunState(this, "Run");
+            else RunState = new RunState(this, () => runAnimBools[Random.Range(0, runAnimBools.Count)]);
             HurtState = new HurtState(this, "Hurt");
             DeadState = new DeadState(this, "Dead");
             UseCardState = new UseCardState(this, String.Empty);

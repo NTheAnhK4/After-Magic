@@ -197,7 +197,6 @@ GameObject:
   - component: {fileID: 4150301811242498507}
   - component: {fileID: 3310169580534139800}
   - component: {fileID: 3033265433671889848}
-  - component: {fileID: 1290200964271577897}
   m_Layer: 0
   m_Name: Img
   m_TagString: Untagged
@@ -262,19 +261,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1290200964271577897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7278030035692935571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38ff61e1762b20245bfa4ad258eeed86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseGlowMaterial: {fileID: 2100000, guid: 54d2692d7cf16b8428cbd8f21500d818, type: 2}
-  glowColor: {r: 8, g: 1.3037772, b: 0, a: 1}
-  _material: {fileID: 2100000, guid: 54d2692d7cf16b8428cbd8f21500d818, type: 2}
-  _outlineThickness: 2

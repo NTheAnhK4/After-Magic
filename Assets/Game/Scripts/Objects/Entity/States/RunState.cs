@@ -66,4 +66,9 @@ public class RunState : State<Entity>
     public RunState(Entity entity, string animBoolName) : base(entity, animBoolName)
     {
     }
+
+    public RunState(Entity entity, Func<string> animNameFunc) : base(entity, animNameFunc)
+    {
+        
+    }
 }
