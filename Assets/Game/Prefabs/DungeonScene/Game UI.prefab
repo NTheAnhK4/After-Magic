@@ -971,8 +971,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000076293945}
-  m_SizeDelta: {x: -320.49, y: -75.98}
+  m_AnchoredPosition: {x: 1.835022, y: 12}
+  m_SizeDelta: {x: -464.33, y: -89.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5737041384415340815
 CanvasRenderer:
@@ -1029,8 +1029,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1497,7 +1497,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 238106926, guid: 128c8a428ce8b164fb56f6a5be0a2603, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4567,8 +4567,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5.580017, y: 8.370003}
-  m_SizeDelta: {x: -460.41, y: -59.23}
+  m_AnchoredPosition: {x: 5.1900024, y: 26.029999}
+  m_SizeDelta: {x: -522.59, y: -94.55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3319159743271471252
 CanvasRenderer:
@@ -8304,7 +8304,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Choose once card
+  m_text: Choose one card
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
