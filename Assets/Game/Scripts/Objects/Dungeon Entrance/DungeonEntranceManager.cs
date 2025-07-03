@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SaveGame;
 
 
 public class DungeonEntranceManager : Singleton<DungeonEntranceManager>
@@ -17,7 +18,11 @@ public class DungeonEntranceManager : Singleton<DungeonEntranceManager>
     private void Start()
     {
        LockAllDungeonEntrance();
-        DungeonEntrances[0].UnLockDungeonEntrance();
+       if(SaveLoadSystem.Instance.GameData == null) DungeonEntrances[0].UnLockDungeonEntrance();
+       else
+       {
+           for(int i = 0;  i <= SaveLoadSystem.Instance.GameData.WorldUnlockedID; ++i) DungeonEntrances[i].UnLockDungeonEntrance();
+       }
     }
 
     public void LockAllDungeonEntrance()

@@ -46,6 +46,7 @@ public class DoorRoomEvent : RoomEventStrategy
         if (SaveLoadSystem.Instance.GameData != null)
         {
             SaveLoadSystem.Instance.GameData.ExitDungeon();
+            SaveLoadSystem.Instance.GameData.WorldUnlockedID++;
             SaveLoadSystem.Instance.SaveGame();
         }
         SceneLoader.Instance.LoadScene(GameConstants.LobbyScene);

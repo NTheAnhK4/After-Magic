@@ -1,3 +1,4 @@
+using System;
 using StateMachine;
 
 public class IdleState : State<Entity>
@@ -6,9 +7,9 @@ public class IdleState : State<Entity>
     {
     }
 
-    public override void OnEnter(StateData stateData = null)
+    public IdleState(Entity entity, Func<string> animFuncName) : base(entity, animFuncName)
     {
-        base.OnEnter(stateData);
-        //entity.HasFinishedUsingCard = false;
     }
+
+
 }
