@@ -26,7 +26,19 @@ public enum CardEventType
 
 public enum GameEventType
 {
-    Win, Lose,GainCoin
+    Win, 
+    Lose,
+    GainCoin,
+    PlayCard,
+    GoDeep
+}
+
+public enum CardType
+{
+    Attack,
+    Skill,
+    Power,
+    Status
 }
 public enum DungeonRoomType
 {
