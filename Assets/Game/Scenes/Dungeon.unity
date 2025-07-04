@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InGameManagerPrefab: {fileID: 5344870697292203903, guid: b2b33397e9c375049be17bfb84ced03e, type: 3}
-  InGameUI: {fileID: 5829580628680058703, guid: 9f852ec39d01df44483c72ca9a3ce531, type: 3}
+  InGameUI: {fileID: 4448709689738883435, guid: 9f852ec39d01df44483c72ca9a3ce531, type: 3}
   WorldEffectCtrlPrefab: {fileID: 305315457602264036, guid: 089cd3ac6bd7b7e4f8b5221be4fccb56, type: 3}
 --- !u!4 &1710450884
 Transform:

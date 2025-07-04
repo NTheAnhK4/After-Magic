@@ -8,11 +8,7 @@ using UnityEngine;
 
 public class CoinItem : ItemBase
 {
-    protected override async UniTask GainRewardAnim()
-    {
-        await base.GainRewardAnim();
-        ObserverManager<GameEventType>.Notify(GameEventType.GainCoin, amount);
-    }
+   
 
     public override void LoadComponent()
     {

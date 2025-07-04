@@ -24,13 +24,20 @@ public enum CardEventType
     DepleteCardsCountChange
 }
 
+public enum CardActionType
+{
+    IncreaseManaCost,
+    DecreaseManaCost
+}
+
 public enum GameEventType
 {
     Win, 
     Lose,
-    GainCoin,
+    ChanegCoin,
     PlayCard,
-    GoDeep
+    GoDeep,
+    FinishDistributeCard
 }
 
 public enum CardType

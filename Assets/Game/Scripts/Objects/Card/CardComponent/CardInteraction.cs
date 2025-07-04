@@ -41,7 +41,7 @@ public class CardInteraction : CardComponent,  IDragHandler, IBeginDragHandler, 
 
     public void OnEndDrag(PointerEventData eventDaata)
     {
-        ObserverManager<CardEventType>.Notify(card.CardDataCtrl.CardStrategy.AppliesToAlly ? CardEventType.PlayerTarget : CardEventType.EnemyTarget, false);
+        if(card.CardDataCtrl.CardStrategy != null) ObserverManager<CardEventType>.Notify(card.CardDataCtrl.CardStrategy.AppliesToAlly ? CardEventType.PlayerTarget : CardEventType.EnemyTarget, false);
         
         if (card.CardAction.TryUseCard()) return;
         card.CardAnimation.ReturnHand();

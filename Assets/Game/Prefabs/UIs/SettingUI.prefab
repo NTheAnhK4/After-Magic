@@ -478,6 +478,7 @@ GameObject:
   - component: {fileID: 7300417951378206820}
   - component: {fileID: 2381482694257309458}
   - component: {fileID: 39315162510567343}
+  - component: {fileID: 4815951705464989712}
   m_Layer: 5
   m_Name: ExitGame
   m_TagString: Untagged
@@ -525,7 +526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: a89626dcb8b2ee148a9677938d5e8f79, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -620,6 +621,19 @@ MonoBehaviour:
     FrequentSound: 0
     Volume: 1
   btnTarget: {fileID: 2381482694257309458}
+--- !u!114 &4815951705464989712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821795663168963481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15e2d505438db048b5d03dd571a870e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _material: {fileID: 2100000, guid: a89626dcb8b2ee148a9677938d5e8f79, type: 2}
 --- !u!1 &4233317857328778661
 GameObject:
   m_ObjectHideFlags: 0

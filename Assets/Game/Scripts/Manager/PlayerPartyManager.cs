@@ -77,6 +77,7 @@ public class PlayerPartyManager : Singleton<PlayerPartyManager>
 
     public async UniTask SpawnNewPlayerParty(List<EntityStatsSaveData> entityStatsSaveDatas = null)
     {
+      
         playerPartyEntities.Clear();
         if (PartyData == null)
         {
@@ -137,9 +138,12 @@ public class PlayerPartyManager : Singleton<PlayerPartyManager>
            
             
             await UniTask.Delay(200, DelayType.UnscaledDeltaTime);
-           
             playerPartyEntities.Add(entity);
+           
         }
+
+        if (SaveLoadSystem.Instance.GameData != null && SaveLoadSystem.Instance.GameData.EntitiesStatsSaveData != null)
+            SaveLoadSystem.Instance.GameData.EntitiesStatsSaveData.EntityStatsSaveDatas = entityStatsSaveDatas;
     }
   
     public void DespawnAllParty(object param)

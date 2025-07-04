@@ -33,6 +33,7 @@ public class CardTargetHandler : CardComponent
     {
         if (target == null) return false;
         var strategy = card.CardDataCtrl.CardStrategy;
+        if (strategy == null) return false;
         return strategy.AppliesToAlly ? target.CompareTag("Player") : target.CompareTag("Enemy");
     }
 }

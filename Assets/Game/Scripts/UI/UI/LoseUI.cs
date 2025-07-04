@@ -15,8 +15,9 @@ public class LoseUI : UIView
     public override void LoadComponent()
     {
         base.LoadComponent();
-        if (defeatBtn == null) defeatBtn = transform.Find("Defeat").GetComponent<ButtonAnimBase>();
-        if (continueBtn == null) continueBtn = transform.Find("Continue").GetComponent<ButtonAnimBase>();
+        Transform buttonsHolder = transform.Find("Buttons");
+        if (defeatBtn == null) defeatBtn = buttonsHolder.Find("Defeat").GetComponent<ButtonAnimBase>();
+        if (continueBtn == null) continueBtn = buttonsHolder.Find("Continue").GetComponent<ButtonAnimBase>();
     }
 
     private void OnEnable()
@@ -25,10 +26,27 @@ public class LoseUI : UIView
         continueBtn.onClick += OnContinueBtnClick;
     }
     
-    private void OnContinueBtnClick(){
+    private async void OnContinueBtnClick(){
     {
-        InGameScreenUI inGameScreenUI = UIScreen as InGameScreenUI;
-        inGameScreenUI.OrNull()?.OnRevivePlayer?.Invoke();
+        
+        int dungeonLootCoin = InventoryManager.Instance.GetAmountFromLoot(ItemType.Coin);
+        if (dungeonLootCoin >= 100)
+        {
+            InventoryManager.Instance.SetAmountFromLoot(ItemType.Coin, dungeonLootCoin - 100);
+            ObserverManager<GameEventType>.Notify(GameEventType.ChanegCoin);
+        }
+        else
+        {
+            int equippedCoin = InventoryManager.Instance.GetAmountFromEquippedItems(ItemType.Coin);
+            if (equippedCoin < 100 - dungeonLootCoin) return;
+            InventoryManager.Instance.SetAmountFromLoot(ItemType.Coin,0);
+            InventoryManager.Instance.SetAmountFromEquippedItems(ItemType.Coin,equippedCoin - 100 + dungeonLootCoin);
+            ObserverManager<GameEventType>.Notify(GameEventType.ChanegCoin);
+        }
+
+        await UIScreen.HideUI<LoseUI>(true, () => InGameManager.Instance.RevivePlayer());
+        
+        
        
     }}
 
@@ -59,6 +77,8 @@ public class LoseUI : UIView
     public override void Show()
     {
         ObserverManager<SoundActionType>.Notify(SoundActionType.StopAll);
+        int cointAmount = InventoryManager.Instance.GetAmountFromEquippedItems(ItemType.Coin) + InventoryManager.Instance.GetAmountFromLoot(ItemType.Coin);
+        continueBtn.OrNull()?.gameObject.SetActive(cointAmount >= 100);
         base.Show();
     }
 }

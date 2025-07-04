@@ -37,7 +37,7 @@ public class InGameInitializer : IGameInitializer
 
         WorldEffectCtrl worldEffectCtrl = Instantiate(WorldEffectCtrlPrefab);
         
-        WorldData worldData = GameManager.Instance.GetWorldData();
+        WorldData worldData = GameManager.Instance.GetCurrentWorldData();
         
         if(worldData != null) worldEffectCtrl.Init(worldData.WorldEffect);
         await UniTask.Delay(50, DelayType.UnscaledDeltaTime);
