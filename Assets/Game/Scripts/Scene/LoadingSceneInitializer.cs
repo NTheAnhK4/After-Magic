@@ -11,6 +11,7 @@ public class LoadingSceneInitializer : IGameInitializer
 {
     [SerializeField] private LoadingScreenUI loadingScreenUI;
     [SerializeField] private SaveLoadSystem saveLoadSystemPrefab;
+    [SerializeField] private GameManager gameManagerPrefab;
     [SerializeField] private SoundManager soundManagerPrefab;
     [SerializeField] private MusicManager musicManagerPrefab;
 
@@ -56,7 +57,18 @@ public class LoadingSceneInitializer : IGameInitializer
         }
        
         await loadingScreenUI.slider.DOValue(0.4f, 0.3f).SetEase(Ease.InOutSine).SetUpdate(true).AsyncWaitForCompletion();
-    
+
+        if (gameManagerPrefab == null)
+        {
+            Debug.LogWarning("gameManagerPrefab is null");
+        }
+        else
+        {
+            GameManager gameManager = Instantiate(gameManagerPrefab);
+            gameManager.InitData();
+        }
+
+        await loadingScreenUI.slider.DOValue(.5f, .1f).SetEase(Ease.InOutSine).SetUpdate(true).AsyncWaitForCompletion();
     
         
         if (soundManagerPrefab == null) Debug.LogWarning("Sound Manager prefab is null");

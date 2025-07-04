@@ -1018,7 +1018,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: icons_45
+      name: LockIcon
       rect:
         serializedVersion: 2
         x: 379
@@ -1490,6 +1490,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      LockIcon: 1336561255
       Skull: -358728841
       icons_0: 623923338
       icons_1: 1428434215
@@ -1530,7 +1531,6 @@ TextureImporter:
       icons_42: 1985408668
       icons_43: 1779344737
       icons_44: 1605627477
-      icons_45: 1336561255
       icons_46: -1980229905
       icons_47: 1064545691
       icons_48: 585716144

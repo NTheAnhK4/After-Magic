@@ -41,7 +41,8 @@ public class DistributeCardState : ICardState
             ObserverManager<CardEventType>.Notify(CardEventType.DiscardPileCountChange, CardManager.Instance.DisCardPile.Count);
             await UniTask.Delay(500, DelayType.UnscaledDeltaTime);
         }
-        
+
+        if (CardManager.Instance == null) return;
         cardCount = Math.Min(cardCount, CardManager.Instance.DrawPile.Count);
 
         //play distribute card sound
@@ -68,7 +69,7 @@ public class DistributeCardState : ICardState
         {
             cards[i].CardAnimation.SetSiblingIndex(cardCount - 1 - i);
         }
-        
+        ObserverManager<GameEventType>.Notify(GameEventType.FinishDistributeCard);
         ObserverManager<CardEventType>.Notify(CardEventType.DrawPileCountChange, CardManager.Instance.DrawPile.Count);
         await UniTask.Delay(200);
         if (CardManager.Instance == null) return;

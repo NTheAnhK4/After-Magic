@@ -13,6 +13,7 @@ namespace SaveGame
         public string Name;
         public string CurrentLevelName;
         public int WorldUnlockedID = 0;
+        public int CurrentWorldId = 0;
         public DungeonSaveData DungeonSaveData;
         public InventorySaveData InventorySaveData;
         public EntitiesStatsSaveData EntitiesStatsSaveData;

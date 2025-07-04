@@ -247,6 +247,7 @@ public class InGameManager : Singleton<InGameManager>, IBind<DungeonSaveData>
     public async void RevivePlayer()
     {
         await PlayerPartyManager.Instance.SpawnNewPlayerParty();
+        await UIScreen.Instance.HidePanel();
         IsGameOver = false;
     }
     public void Bind(DungeonSaveData data)

@@ -7,14 +7,12 @@ public class InGameUICtrl : ComponentBehaviour
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private CardManager cardManager;
-    [SerializeField] private InGameScreenUI inGameScreenUI;
+ 
     public override void LoadComponent()
     {
         base.LoadComponent();
         if (canvas == null) canvas = GetComponent<Canvas>();
         if (cardManager == null) cardManager = transform.Find("Screen/Card Desk/Card In Hand").GetComponent<CardManager>();
-
-        if (inGameScreenUI == null) inGameScreenUI = GetComponentInChildren<InGameScreenUI>();
     }
 
     public void InitData()
@@ -29,7 +27,6 @@ public class InGameUICtrl : ComponentBehaviour
         dungeonMapUI.IsLoadData = true;
         
         
-        inGameScreenUI.InitData();
        
     }
 }
