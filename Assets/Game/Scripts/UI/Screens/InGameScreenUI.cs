@@ -31,10 +31,8 @@ public class InGameScreenUI : UIScreen
     [Header("Mana")] [SerializeField] private TextMeshProUGUI manaTxt;
 
 
-
-    [SerializeField] private TextMeshProUGUI coinTxt;
+    
   
-    public Action OnRevivePlayer;
   
 
     private Action<object> onUsingCardAction;
@@ -62,7 +60,7 @@ public class InGameScreenUI : UIScreen
         FindUI(ref discardPileTxt, cardDesk, "Discard Pile/Text (TMP)");
         FindUI(ref depleteCardsTxt, cardDesk, "Deplete Cards/Text (TMP)");
         
-        FindUI(ref coinTxt, "Top/Top Left/Coin Infor/CoinTxt");
+      
         
         AddUIView<WinUI>();
         AddUIView<LoseUI>();
@@ -95,7 +93,7 @@ public class InGameScreenUI : UIScreen
     {
         
         MusicManager.Instance.PlayMusic(MusicType.Dungeon);
-        OnRevivePlayer += RevivePlayer;
+       
 
         DungeonMapUI dungeonMapUI = GetUIView<DungeonMapUI>();
         dungeonMapUI.IsVirtualMap = false;
@@ -103,11 +101,7 @@ public class InGameScreenUI : UIScreen
 
     }
 
-    public void InitData()
-    {
-        int coinAmount = InventoryManager.Instance.GetAmountFromLoot(ItemType.Coin) + InventoryManager.Instance.GetAmountFromEquippedItems(ItemType.Coin);
-        coinTxt.text = coinAmount.ToString();
-    }
+
   
     private void OnEnable()
     {
@@ -142,7 +136,7 @@ public class InGameScreenUI : UIScreen
         ObserverManager<CardEventType>.Attach(CardEventType.DiscardPileCountChange, OnDiscardPileCountChange);
         ObserverManager<CardEventType>.Attach(CardEventType.DepleteCardsCountChange, OnDepleteCardsCountChange);
         
-        ObserverManager<GameEventType>.Attach(GameEventType.GainCoin, GainCoin);
+       
     }
 
     private void UnregisterEvents()
@@ -158,7 +152,7 @@ public class InGameScreenUI : UIScreen
         ObserverManager<CardEventType>.Detach(CardEventType.DiscardPileCountChange, OnDiscardPileCountChange);
         ObserverManager<CardEventType>.Detach(CardEventType.DepleteCardsCountChange, OnDepleteCardsCountChange);
 
-        ObserverManager<GameEventType>.Detach(GameEventType.GainCoin, GainCoin);
+       
     }
 
     private void RegisterUIEvents()
@@ -204,11 +198,7 @@ public class InGameScreenUI : UIScreen
    
   
  
-    private async void RevivePlayer()
-    {
-        await HideUIOnTop();
-        InGameManager.Instance.RevivePlayer();
-    }
+   
 
     private async void ShowCardPile(List<PlayerCardData> cards, string title)
     {
@@ -243,17 +233,6 @@ public class InGameScreenUI : UIScreen
         
     }
 
-    private void GainCoin(object amount)
-    {
-        if (coinTxt == null)
-        {
-            Debug.LogWarning("Coin text is null");
-            return;
-        }
-        int coinAdd = (int)amount;
-        int currentCoin = Convert.ToInt32(coinTxt.text);
-        coinTxt.text = (coinAdd + currentCoin).ToString();
-    }
-
+  
    
 }

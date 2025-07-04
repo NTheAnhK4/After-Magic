@@ -131,7 +131,7 @@ TextureImporter:
         width: 449
         height: 399
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,7 +152,7 @@ TextureImporter:
         width: 536
         height: 423
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -165,7 +165,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DungeonEntrance_2
+      name: FrozenDungeon
       rect:
         serializedVersion: 2
         x: 1468
@@ -173,7 +173,7 @@ TextureImporter:
         width: 545
         height: 381
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -186,7 +186,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DungeonEntrance_3
+      name: ManaLeakDungeon
       rect:
         serializedVersion: 2
         x: 43
@@ -194,7 +194,7 @@ TextureImporter:
         width: 471
         height: 392
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -215,7 +215,7 @@ TextureImporter:
         width: 445
         height: 396
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -236,7 +236,7 @@ TextureImporter:
         width: 472
         height: 496
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -257,7 +257,7 @@ TextureImporter:
         width: 458
         height: 415
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -270,7 +270,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DungeonEntrance_7
+      name: PoisonedDungeon
       rect:
         serializedVersion: 2
         x: 1461
@@ -278,7 +278,7 @@ TextureImporter:
         width: 520
         height: 404
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -303,12 +303,12 @@ TextureImporter:
     nameFileIdTable:
       DungeonEntrance_0: 633157393
       DungeonEntrance_1: 1289034120
-      DungeonEntrance_2: -1197605072
-      DungeonEntrance_3: -1881102436
       DungeonEntrance_4: 1534703718
       DungeonEntrance_5: 1634670536
       DungeonEntrance_6: 1697540273
-      DungeonEntrance_7: -192961990
+      FrozenDungeon: -1197605072
+      ManaLeakDungeon: -1881102436
+      PoisonedDungeon: -192961990
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

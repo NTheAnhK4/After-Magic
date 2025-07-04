@@ -24,21 +24,36 @@ public class InventoryManager : PersistentSingleton<InventoryManager>, IBind<Inv
     public int GetAmountFromLoot(ItemType itemType)
     {
         ItemSaveData itemSaveData = DungeonLoot.FirstOrDefault(t => t.ItemType == itemType);
-        return itemSaveData == null ? 0 : itemSaveData.Amount;
+        return itemSaveData?.Amount ?? 0;
     }
+
+    public void SetAmountFromLoot(ItemType itemType, int amount)
+    {
+        ItemSaveData itemSaveData = DungeonLoot.FirstOrDefault(t => t.ItemType == itemType);
+        if (itemSaveData != null) itemSaveData.Amount = amount;
+    }
+    
 
     public int GetAmountFromEquippedItems(ItemType itemType)
     {
         ItemSaveData itemSaveData = EquippedItems.FirstOrDefault(t => t.ItemType == itemType);
-        return itemSaveData == null ? 0 : itemSaveData.Amount;
+        return itemSaveData?.Amount ?? 0;
+    }
+
+    public void SetAmountFromEquippedItems(ItemType itemType, int amount)
+    {
+        ItemSaveData itemSaveData = EquippedItems.FirstOrDefault(t => t.ItemType == itemType);
+        if (itemSaveData != null) itemSaveData.Amount = amount;
     }
    
     public void AddToLoot(ItemType itemType , int amount)
     {
+        
         ItemSaveData itemSaveData = DungeonLoot.FirstOrDefault(t => t.ItemType == itemType);
         if (itemSaveData != null) itemSaveData.Amount += amount;
         else DungeonLoot.Add(new ItemSaveData(){ItemType = itemType,Amount = amount});
         
+        if(itemType == ItemType.Coin) ObserverManager<GameEventType>.Notify(GameEventType.ChanegCoin);
 
     }
 

@@ -2,6 +2,7 @@ using System;
 
 using Game.Defines;
 using Game.UI;
+using SaveGame;
 using TMPro;
 
 using UnityEngine;
@@ -39,7 +40,16 @@ public class WorldDescriptionUI : UIView
     }
 
     private async void OnExitBtnClick() => await UIScreen.HideUI<WorldDescriptionUI>();
-    private void OnPlayBtnClick() => SceneLoader.Instance.LoadScene(GameConstants.DungeonScene);
+    private void OnPlayBtnClick()
+    {
+        if (SaveLoadSystem.Instance.GameData != null)
+        {
+            SaveLoadSystem.Instance.GameData.CurrentLevelName = GameConstants.DungeonScene;
+            SaveLoadSystem.Instance.SaveGame();
+        }
+        SceneLoader.Instance.LoadScene(GameConstants.DungeonScene);
+    }
+
     public override void Show()
     {
         Init();
@@ -48,7 +58,7 @@ public class WorldDescriptionUI : UIView
 
     private void Init()
     {
-        WorldData worldData = GameManager.Instance.GetWorldData();
+        WorldData worldData = GameManager.Instance.GetCurrentWorldData();
         if (worldData == null) return;
         
         if(worldData.WorldSprite != null) worldImg.sprite = worldData.WorldSprite;
