@@ -13,6 +13,7 @@ public class WorldData
 {
     public string WorldName;
     public Sprite WorldSprite;
+    public Sprite WorldBackgroundSprite;
     public string Description;
     public WorldEffect WorldEffect;
     public RoomEnemyGroupConfig RoomEnemyGroupConfig;

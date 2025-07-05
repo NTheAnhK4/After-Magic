@@ -9,7 +9,11 @@ public class BGAutoScale : ComponentBehaviour
     {
         base.LoadComponent();
         if (background == null) background = GetComponent<SpriteRenderer>();
-        
+    }
+
+    public void InitData(Sprite backgroundSprite)
+    {
+        background.sprite = backgroundSprite;
         Scale();
     }
 
