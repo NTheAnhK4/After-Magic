@@ -8,6 +8,7 @@ public class InGameInitializer : IGameInitializer
     public InGameManager InGameManagerPrefab;
     public InGameUICtrl InGameUI;
     public WorldEffectCtrl WorldEffectCtrlPrefab;
+    public BGAutoScale BgAutoScalePrefab;
     public override async UniTask Init()
     {
         if (InGameManagerPrefab == null)
@@ -40,6 +41,16 @@ public class InGameInitializer : IGameInitializer
         WorldData worldData = GameManager.Instance.GetCurrentWorldData();
         
         if(worldData != null) worldEffectCtrl.Init(worldData.WorldEffect);
+        
+        if (BgAutoScalePrefab == null)
+        {
+            Debug.LogWarning("Background prefab is null");
+        }
+        else
+        {
+            BGAutoScale bgAutoScale = Instantiate(BgAutoScalePrefab);
+            if (worldData != null) bgAutoScale.InitData(worldData.WorldBackgroundSprite);
+        }
         await UniTask.Delay(50, DelayType.UnscaledDeltaTime);
 
     }

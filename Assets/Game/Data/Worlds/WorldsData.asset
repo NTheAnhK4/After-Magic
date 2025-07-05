@@ -15,21 +15,25 @@ MonoBehaviour:
   WorldDatas:
   - WorldName: Regular Dungeon
     WorldSprite: {fileID: 633157393, guid: 315bc51cf85b9f84ab09d4ff62b862ae, type: 3}
+    WorldBackgroundSprite: {fileID: 21300000, guid: 76e6257d0d6b4b54d8d3874749c77973, type: 3}
     Description: A simple dungeon that's perfect for beginners.
     WorldEffect: {fileID: 0}
     RoomEnemyGroupConfig: {fileID: 11400000, guid: decb6ef37ad434448ac166ab28889d64, type: 2}
   - WorldName: Poinsoned Dungeon
     WorldSprite: {fileID: -192961990, guid: 315bc51cf85b9f84ab09d4ff62b862ae, type: 3}
+    WorldBackgroundSprite: {fileID: 21300000, guid: 70ad2158ef8646c4aaf9acd1b66fa2b7, type: 3}
     Description: "The air is toxic \u2014 each time you play a card, you take damage."
     WorldEffect: {fileID: 11400000, guid: 495a1a92996b79a4d8bceb8e17de7556, type: 2}
     RoomEnemyGroupConfig: {fileID: 11400000, guid: decb6ef37ad434448ac166ab28889d64, type: 2}
   - WorldName: Freezing Air Dungeon
     WorldSprite: {fileID: -1197605072, guid: 315bc51cf85b9f84ab09d4ff62b862ae, type: 3}
+    WorldBackgroundSprite: {fileID: 21300000, guid: eca0be83a2633e24a9d8f1bfbedddeb1, type: 3}
     Description: Each turn, a random card will be frozen.
     WorldEffect: {fileID: 11400000, guid: e4228a852281f94428effb31f369a9c3, type: 2}
     RoomEnemyGroupConfig: {fileID: 11400000, guid: decb6ef37ad434448ac166ab28889d64, type: 2}
   - WorldName: Mana Leak Dungeon
     WorldSprite: {fileID: -1881102436, guid: 315bc51cf85b9f84ab09d4ff62b862ae, type: 3}
+    WorldBackgroundSprite: {fileID: 21300000, guid: f8c52b803a355104f9c1e7391327619b, type: 3}
     Description: All card costs are increased by 1 in this dungeon.
     WorldEffect: {fileID: 11400000, guid: 69d033368a3f5a945b5fcf587ece8ad2, type: 2}
     RoomEnemyGroupConfig: {fileID: 11400000, guid: decb6ef37ad434448ac166ab28889d64, type: 2}
